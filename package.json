@@ -43,6 +43,7 @@
     "prettier": "^2.8.8",
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.2.2",
+    "unplugin-auto-import": "^0.17.5",
     "vite": "^5.2.0"
   },
   "packageManager": "pnpm@9.0.5",

@@ -1,5 +1,4 @@
-/dist
-*.yaml
-node_modules
 src/auto-imports.d.ts
+node_modules
+dist
 scripts

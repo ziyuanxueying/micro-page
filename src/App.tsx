@@ -1,41 +1,160 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './App.css'
+import { useDrag, useDrop, DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import type { XYCoord } from 'react-dnd'
+import update from 'immutability-helper'
+
+export const ItemTypes = {
+  BOX: 'box',
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  return <Example />
+}
+
+function Example() {
+  const [hideSourceOnDrag, setHideSourceOnDrag] = useState(true)
+  const toggle = useCallback(() => setHideSourceOnDrag(!hideSourceOnDrag), [hideSourceOnDrag])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <div className="flex flex-col items-center pt-20">
+      <DndProvider backend={HTML5Backend}>
+        <Container hideSourceOnDrag={hideSourceOnDrag} />
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          <label htmlFor="hideSourceOnDrag">
+            <input
+              id="hideSourceOnDrag"
+              type="checkbox"
+              role="checkbox"
+              checked={hideSourceOnDrag}
+              onChange={toggle}
+            />
+            <small>Hide the source item while dragging</small>
+          </label>
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-       {/* <Routes>
-          {routes.map((each) => {
-            const { Component, url } = each;
-            return <Route path={url} key={url} element={<Component />} />;
-          })}
-        </Routes> */}
-    </>
+      </DndProvider>
+    </div>
+  )
+}
+
+export interface DragItem {
+  type: string
+  id: string
+  top: number
+  left: number
+}
+export interface ContainerProps {
+  hideSourceOnDrag: boolean
+}
+export interface ContainerState {
+  boxes: { [key: string]: { top: number; left: number; title: string } }
+}
+
+function Container({ hideSourceOnDrag }: ContainerProps) {
+  const [boxes, setBoxes] = useState<{
+    [key: string]: {
+      top: number
+      left: number
+      title: string
+    }
+  }>({
+    a: { top: 20, left: 80, title: 'Drag me around' },
+    b: { top: 180, left: 20, title: 'Drag me too' },
+  })
+
+  const moveBox = useCallback(
+    (id: string, left: number, top: number) => {
+      setBoxes(
+        update(boxes, {
+          [id]: {
+            $merge: { left, top },
+          },
+        }),
+      )
+    },
+    [boxes, setBoxes],
+  )
+
+  const [, drop] = useDrop(
+    () => ({
+      accept: ItemTypes.BOX,
+      drop(item: DragItem, monitor) {
+        const delta = monitor.getDifferenceFromInitialOffset() as XYCoord
+        const left = Math.round(item.left + delta.x)
+        const top = Math.round(item.top + delta.y)
+        moveBox(item.id, left, top)
+        return undefined
+      },
+    }),
+    [moveBox],
+  )
+
+  return (
+    <div
+      ref={drop}
+      style={{
+        width: 300,
+        height: 300,
+        border: '1px solid black',
+        position: 'relative',
+      }}
+    >
+      {Object.keys(boxes).map(key => {
+        const { left, top, title } = boxes[key] as {
+          top: number
+          left: number
+          title: string
+        }
+        return (
+          <Box key={key} id={key} left={left} top={top} hideSourceOnDrag={hideSourceOnDrag}>
+            {title}
+          </Box>
+        )
+      })}
+    </div>
+  )
+}
+
+export interface BoxProps {
+  id: any
+  left: number
+  top: number
+  hideSourceOnDrag?: boolean
+  children?: React.ReactNode
+}
+
+function Box({ id, left, top, hideSourceOnDrag, children }: BoxProps) {
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: ItemTypes.BOX,
+      item: { id, left, top },
+      collect: monitor => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }),
+    [id, left, top],
+  )
+
+  if (isDragging && hideSourceOnDrag) {
+    return <div ref={drag} />
+  }
+
+  return (
+    <div
+      className="box"
+      ref={drag}
+      style={{
+        position: 'absolute',
+        border: '1px dashed gray',
+        backgroundColor: 'white',
+        padding: '0.5rem 1rem',
+        cursor: 'move',
+        left,
+        top,
+      }}
+      data-testid="box"
+    >
+      {children}
+    </div>
   )
 }
 

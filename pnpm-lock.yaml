@@ -11,9 +11,6 @@ importers:
       axios:
         specifier: ^1.6.8
         version: 1.6.8
-      immutability-helper:
-        specifier: ^3.1.1
-        version: 3.1.1
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -1226,9 +1223,6 @@ packages:
     resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
-
-  immutability-helper@3.1.1:
-    resolution: {integrity: sha512-Q0QaXjPjwIju/28TsugCHNEASwoCcJSyJV3uO1sOIQGI0jKgm9f41Lvz0DZj3n46cNCyAZTsEYoY4C2bVRUzyQ==}
 
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==, tarball: https://r2.cnpmjs.org/import-fresh/-/import-fresh-3.3.0.tgz}
@@ -3108,8 +3102,6 @@ snapshots:
 
   image-size@0.5.5:
     optional: true
-
-  immutability-helper@3.1.1: {}
 
   import-fresh@3.3.0:
     dependencies:

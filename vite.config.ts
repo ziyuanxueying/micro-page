@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import AutoImport from 'unplugin-auto-import/vite'
+import { presetIcons, presetUno } from 'unocss'
 import UnoCSS from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,7 +22,8 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
     }),
     UnoCSS({
-      shortcuts: [{ logo: 'i-logos-react w-6em h-6em transform transition-800 hover:rotate-180' }],
+      shortcuts: [],
+      presets: [presetUno(), presetIcons()],
     }),
     react(),
   ],

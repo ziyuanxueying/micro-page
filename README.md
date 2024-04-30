@@ -1,30 +1,10 @@
-# React + TypeScript + Vite
+# 命名规范
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+在 React 项目中，通常使用以下命名规范来命名文件夹：
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Components: 文件夹名称应该使用小写字母和单词之间的连字符（kebab-case），例如 components。
+2. Pages: 如果你的项目中有页面级组件，可以将页面组件放在一个名为 pages 的文件夹中。
+3. Containers: 如果你使用容器组件来包裹展示组件，可以将容器组件放在一个名为 containers 的文件夹中。
+4. Hooks: 如果你有自定义的 React Hooks，可以将它们放在一个名为 hooks 的文件夹中。
+5. Utils: 如果你有一些通用的工具函数或帮助函数，可以将它们放在一个名为 utils 的文件夹中。
+总的来说，保持文件夹命名简洁、有意义，并遵循一致的命名规范有助于提高项目的可维护性和可读性。

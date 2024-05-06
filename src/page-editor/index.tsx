@@ -1,3 +1,4 @@
+import React from 'react'
 import './index.less'
 import { MateType, MatesType } from './type'
 const modules = import.meta.glob<{ default: MateType }>('../page-editor/**/index.tsx')

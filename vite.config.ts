@@ -7,7 +7,8 @@ import { defineConfig } from 'vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    open: true,
+    port: 8088, // 设置服务启动端口号
+    open: false, // 设置服务启动时是否自动打开浏览器
   },
   plugins: [
     AutoImport({

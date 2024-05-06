@@ -1,4 +1,5 @@
 @import 'normalize.css';
+@import './global.less';
 
 * {
   box-sizing: border-box;

@@ -1,21 +1,26 @@
-import { List, Switch, Typography } from 'antd'
-
+import { Typography } from 'antd'
+import routes from './routes'
 const { Text } = Typography
 
 function App() {
-  const [preview, setPreview] = useState(false)
-
+  // const [preview, setPreview] = useState(false)
+  const navigate = useNavigate()
+  // 根据路由表生成对应的路由规则
+  const ElementRouter = useRoutes(routes)
   return (
-    <div className="px-10 py-5">
+    <div className="px-10 py-5" style={{ height: '100vh' }}>
       <header className="mb-5">
         <div className="flex gap-1">
           <Text>Preview</Text>
-          <Switch onChange={setPreview} />
+          {/* <Switch onChange={setPreview} /> */}
+          <a onClick={async () => navigate('/editor')}>模板编辑 &nbsp;&nbsp;</a>
         </div>
       </header>
 
-      <main className="flex gap-10">
-        <List
+      <main>
+        {/* 注册路由 */}
+        {ElementRouter}
+        {/* <List
           header={<Text className="font-bold text-base">组件库</Text>}
           bordered
           className="w-300px"
@@ -31,7 +36,7 @@ function App() {
         </List>
 
         <div className="flex-1">page editor</div>
-        {preview && <div className="flex-1">page preview</div>}
+        {preview && <div className="flex-1">page preview</div>} */}
       </main>
     </div>
   )

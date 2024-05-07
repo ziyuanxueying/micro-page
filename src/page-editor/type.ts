@@ -9,3 +9,6 @@ export interface MateType {
 export type MatesType = {
   [key: string]: MateType[]
 }
+export type ItemType = {
+  [key: string]: React.ComponentType<any>
+}

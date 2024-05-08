@@ -1,7 +1,7 @@
-import { ItemType } from '../../page-editor/type'
+import { ItemType } from '../../type'
 import './index.less'
 const modulePaths = import.meta.glob<{ default: React.ComponentType<any> }>(
-  '../../page-editor/**/*Tem.tsx',
+  '../../metas/**/*Tem.tsx',
 )
 const components: ItemType = {}
 for (const path in modulePaths) {
@@ -10,11 +10,12 @@ for (const path in modulePaths) {
   components[filename] = module.default
 }
 interface ItemProps {
+  id: string
   type: string
 }
 const ItemTemplate = (props: ItemProps) => {
   const Component = components[props.type]
-  return Component ? <Component /> : null
+  return Component ? <Component key={props.id} /> : null
 }
 
 export default ItemTemplate

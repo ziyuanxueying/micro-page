@@ -1,9 +1,10 @@
 import './index.less'
 import { MateType, MatesType } from './type'
-import ItemTemplate from '../components/item-template'
 import store from './json.tsx'
+import Content from './components/content/index.tsx'
+import Items from './components/items/index.tsx'
 
-const modules = import.meta.glob<{ default: MateType }>('../page-editor/**/index.tsx')
+const modules = import.meta.glob<{ default: MateType }>('./metas/**/index.tsx')
 const metas: MatesType = {}
 for (const path in modules) {
   modules[path]().then(module => {
@@ -14,29 +15,30 @@ for (const path in modules) {
     }
   })
 }
-// function
+console.log('metas: ', metas)
+
 const TemplateEngine = () => {
+  const [components, setComponents] = useState<any>(store.components)
+
+  function pushModule(meta: MateType) {
+    console.log('meta: ', meta)
+    setComponents((components: any) => [
+      ...components,
+      {
+        id: Date.now(),
+        groupType: meta.groupType,
+        temModule: meta.temModule,
+        setModule: meta.setModule,
+      },
+    ])
+  }
   return (
     <div className="flex-between">
       <div className="editor-meta">
-        {Object.entries(metas).map(([key, value]) => (
-          <div key={key}>
-            <div>{`${key}`}</div>
-            <div className="meta-group flex-row">
-              {value.map(meta => (
-                <div key={meta.groupType} className="flex-column meta">
-                  <img src={new URL(`../assets/${meta.icon}.svg`, import.meta.url).href} alt="" />
-                  {meta.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+        <Items metas={metas} pushModule={pushModule} />
       </div>
       <div className="editor-content">
-        {store.components.map(item => (
-          <ItemTemplate key={item.id} type={item.temModule} />
-        ))}
+        <Content components={components} />
       </div>
       <div className="editor-set">3</div>
     </div>

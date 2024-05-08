@@ -1,16 +1,35 @@
 import { MateType, MatesType } from '../../type'
 import './index.less'
 interface ItemProps {
-  metas: MatesType
   pushModule: (meta: MateType) => void
 }
 const Content = (props: ItemProps) => {
-  // useEffect(() => {
-  //   console.log(123)
-  // }, [props.metas])
+  const [metas, setMetas] = useState<MatesType>({})
+
+  useEffect(() => {
+    const modules = import.meta.glob<{ default: MateType }>('../../metas/**/index.tsx')
+    const nextMetas: MatesType = {}
+
+    const promises = []
+    for (const path in modules) {
+      promises.push(modules[path]())
+    }
+
+    Promise.all(promises).then(modules => {
+      modules.forEach(module => {
+        if (Object.keys(nextMetas).includes(module.default.group)) {
+          nextMetas[module.default.group].push(module.default)
+        } else {
+          nextMetas[module.default.group] = [module.default]
+        }
+      })
+      setMetas(nextMetas)
+    })
+  }, [])
+
   return (
     <>
-      {Object.entries(props.metas).map(([key, value]) => (
+      {Object.entries(metas).map(([key, value]) => (
         <div key={key}>
           <div>{`${key}`}</div>
           <div className="meta-group flex-row">

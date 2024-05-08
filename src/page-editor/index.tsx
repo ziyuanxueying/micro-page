@@ -15,13 +15,11 @@ for (const path in modules) {
     }
   })
 }
-console.log('metas: ', metas)
 
 const TemplateEngine = () => {
   const [components, setComponents] = useState<any>(store.components)
 
   function pushModule(meta: MateType) {
-    console.log('meta: ', meta)
     setComponents((components: any) => [
       ...components,
       {

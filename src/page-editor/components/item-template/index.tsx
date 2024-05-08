@@ -10,12 +10,11 @@ for (const path in modulePaths) {
   components[filename] = module.default
 }
 interface ItemProps {
-  id: string
   type: string
 }
 const ItemTemplate = (props: ItemProps) => {
   const Component = components[props.type]
-  return Component ? <Component key={props.id} /> : null
+  return Component ? <Component /> : null
 }
 
 export default ItemTemplate

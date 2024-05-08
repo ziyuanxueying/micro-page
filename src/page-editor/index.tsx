@@ -1,21 +1,20 @@
 import './index.less'
 import { MateType, MatesType } from './type'
 import ItemTemplate from '../components/item-template'
+import store from './json.tsx'
 
 const modules = import.meta.glob<{ default: MateType }>('../page-editor/**/index.tsx')
 const metas: MatesType = {}
 for (const path in modules) {
-  // const mod = modules[path]
-  // console.log('path', path, 'mod', mod)
   modules[path]().then(module => {
     if (Object.keys(metas).includes(module.default.group)) {
       metas[module.default.group].push(module.default)
     } else {
       metas[module.default.group] = [module.default]
     }
-    // console.log(`Content from ${path}:`, module.default)
   })
 }
+// function
 const TemplateEngine = () => {
   return (
     <div className="flex-between">
@@ -35,7 +34,9 @@ const TemplateEngine = () => {
         ))}
       </div>
       <div className="editor-content">
-        <ItemTemplate type="TitleTextTem" />
+        {store.components.map(item => (
+          <ItemTemplate key={item.id} type={item.temModule} />
+        ))}
       </div>
       <div className="editor-set">3</div>
     </div>

@@ -1,14 +1,20 @@
 import './index.less'
-import { MateType } from './type'
-import store from './json.tsx'
-import Content from './components/content/index.tsx'
+import { MateType, componentsType } from './type'
+import Content from './components/Content.tsx'
 import Items from './components/items/index.tsx'
+import Setting from './components/Setting.tsx'
 
 const TemplateEngine = () => {
-  const [components, setComponents] = useState<any>(store.components)
+  const [components, setComponents] = useState<componentsType[]>([])
+  const [selected, setSelected] = useState<componentsType>({
+    id: 0,
+    groupType: '',
+    temModule: '',
+    setModule: '',
+  })
 
-  function pushModule(meta: MateType) {
-    setComponents((components: any) => [
+  const pushModule = (meta: MateType) => {
+    setComponents((components: componentsType[]) => [
       ...components,
       {
         id: Date.now(),
@@ -18,15 +24,31 @@ const TemplateEngine = () => {
       },
     ])
   }
+
+  const selectModule = (meta: componentsType) => {
+    console.log('meta: ', meta)
+    setSelected(meta)
+    // setComponents((components: componentsType[]) => [
+    //   ...components,
+    //   {
+    //     id: Date.now(),
+    //     groupType: meta.groupType,
+    //     temModule: meta.temModule,
+    //     setModule: meta.setModule,
+    //   },
+    // ])
+  }
   return (
     <div className="flex-between">
       <div className="editor-meta">
         <Items pushModule={pushModule} />
       </div>
       <div className="editor-content">
-        <Content components={components} />
+        <Content components={components} selectModule={selectModule} />
       </div>
-      <div className="editor-set">3</div>
+      <div className="editor-set">
+        <Setting selected={selected} />
+      </div>
     </div>
   )
 }

@@ -32,7 +32,7 @@ const Content = (props: ItemProps) => {
       {Object.entries(metas).map(([key, value]) => (
         <div key={key}>
           <div>{`${key}`}</div>
-          <div className="meta-group flex-row">
+          <div className="flex flex-row flex-wrap justify-between mt-2.5">
             {value.map(meta => (
               <div
                 key={meta.groupType}

@@ -12,3 +12,9 @@ export type MatesType = {
 export type ItemType = {
   [key: string]: React.ComponentType<any>
 }
+export interface componentsType {
+  id: string | number
+  groupType: string
+  temModule: string
+  setModule: string
+}

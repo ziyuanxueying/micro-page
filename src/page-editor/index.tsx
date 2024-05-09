@@ -1,8 +1,9 @@
-import './index.less'
 import { MateType, componentsType } from './type'
 import Content from './components/Content.tsx'
 import Items from './components/items/index.tsx'
 import Setting from './components/Setting.tsx'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 const TemplateEngine = () => {
   const [components, setComponents] = useState<componentsType[]>([])
@@ -39,17 +40,17 @@ const TemplateEngine = () => {
     // ])
   }
   return (
-    <div className="flex-between">
-      <div className="editor-meta">
+    <DndProvider backend={HTML5Backend}>
+      <main className="h-full flex gap-3">
         <Items pushModule={pushModule} />
-      </div>
-      <div className="editor-content">
-        <Content components={components} selectModule={selectModule} />
-      </div>
-      <div className="editor-set">
-        <Setting selected={selected} />
-      </div>
-    </div>
+        <div className="flex-1">
+          <Content components={components} selectModule={selectModule} />
+        </div>
+        <div className="w-50 bg-#ffe4c4 rounded shadow">
+          <Setting selected={selected} />
+        </div>
+      </main>
+    </DndProvider>
   )
 }
 

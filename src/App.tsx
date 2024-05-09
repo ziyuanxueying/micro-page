@@ -1,45 +1,8 @@
-import { Typography } from 'antd'
 import routes from './routes'
-const { Text } = Typography
 
 function App() {
-  // const [preview, setPreview] = useState(false)
-  const navigate = useNavigate()
-  // 根据路由表生成对应的路由规则
   const ElementRouter = useRoutes(routes)
-  return (
-    <div className="px-10 py-5" style={{ height: '100vh' }}>
-      <header className="mb-5">
-        <div className="flex gap-1">
-          <Text>Preview</Text>
-          {/* <Switch onChange={setPreview} /> */}
-          <a onClick={async () => navigate('/editor')}>模板编辑 &nbsp;&nbsp;</a>
-        </div>
-      </header>
-
-      <main>
-        {/* 注册路由 */}
-        {ElementRouter}
-        {/* <List
-          header={<Text className="font-bold text-base">组件库</Text>}
-          bordered
-          className="w-300px"
-        >
-          <List.Item className="cursor-grab active:cursor-grabbing hover:bg-red-1 active:bg-red-2">
-            <List.Item.Meta title="输入框" description="我是输入框" />
-            <div className="i-solar:text-field-bold w20 h20 cursor-grab active:cursor-grabbing" />
-          </List.Item>
-          <List.Item className="cursor-grab active:cursor-grabbing hover:bg-red-1 active:bg-red-2">
-            <List.Item.Meta title="图片" description="我是图片" />
-            <div className="i-bi:image w20 h20 " />
-          </List.Item>
-        </List>
-
-        <div className="flex-1">page editor</div>
-        {preview && <div className="flex-1">page preview</div>} */}
-      </main>
-    </div>
-  )
+  return <div className="h-screen p-5">{ElementRouter}</div>
 }
 
 export default App

@@ -24,6 +24,7 @@
   "dependencies": {
     "antd": "^5.16.5",
     "axios": "^1.6.8",
+    "clsx": "^2.1.1",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dnd": "^16.0.1",
@@ -32,8 +33,6 @@
     "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
-    "@iconify-json/bi": "^1.1.23",
-    "@iconify-json/solar": "^1.1.9",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.8.0",

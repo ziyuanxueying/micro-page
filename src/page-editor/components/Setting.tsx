@@ -6,7 +6,7 @@ interface SettingProps {
 const Setting = (props: SettingProps) => {
   return (
     <>
-      <ItemTemplate type={props.selected.temModule} />
+      <ItemTemplate type={props.selected.setModule} />
     </>
   )
 }

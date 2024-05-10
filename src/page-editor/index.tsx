@@ -28,15 +28,6 @@ const TemplateEngine = () => {
   const selectModule = (meta: componentsType) => {
     console.log('meta: ', meta)
     setSelected(meta)
-    // setComponents((components: componentsType[]) => [
-    //   ...components,
-    //   {
-    //     id: Date.now(),
-    //     groupType: meta.groupType,
-    //     temModule: meta.temModule,
-    //     setModule: meta.setModule,
-    //   },
-    // ])
   }
   return (
     <div className="flex-between">

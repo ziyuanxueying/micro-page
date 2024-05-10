@@ -1,5 +1,7 @@
 import { MateType, MatesType } from '../../type'
 import './index.less'
+/* @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 interface ItemProps {
   pushModule: (meta: MateType) => void
 }
@@ -26,12 +28,15 @@ const Content = (props: ItemProps) => {
       setMetas(nextMetas)
     })
   }, [])
-
+  const customStyles = css`
+    color: red;
+    font-size: 16px;
+  `
   return (
     <>
       {Object.entries(metas).map(([key, value]) => (
         <div key={key}>
-          <div>{`${key}`}</div>
+          <div css={customStyles}>{`${key}`}</div>
           <div className="flex flex-row flex-wrap justify-between mt-2.5">
             {value.map(meta => (
               <div

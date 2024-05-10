@@ -26,6 +26,8 @@ export default defineConfig({
       shortcuts: [],
       presets: [presetUno(), presetIcons()],
     }),
-    react(),
+    react({
+      jsxImportSource: '@emotion/react',
+    }),
   ],
 })

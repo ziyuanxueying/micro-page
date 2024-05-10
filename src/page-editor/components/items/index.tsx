@@ -1,3 +1,4 @@
+import { css } from '@emotion/react'
 import { MateType, MatesType } from '../../type'
 import Item from './Item'
 import { Typography } from 'antd'
@@ -7,7 +8,10 @@ const { Text } = Typography
 interface ContentProps {
   pushModule: (meta: MateType) => void
 }
-
+const customStyles = css`
+  color: red;
+  font-size: 16px;
+`
 const Content = ({ pushModule }: ContentProps) => {
   const [metas, setMetas] = useState<MatesType>({})
 
@@ -31,15 +35,14 @@ const Content = ({ pushModule }: ContentProps) => {
       setMetas(nextMetas)
     })
   }, [])
-  // const customStyles = css`
-  //   color: red;
-  //   font-size: 16px;
-  // `
+
   return (
     <div className="w-50 p-10px rounded bg-#faebd7 shadow flex flex-col gap-2.5">
       {Object.entries(metas).map(([key, value]) => (
         <div key={key} className="flex flex-col gap-2.5">
-          <Text className="text-base">{key}</Text>
+          <Text css={customStyles} className="text-base">
+            {key}
+          </Text>
           <div className="grid grid-cols-2 gap-2">
             {value.map(meta => (
               <Item data={meta} key={meta.name} pushModule={pushModule} />

@@ -1,5 +1,4 @@
-const Index = (props: any) => {
-  console.log('props: ', props)
+const Index = () => {
   return <div>标题文本 设置内容</div>
 }
 

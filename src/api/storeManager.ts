@@ -18,7 +18,6 @@ Object.defineProperties(store, {
   },
   operations: {
     get() {
-      // eslint-disable-next-line eqeqeq
       return localStorage['operations'] == null ? null : JSON.parse(localStorage['operations'])
     },
   },

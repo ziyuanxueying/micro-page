@@ -18,7 +18,7 @@ export default defineConfig({
         'react',
         'react-router-dom',
         { dayjs: [['default', 'dayjs']] },
-        { classnames: [['default', 'cls']] },
+        { clsx: [['default', 'cx']] },
       ],
       dts: 'src/auto-imports.d.ts',
     }),

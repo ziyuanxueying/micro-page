@@ -1,11 +1,14 @@
 import { MateType, MatesType } from '../../type'
-import './index.less'
-/* @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
-interface ItemProps {
+import Item from './Item'
+import { Typography } from 'antd'
+
+const { Text } = Typography
+
+interface ContentProps {
   pushModule: (meta: MateType) => void
 }
-const Content = (props: ItemProps) => {
+
+const Content = ({ pushModule }: ContentProps) => {
   const [metas, setMetas] = useState<MatesType>({})
 
   useEffect(() => {
@@ -28,33 +31,23 @@ const Content = (props: ItemProps) => {
       setMetas(nextMetas)
     })
   }, [])
-  const customStyles = css`
-    color: red;
-    font-size: 16px;
-  `
+  // const customStyles = css`
+  //   color: red;
+  //   font-size: 16px;
+  // `
   return (
-    <>
+    <div className="w-50 p-10px rounded bg-#faebd7 shadow flex flex-col gap-2.5">
       {Object.entries(metas).map(([key, value]) => (
-        <div key={key}>
-          <div css={customStyles}>{`${key}`}</div>
-          <div className="flex flex-row flex-wrap justify-between mt-2.5">
+        <div key={key} className="flex flex-col gap-2.5">
+          <Text className="text-base">{key}</Text>
+          <div className="grid grid-cols-2 gap-2">
             {value.map(meta => (
-              <div
-                key={meta.groupType}
-                className="flex-column meta"
-                onClick={() => props.pushModule(meta)}
-              >
-                <img
-                  src={new URL(`../../../assets/${meta.icon}.svg`, import.meta.url).href}
-                  alt=""
-                />
-                {meta.name}
-              </div>
+              <Item data={meta} key={meta.name} pushModule={pushModule} />
             ))}
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }
 

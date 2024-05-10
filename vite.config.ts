@@ -1,6 +1,4 @@
 import react from '@vitejs/plugin-react-swc'
-import { presetIcons, presetUno } from 'unocss'
-import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 
@@ -18,13 +16,9 @@ export default defineConfig({
         'react',
         'react-router-dom',
         { dayjs: [['default', 'dayjs']] },
-        { clsx: [['default', 'cx']] },
+        { '@emotion/react': ['css', 'keyframes', 'Global', 'ClassNames'] },
       ],
       dts: 'src/auto-imports.d.ts',
-    }),
-    UnoCSS({
-      shortcuts: [],
-      presets: [presetUno(), presetIcons()],
     }),
     react({
       jsxImportSource: '@emotion/react',

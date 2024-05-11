@@ -5,6 +5,12 @@ import Setting from './components/Setting.tsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
+const style = css({
+  display: 'flex',
+  gap: 12,
+  height: '100%',
+})
+
 const TemplateEngine = () => {
   const [components, setComponents] = useState<componentsType[]>([])
   const [selected, setSelected] = useState<componentsType>({
@@ -32,14 +38,10 @@ const TemplateEngine = () => {
   }
   return (
     <DndProvider backend={HTML5Backend}>
-      <main className="h-full flex gap-3">
+      <main css={style}>
         <Items pushModule={pushModule} />
-        <div className="flex-1">
-          <Content components={components} selectModule={selectModule} />
-        </div>
-        <div className="w-50 bg-#ffe4c4 rounded shadow">
-          <Setting selected={selected} />
-        </div>
+        <Content components={components} selectModule={selectModule} />
+        <Setting selected={selected} />
       </main>
     </DndProvider>
   )

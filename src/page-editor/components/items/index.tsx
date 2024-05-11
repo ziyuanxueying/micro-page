@@ -8,10 +8,7 @@ const { Text } = Typography
 interface ContentProps {
   pushModule: (meta: MateType) => void
 }
-const customStyles = css`
-  color: red;
-  font-size: 16px;
-`
+
 const Content = ({ pushModule }: ContentProps) => {
   const [metas, setMetas] = useState<MatesType>({})
 
@@ -37,13 +34,35 @@ const Content = ({ pushModule }: ContentProps) => {
   }, [])
 
   return (
-    <div className="w-50 p-10px rounded bg-#faebd7 shadow flex flex-col gap-2.5">
+    <div
+      css={css`
+        width: 200px;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #faebd7;
+        box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      `}
+    >
       {Object.entries(metas).map(([key, value]) => (
-        <div key={key} className="flex flex-col gap-2.5">
-          <Text css={customStyles} className="text-base">
-            {key}
-          </Text>
-          <div className="grid grid-cols-2 gap-2">
+        <div
+          key={key}
+          css={css`
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          `}
+        >
+          <Text>{key}</Text>
+          <div
+            css={css`
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 10px;
+            `}
+          >
             {value.map(meta => (
               <Item data={meta} key={meta.name} pushModule={pushModule} />
             ))}

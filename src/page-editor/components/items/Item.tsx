@@ -33,14 +33,25 @@ const Item = ({ data, pushModule }: ItemProps) => {
       ref={drag}
       data-testid={`box`}
       key={data.name}
-      className={cx(
-        'py-2.5 flex flex-col items-center justify-center border border-solid border-#999 rounded-sm hover:bg-#ecd0ad',
-        isDragging ? 'opacity-40 cursor-grabbing' : 'opacity-100 cursor-pointer',
-      )}
+      css={css`
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: solid 1px #999;
+        border-radius: 4px;
+        background-color: ${isDragging ? 'transparent' : 'hover:#ecd0ad'};
+        opacity: ${isDragging ? 0.4 : 1};
+        cursor: ${isDragging ? 'grabbing' : 'pointer'};
+      `}
     >
       <img
         src={new URL(`../../../assets/${data.icon}.svg`, import.meta.url).href}
-        className="w-30px h-30px"
+        css={css`
+          width: 30px;
+          height: 30px;
+        `}
       />
       <Text>{data.name}</Text>
     </div>

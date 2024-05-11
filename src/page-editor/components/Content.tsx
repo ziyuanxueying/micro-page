@@ -31,30 +31,32 @@ const Content = (props: ContentProps) => {
   }
 
   return (
-    <>
-      <div
-        ref={drop}
-        className={cx('h-full', {
-          'bg-#ecd0ad70': canDrop && !isOver,
-          'bg-#ecd0ad': isActive,
-        })}
-        data-testid="dustbin"
-      >
-        {/* {isActive ? 'Release to drop' : 'Drag a box here'} */}
-        {props.components.map(item => (
-          <div
-            key={item.id}
-            onClick={() => itemClick(item)}
-            className={cx(
-              'p-2 cursor-pointer',
-              item.id === select.id ? 'border border-solid border-[#20a0ff] rounded' : '',
-            )}
-          >
-            <ItemTemplate type={item.temModule} />
-          </div>
-        ))}
-      </div>
-    </>
+    <div
+      ref={drop}
+      css={css`
+        flex: 1;
+        border-radius: 4px;
+        box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        background-color: ${isActive ? '#ecd0ad' : canDrop && !isOver ? '#ecd0ad70' : 'initial'};
+        padding: 10px;
+      `}
+      data-testid="dustbin"
+    >
+      {props.components.map(item => (
+        <div
+          key={item.id}
+          onClick={() => itemClick(item)}
+          css={css`
+            padding: 10px;
+            cursor: pointer;
+            border: ${item.id === select.id ? 'solid 1px #20a0ff' : 'none'};
+            border-radius: ${item.id === select.id ? '4px' : '0'};
+          `}
+        >
+          <ItemTemplate type={item.temModule} />
+        </div>
+      ))}
+    </div>
   )
 }
 

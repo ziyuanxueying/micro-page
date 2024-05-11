@@ -36,6 +36,19 @@ export default ({ mode }: { mode: string }) => {
               // formats: ['cjs'],
             }
           : undefined,
+      rollupOptions: {
+        // input: {
+        //   main: resolve(__dirname, 'src/main.tsx'),
+        // },
+        // external: ['vue'],
+        // output: {
+        //   assetFileNames: 'my-library.css',
+        //   exports: 'named',
+        //   globals: {
+        //     vue: 'Vue',
+        //   },
+        // },
+      },
     },
   })
 }

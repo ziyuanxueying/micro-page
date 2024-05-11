@@ -6,9 +6,11 @@
     "*.css"
   ],
   "type": "module",
-  "main": "dist/lib/index.tsx",
+  "main": "dist/lib/index.umd.cjs",
   "module": "dist/lib/index.js",
-  "types": "dist/lib/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "build": "tsc && vite build",
     "lib": "tsc && vite build --mode lib",

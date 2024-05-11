@@ -41,9 +41,12 @@ const Item = ({ data, pushModule }: ItemProps) => {
         justify-content: center;
         border: solid 1px #999;
         border-radius: 4px;
-        background-color: ${isDragging ? 'transparent' : 'hover:#ecd0ad'};
         opacity: ${isDragging ? 0.4 : 1};
         cursor: ${isDragging ? 'grabbing' : 'pointer'};
+
+        &:hover {
+          background-color: #ecd0ad;
+        }
       `}
     >
       <img

@@ -1,10 +1,9 @@
 import react from '@vitejs/plugin-react-swc'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
-
+import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
-  console.log('Current command:', mode)
   return defineConfig({
     server: {
       port: 8088, // 设置服务启动端口号
@@ -28,7 +27,15 @@ export default ({ mode }: { mode: string }) => {
     ],
     build: {
       outDir: mode === 'lib' ? 'dist/lib' : 'dist/app',
-      lib: mode === 'lib' ? { entry: 'src/index.tsx', name: '@wd/micro-page' } : undefined,
+      lib:
+        mode === 'lib'
+          ? {
+              entry: resolve(__dirname, 'src/index.tsx'),
+              name: '@wd/micro-page',
+              fileName: 'index',
+              // formats: ['cjs'],
+            }
+          : undefined,
     },
   })
 }

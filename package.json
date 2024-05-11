@@ -5,7 +5,6 @@
   "sideEffects": [
     "*.css"
   ],
-  "type": "module",
   "types": "dist/lib/index.d.ts",
   "main": "dist/lib/index.umd.cjs",
   "module": "dist/lib/index.js",

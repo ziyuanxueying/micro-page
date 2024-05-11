@@ -5,16 +5,19 @@ const moduleSet = import.meta.glob<{ default: React.ComponentType<any> }>('../me
 
 const components: ItemType = {}
 
-for (const path in moduleTem) {
-  const module = await moduleTem[path]()
-  const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-  components[filename] = module.default
+const importAll = async () => {
+  for (const path in moduleTem) {
+    const module = await moduleTem[path]()
+    const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
+    components[filename] = module.default
+  }
+  for (const path in moduleSet) {
+    const module = await moduleSet[path]()
+    const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
+    components[filename] = module.default
+  }
 }
-for (const path in moduleSet) {
-  const module = await moduleSet[path]()
-  const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-  components[filename] = module.default
-}
+importAll()
 
 interface ItemProps {
   type: string

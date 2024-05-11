@@ -1,17 +1,22 @@
 {
   "name": "@wd/micro-page",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "sideEffects": [
     "*.css"
   ],
   "type": "module",
+  "main": "dist/lib/index.tsx",
+  "module": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
     "build": "tsc && vite build",
+    "lib": "tsc && vite build --mode lib",
     "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "simple-git-hooks",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "app": "tsc && vite build --outDir dist/app"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

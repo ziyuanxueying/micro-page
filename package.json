@@ -10,8 +10,7 @@
   "main": "dist/lib/index.umd.cjs",
   "module": "dist/lib/index.js",
   "files": [
-    "dist/",
-    "src/"
+    "dist/lib"
   ],
   "scripts": {
     "build": "tsc && vite build",

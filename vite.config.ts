@@ -29,6 +29,7 @@ export default ({ mode }: { mode: string }) => {
     ],
     build: {
       outDir: mode === 'lib' ? 'dist/lib' : 'dist/app',
+      target: 'node',
       lib:
         mode === 'lib'
           ? {

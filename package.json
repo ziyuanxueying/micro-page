@@ -1,14 +1,13 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "sideEffects": [
     "*.css"
   ],
-  "type": "module",
   "types": "dist/lib/index.d.ts",
-  "main": "dist/lib/index.umd.cjs",
-  "module": "dist/lib/index.js",
+  "main": "dist/lib/index.d.ts",
+  "module": "dist/lib/index.ts",
   "files": [
     "dist/lib"
   ],

@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react-swc'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
+import { resolve, join } from 'path'
 import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
@@ -50,7 +50,20 @@ export default ({ mode }: { mode: string }) => {
           },
           // 输出文件的扩展名为 .ts
           entryFileNames: '[name].ts',
-          chunkFileNames: '[name].ts',
+          chunkFileNames: chunkInfo => {
+            const { exports, facadeModuleId } = chunkInfo
+
+            // 处理 import glob
+            if (mode === 'lib' && exports.includes('default')) {
+              const filePath = facadeModuleId
+                ?.replace(join(process.cwd(), 'src/'), '')
+                .replace('.tsx', '.ts')
+
+              return filePath || '[name].ts'
+            }
+
+            return '[name].ts'
+          },
           assetFileNames: '[name].[ext]',
         },
       },

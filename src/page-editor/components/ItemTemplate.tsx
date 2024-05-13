@@ -1,7 +1,11 @@
 import { ItemType } from '../type'
 
-const moduleTem = import.meta.glob<{ default: React.ComponentType<any> }>('../metas/**/*Tem.tsx')
-const moduleSet = import.meta.glob<{ default: React.ComponentType<any> }>('../metas/**/*Set.tsx')
+const moduleTem = import.meta.glob<React.ComponentType<any>>('../metas/**/*Tem.tsx', {
+  import: 'default',
+})
+const moduleSet = import.meta.glob<React.ComponentType<any>>('../metas/**/*Set.tsx', {
+  import: 'default',
+})
 
 const components: ItemType = {}
 
@@ -9,12 +13,12 @@ const importAll = async () => {
   for (const path in moduleTem) {
     const module = await moduleTem[path]()
     const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-    components[filename] = module.default
+    components[filename] = module
   }
   for (const path in moduleSet) {
     const module = await moduleSet[path]()
     const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-    components[filename] = module.default
+    components[filename] = module
   }
 }
 importAll()

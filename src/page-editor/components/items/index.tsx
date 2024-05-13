@@ -13,7 +13,9 @@ const Content = ({ pushModule }: ContentProps) => {
   const [metas, setMetas] = useState<MatesType>({})
 
   useEffect(() => {
-    const modules = import.meta.glob<{ default: MateType }>('../../metas/**/index.tsx')
+    const modules = import.meta.glob<MateType>('../../metas/**/index.tsx', {
+      import: 'default',
+    })
     const nextMetas: MatesType = {}
 
     const promises = []
@@ -23,10 +25,10 @@ const Content = ({ pushModule }: ContentProps) => {
 
     Promise.all(promises).then(modules => {
       modules.forEach(module => {
-        if (Object.keys(nextMetas).includes(module.default.group)) {
-          nextMetas[module.default.group].push(module.default)
+        if (Object.keys(nextMetas).includes(module.group)) {
+          nextMetas[module.group].push(module)
         } else {
-          nextMetas[module.default.group] = [module.default]
+          nextMetas[module.group] = [module]
         }
       })
       setMetas(nextMetas)

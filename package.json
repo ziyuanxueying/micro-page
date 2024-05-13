@@ -5,20 +5,20 @@
   "sideEffects": [
     "*.css"
   ],
-  "types": "dist/lib/index.d.ts",
   "main": "dist/lib/index.d.ts",
   "module": "dist/lib/index.ts",
+  "types": "dist/lib/index.d.ts",
   "files": [
     "dist/lib"
   ],
   "scripts": {
+    "app": "tsc && vite build --outDir dist/app",
     "build": "tsc && vite build",
-    "lib": "tsc && vite build --mode lib",
     "dev": "vite",
+    "lib": "tsc && vite build --mode lib",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "simple-git-hooks",
-    "preview": "vite preview",
-    "app": "tsc && vite build --outDir dist/app"
+    "preview": "vite preview"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

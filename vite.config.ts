@@ -40,12 +40,11 @@ export default ({ mode }: { mode: string }) => {
             }
           : undefined,
       rollupOptions: {
-        external: ['react', 'react-dom', 'react-router', 'react-router-dom'],
+        external: ['react', 'react-dom', 'react-router-dom'],
         output: {
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
-            'react-router': 'react-router',
             'react-router-dom': 'react-router-dom',
           },
           // 输出文件的扩展名为 .ts

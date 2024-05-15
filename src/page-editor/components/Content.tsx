@@ -42,20 +42,30 @@ const Content = (props: ContentProps) => {
       `}
       data-testid="dustbin"
     >
-      {props.components.map(item => (
-        <div
-          key={item.id}
-          onClick={() => itemClick(item)}
-          css={css`
-            padding: 10px;
-            cursor: pointer;
-            border: ${item.id === select.id ? 'solid 1px #20a0ff' : 'none'};
-            border-radius: ${item.id === select.id ? '4px' : '0'};
-          `}
-        >
-          <ItemTemplate type={item.temModule} />
-        </div>
-      ))}
+      <div
+        css={css({
+          width: 375,
+          minHeight: 667,
+          backgroundColor: '#ededed',
+          boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
+          margin: '0 auto',
+        })}
+      >
+        {props.components.map(item => (
+          <div
+            key={item.id}
+            onClick={() => itemClick(item)}
+            css={css`
+              padding: 10px;
+              cursor: pointer;
+              border: ${item.id === select.id ? 'solid 1px #20a0ff' : 'none'};
+              border-radius: ${item.id === select.id ? '4px' : '0'};
+            `}
+          >
+            <ItemTemplate type={item.temModule} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

@@ -1,5 +1,7 @@
+import { buttonStyles } from '@global'
+
 const Index = () => {
-  return <div>商品 渲染组件</div>
+  return <div css={buttonStyles}>www</div>
 }
 
 export default Index

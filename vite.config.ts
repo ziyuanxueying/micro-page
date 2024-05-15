@@ -3,13 +3,22 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 import { resolve, join } from 'path'
 import dts from 'vite-plugin-dts'
-
+const rootDir = resolve(__dirname)
+const srcDir = resolve(rootDir, 'src')
+const global = resolve(rootDir, 'src/styles/global.ts')
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
     server: {
       port: 8088, // 设置服务启动端口号
       open: false, // 设置服务启动时是否自动打开浏览器
+    },
+    resolve: {
+      alias: {
+        '@': srcDir,
+        '@global': global,
+      },
+      extensions: ['.js', '.ts', '.tsx', '.json'],
     },
     plugins: [
       dts({ tsconfigPath: './tsconfig.json' }),
@@ -40,12 +49,13 @@ export default ({ mode }: { mode: string }) => {
             }
           : undefined,
       rollupOptions: {
-        external: ['react', 'react-dom', 'react-router-dom'],
+        external: ['react', 'react-dom', 'react-router-dom', 'antd'],
         output: {
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
             'react-router-dom': 'react-router-dom',
+            antd: 'antd',
           },
           // 输出文件的扩展名为 .ts
           entryFileNames: '[name].ts',

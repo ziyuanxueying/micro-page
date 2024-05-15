@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -18,7 +18,9 @@
     "lib": "tsc && vite build --mode lib",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "simple-git-hooks",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublish": "pnpm run lib ",
+    "postpublish": "pnpm version patch"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",
@@ -33,18 +35,18 @@
     "axios": "^1.6.8",
     "dayjs": "^1.11.11",
     "normalize.css": "^8.0.1",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/react": "^11.11.4",
-    "@types/node": "^20.12.11",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "@vitejs/plugin-react-swc": "^3.6.0",
@@ -52,11 +54,11 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "lint-staged": "^15.2.2",
-    "picocolors": "^1.0.0",
+    "picocolors": "^1.0.1",
     "prettier": "^2.8.8",
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.4.5",
-    "unplugin-auto-import": "^0.17.5",
+    "unplugin-auto-import": "^0.17.6",
     "vite": "^5.2.11",
     "vite-plugin-dts": "^3.9.1"
   },

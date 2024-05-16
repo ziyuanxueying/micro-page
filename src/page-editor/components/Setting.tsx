@@ -11,7 +11,11 @@ const onChange = (key: string) => {
 
 const Setting = (props: SettingProps) => {
   const items: TabsProps['items'] = [
-    { key: '1', label: '组件设置', children: <ItemTemplate type={props.selected.setModule} /> },
+    {
+      key: '1',
+      label: '组件设置',
+      children: <ItemTemplate type={props.selected.setModule} message={props.selected.data} />,
+    },
     { key: '2', label: '组件管理', children: 'Content of Tab Pane 1' },
     { key: '3', label: '页面设置', children: 'Content of Tab Pane 2' },
   ]

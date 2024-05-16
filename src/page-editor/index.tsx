@@ -4,6 +4,8 @@ import Items from './components/items/index.tsx'
 import Setting from './components/Setting.tsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import defaultJson from './json.ts'
+console.log('defaultJson: ', defaultJson)
 
 const style = css({
   display: 'flex',
@@ -18,9 +20,11 @@ const TemplateEngine = () => {
     groupType: '',
     temModule: '',
     setModule: '',
+    data: {},
   })
 
   const pushModule = (meta: MateType) => {
+    // 获取 DefaultJson 中指定键的数据
     setComponents((components: componentsType[]) => [
       ...components,
       {
@@ -28,6 +32,7 @@ const TemplateEngine = () => {
         groupType: meta.groupType,
         temModule: meta.temModule,
         setModule: meta.setModule,
+        data: defaultJson[meta.groupType as keyof typeof defaultJson],
       },
     ])
   }

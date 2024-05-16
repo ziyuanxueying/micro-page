@@ -17,4 +17,5 @@ export interface componentsType {
   groupType: string
   temModule: string
   setModule: string
+  data: any // 这里的 any 可以替换为具体的数据类型
 }

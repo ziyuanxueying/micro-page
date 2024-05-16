@@ -13,7 +13,9 @@ const Content = (props: ContentProps) => {
     temModule: '',
     groupType: '',
     setModule: '',
+    data: {},
   })
+
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
     drop: () => ({ name: 'Dustbin' }),
@@ -51,18 +53,31 @@ const Content = (props: ContentProps) => {
           margin: '0 auto',
         })}
       >
+        <div
+          css={css({
+            width: '100%',
+            height: '44px',
+            padding: '6px 12px',
+            backgroundColor: '#fff',
+            boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
+            marginBottom: 10,
+            textAlign: 'center',
+            lineHeight: '32px',
+          })}
+        >
+          标题--后期可设置
+        </div>
         {props.components.map(item => (
           <div
             key={item.id}
             onClick={() => itemClick(item)}
             css={css`
-              padding: 10px;
               cursor: pointer;
               border: ${item.id === select.id ? 'solid 1px #20a0ff' : 'none'};
               border-radius: ${item.id === select.id ? '4px' : '0'};
             `}
           >
-            <ItemTemplate type={item.temModule} />
+            <ItemTemplate type={item.temModule} message={item.data} />
           </div>
         ))}
       </div>

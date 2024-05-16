@@ -24,7 +24,6 @@ const TemplateEngine = () => {
   })
 
   const pushModule = (meta: MateType) => {
-    // 获取 DefaultJson 中指定键的数据
     setComponents((components: componentsType[]) => [
       ...components,
       {
@@ -41,12 +40,20 @@ const TemplateEngine = () => {
     console.log('meta: ', meta)
     setSelected(meta)
   }
+
+  const onDataChange = (data: any) => {
+    console.log('data: ', data)
+    const item = components.find(item => item.id === selected.id)
+    item && (item.data = data)
+    // 更新组件数据
+    setComponents([...components])
+  }
   return (
     <DndProvider backend={HTML5Backend}>
       <main css={style}>
         <Items pushModule={pushModule} />
         <Content components={components} selectModule={selectModule} />
-        <Setting selected={selected} />
+        <Setting selected={selected} onDataChange={onDataChange} />
       </main>
     </DndProvider>
   )

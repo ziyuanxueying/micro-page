@@ -1,5 +1,6 @@
 export default {
   shop: {
+    mouldTpye: 1,
     tagList: [
       {
         id: '807f8f4f-d2d7-4095-9d3d-ac13e26a788f',

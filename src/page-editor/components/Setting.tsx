@@ -4,6 +4,7 @@ import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 interface SettingProps {
   selected: componentsType
+  onDataChange?: (data: any) => void
 }
 const onChange = (key: string) => {
   console.log(key)
@@ -14,7 +15,13 @@ const Setting = (props: SettingProps) => {
     {
       key: '1',
       label: '组件设置',
-      children: <ItemTemplate type={props.selected.setModule} message={props.selected.data} />,
+      children: (
+        <ItemTemplate
+          type={props.selected.setModule}
+          message={props.selected.data}
+          onDataChange={props.onDataChange}
+        />
+      ),
     },
     { key: '2', label: '组件管理', children: 'Content of Tab Pane 1' },
     { key: '3', label: '页面设置', children: 'Content of Tab Pane 2' },
@@ -22,10 +29,9 @@ const Setting = (props: SettingProps) => {
   return (
     <div
       css={css({
-        width: 300,
+        width: 400,
         padding: 10,
         borderRadius: 4,
-        backgroundColor: '#faebd7',
         boxShadow: '0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)',
         display: 'flex',
         flexDirection: 'column',

@@ -1,9 +1,13 @@
 import { flexColumn, textTwice, colors, textGray9 } from '@global'
 
-const Index = (prop: object) => {
+const Index = (prop: any) => {
   console.log('shoptem prop: ', prop)
+  useEffect(() => {
+    console.log('shoptem prop: ', prop)
+  }, [prop])
   return (
     <div style={{ backgroundColor: '#fff', padding: '10px' }}>
+      <div>选择模板{prop.data.mouldTpye}</div>
       <div css={css([flexColumn, { width: '50%' }])}>
         <img
           css={css({ width: 164, height: 164 })}

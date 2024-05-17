@@ -5,7 +5,6 @@ import Setting from './components/Setting.tsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import defaultJson from './json.ts'
-console.log('defaultJson: ', defaultJson)
 
 const style = css({
   display: 'flex',
@@ -37,12 +36,10 @@ const TemplateEngine = () => {
   }
 
   const selectModule = (meta: componentsType) => {
-    console.log('meta: ', meta)
     setSelected(meta)
   }
 
   const onDataChange = (data: any) => {
-    console.log('data: ', data)
     const item = components.find(item => item.id === selected.id)
     item && (item.data = data)
     // 更新组件数据

@@ -6,10 +6,10 @@ export const colors = {
   danger: '#dc3545',
   red: '#f24724',
 }
-export const flex = {
+export const flex = css({
   display: 'flex',
   backgroundColor: '#f0f2f5',
-}
+})
 
 export const flexColumn = css({
   display: 'flex',

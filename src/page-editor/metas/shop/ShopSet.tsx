@@ -9,15 +9,12 @@ const Index = (prop: ShopSetProps) => {
   const [value, setValue] = useState(1)
 
   const onChange = (e: RadioChangeEvent) => {
-    console.log('radio checked', e.target.value)
     setValue(e.target.value)
-    // data.mouldTpye
     data.mouldTpye = e.target.value
     prop.dataChange(data)
-    // data.setValue('mouldTpye', e.target.value)
   }
   useEffect(() => {
-    console.log('data: ', data)
+    console.log('useEffect data: ', data)
   }, [data])
   return (
     <div>
@@ -32,7 +29,7 @@ const Index = (prop: ShopSetProps) => {
         商品组件
       </div>
       <div>
-        选择模板：{value}
+        选择模板：
         <Radio.Group onChange={onChange} value={value}>
           <Radio value={1}>一行两个</Radio>
           <Radio value={2}>一行三个</Radio>

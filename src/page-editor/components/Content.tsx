@@ -34,23 +34,24 @@ const Content = (props: ContentProps) => {
 
   return (
     <div
-      ref={drop}
       css={css`
         flex: 1;
         border-radius: 4px;
         box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-        background-color: ${isActive ? '#ecd0ad' : canDrop && !isOver ? '#ecd0ad70' : 'initial'};
         padding: 10px;
       `}
-      data-testid="dustbin"
     >
       <div
+        ref={drop}
+        data-testid="dustbin"
         css={css({
           width: 375,
           minHeight: 667,
-          backgroundColor: '#ededed',
+          maxHeight: 812,
+          overflowY: 'auto',
           boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
           margin: '0 auto',
+          backgroundColor: isActive ? '#d6d6d6' : canDrop && !isOver ? '#ededed80' : '#ededed',
         })}
       >
         <div

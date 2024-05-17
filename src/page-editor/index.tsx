@@ -5,7 +5,6 @@ import Setting from './components/Setting.tsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import defaultJson from './json.ts'
-console.log('defaultJson: ', defaultJson)
 
 const style = css({
   display: 'flex',
@@ -24,7 +23,6 @@ const TemplateEngine = () => {
   })
 
   const pushModule = (meta: MateType) => {
-    // 获取 DefaultJson 中指定键的数据
     setComponents((components: componentsType[]) => [
       ...components,
       {
@@ -38,15 +36,21 @@ const TemplateEngine = () => {
   }
 
   const selectModule = (meta: componentsType) => {
-    console.log('meta: ', meta)
     setSelected(meta)
+  }
+
+  const onDataChange = (data: any) => {
+    const item = components.find(item => item.id === selected.id)
+    item && (item.data = data)
+    // 更新组件数据
+    setComponents([...components])
   }
   return (
     <DndProvider backend={HTML5Backend}>
       <main css={style}>
         <Items pushModule={pushModule} />
         <Content components={components} selectModule={selectModule} />
-        <Setting selected={selected} />
+        <Setting selected={selected} onDataChange={onDataChange} />
       </main>
     </DndProvider>
   )

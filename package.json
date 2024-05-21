@@ -33,6 +33,7 @@
   "dependencies": {
     "@emotion/styled": "^11.11.5",
     "dayjs": "^1.11.11",
+    "dnd-core": "^16.0.1",
     "immer": "^10.1.1",
     "normalize.css": "^8.0.1",
     "react-dnd": "^16.0.1",

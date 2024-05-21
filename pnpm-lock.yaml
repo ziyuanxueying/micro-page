@@ -23,6 +23,9 @@ importers:
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
+      dnd-core:
+        specifier: ^16.0.1
+        version: 16.0.1
       immer:
         specifier: ^10.1.1
         version: 10.1.1

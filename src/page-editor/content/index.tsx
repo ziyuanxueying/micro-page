@@ -1,9 +1,9 @@
-import useStore, { Component } from '@/store'
-import ItemTemplate from '../components/ItemTemplate'
+import useStore from '@/store'
 import { useDrop } from 'react-dnd'
+import ContentItem from './Item'
 
 const Content = () => {
-  const { components, selectedComponentId, updateSelectedComponentId } = useStore()
+  const { components, updateComponents } = useStore()
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
@@ -16,8 +16,14 @@ const Content = () => {
 
   const isActive = canDrop && isOver
 
-  const itemClick = (item: Component) =>
-    updateSelectedComponentId(selectedComponentId === item.id ? undefined : item.id)
+  const move = (dragIndex: number, hoverIndex: number) => {
+    console.log({ dragIndex, hoverIndex })
+
+    const newComponents = [...components]
+    const [removed] = newComponents.splice(dragIndex, 1)
+    newComponents.splice(hoverIndex, 0, removed)
+    updateComponents(newComponents)
+  }
 
   return (
     <div
@@ -55,18 +61,8 @@ const Content = () => {
         >
           标题--后期可设置
         </div>
-        {components.map(item => (
-          <div
-            key={item.id}
-            onClick={() => itemClick(item)}
-            css={css`
-              cursor: pointer;
-              border: 1px solid;
-              border-color: ${item.id === selectedComponentId ? '#20a0ff' : 'transparent'};
-            `}
-          >
-            <ItemTemplate type={item.temModule} message={item.data} />
-          </div>
+        {components.map((item, index) => (
+          <ContentItem data={item} key={item.id} index={index} id={item.id} move={move} />
         ))}
       </div>
     </div>

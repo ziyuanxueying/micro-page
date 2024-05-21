@@ -4,14 +4,16 @@ import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 
 const Setting = () => {
-  const { selectedModule } = useStore()
+  const { components, selectedComponentId } = useStore()
+
+  const selectedComponent = components.find(c => c.id === selectedComponentId)
 
   const items: TabsProps['items'] = [
     {
       key: '1',
       label: '组件设置',
-      children: selectedModule && (
-        <ItemTemplate type={selectedModule.setModule} message={selectedModule.data} />
+      children: selectedComponent && (
+        <ItemTemplate type={selectedComponent.setModule} message={selectedComponent.data} />
       ),
     },
     { key: '2', label: '组件管理', children: 'Content of Tab Pane 1' },

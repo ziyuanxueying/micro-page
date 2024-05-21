@@ -3,9 +3,11 @@ import useStore from '@/store'
 import style from './style'
 
 const Index = () => {
-  const { selectedModule } = useStore()
+  const { components, selectedComponentId } = useStore()
 
-  const { mouldTpye = 1 } = selectedModule?.data || {}
+  const selectedComponent = components.find(c => c.id === selectedComponentId)
+
+  const { mouldTpye = 1 } = selectedComponent?.data || {}
 
   return (
     <div style={{ backgroundColor: '#fff', padding: '10px' }}>

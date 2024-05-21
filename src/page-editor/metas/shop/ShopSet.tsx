@@ -3,7 +3,9 @@ import { line, flexb, Divp, Line } from '@global'
 import useStore from '@/store'
 
 const Index = () => {
-  const { selectedModule, setSelectedModule } = useStore()
+  const { selectedComponentId, components, updateComponentById } = useStore()
+
+  const selectedComponent = components.find(c => c.id === selectedComponentId)
 
   const [value, setValue] = useState(1)
   const [shopVal, setShopValue] = useState(1)
@@ -11,15 +13,16 @@ const Index = () => {
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value)
 
-    selectedModule &&
-      setSelectedModule({
-        ...selectedModule,
+    selectedComponent &&
+      updateComponentById(selectedComponent.id, {
+        ...selectedComponent,
         data: {
-          ...selectedModule.data,
+          ...selectedComponent.data,
           mouldTpye: e.target.value,
         },
       })
   }
+
   const onShopChange = (e: RadioChangeEvent) => {
     setShopValue(e.target.value)
     // data.mouldTpye = e.target.value

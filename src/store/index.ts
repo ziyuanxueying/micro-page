@@ -7,7 +7,7 @@ export type Component = {
   name: string
   group: string
   icon: string
-  groupType: string
+  metaType: string
   temModule: string
   setModule: string
   data?: any // 这里的 any 可以替换为具体的数据类型
@@ -15,14 +15,16 @@ export type Component = {
 
 export type Store = {
   components: Component[]
+  selectedComponentId: Component['id'] | undefined
   pushComponent: (component: Component) => void
-  selectedModule: Component | null
-  setSelectedModule: (component: Component) => void
+  updateComponentById: (id: Component['id'], data: Omit<Component, 'id'>) => void
+  updateSelectedComponentId: (id: Store['selectedComponentId']) => void
 }
 
 export const useStore = create<Store>()(
   immer(set => ({
     components: [],
+    selectedComponentId: undefined,
     pushComponent: component => {
       set(state => {
         state.components.push({
@@ -31,8 +33,12 @@ export const useStore = create<Store>()(
         })
       })
     },
-    selectedModule: null,
-    setSelectedModule: module => set({ selectedModule: module }),
+    updateComponentById: (id, data) =>
+      set(state => {
+        const index = state.components.findIndex(item => item.id === id)
+        state.components[index] = { ...data, id: state.components[index].id }
+      }),
+    updateSelectedComponentId: id => set({ selectedComponentId: id }),
   })),
 )
 

@@ -23,7 +23,7 @@ const Item = ({ data }: ItemProps) => {
         pushComponent({
           ...item,
           id: Date.now(),
-          data: defaultJson[item.groupType as keyof typeof defaultJson],
+          data: defaultJson[item.metaType as keyof typeof defaultJson],
         })
       }
     },

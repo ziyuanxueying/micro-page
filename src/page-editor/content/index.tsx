@@ -3,7 +3,7 @@ import ItemTemplate from '../components/ItemTemplate'
 import { useDrop } from 'react-dnd'
 
 const Content = () => {
-  const { components, selectedModule, setSelectedModule } = useStore()
+  const { components, selectedComponentId, updateSelectedComponentId } = useStore()
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
@@ -16,7 +16,7 @@ const Content = () => {
 
   const isActive = canDrop && isOver
 
-  const itemClick = (item: Component) => setSelectedModule(item)
+  const itemClick = (item: Component) => updateSelectedComponentId(item.id)
 
   return (
     <div
@@ -60,8 +60,8 @@ const Content = () => {
             onClick={() => itemClick(item)}
             css={css`
               cursor: pointer;
-              border: ${item.id === selectedModule?.id ? 'solid 1px #20a0ff' : 'none'};
-              border-radius: ${item.id === selectedModule?.id ? '4px' : '0'};
+              border: ${item.id === selectedComponentId ? 'solid 1px #20a0ff' : 'none'};
+              border-radius: ${item.id === selectedComponentId ? '4px' : '0'};
             `}
           >
             <ItemTemplate type={item.temModule} message={item.data} />

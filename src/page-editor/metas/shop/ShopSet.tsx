@@ -1,23 +1,25 @@
+import useStore from '@/store'
 import { Radio, RadioChangeEvent } from 'antd'
-interface ShopSetProps {
-  data: any
-  dataChange: (data: any) => void
-}
-const Index = (prop: ShopSetProps) => {
-  // console.log('商品 设置内容 prop: ', prop.data)
-  const { data } = prop
+
+const Index = () => {
   const [value, setValue] = useState(1)
+  const { selectedModule, setSelectedModule } = useStore()
 
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value)
-    data.mouldTpye = e.target.value
-    prop.dataChange(data)
+
+    selectedModule &&
+      setSelectedModule({
+        ...selectedModule,
+        data: {
+          ...selectedModule.data,
+          mouldTpye: e.target.value,
+        },
+      })
   }
-  useEffect(() => {
-    console.log('useEffect data: ', data)
-  }, [data])
+
   return (
-    <div>
+    <>
       <div
         css={css({
           borderBlockEnd: '1px solid #ddd',
@@ -36,7 +38,7 @@ const Index = (prop: ShopSetProps) => {
           <Radio value={3}>横向滚动</Radio>
         </Radio.Group>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,20 +1,9 @@
-import { componentsType } from '../type'
+import useStore, { Component } from '@/store'
 import ItemTemplate from './ItemTemplate'
 import { useDrop } from 'react-dnd'
 
-interface ContentProps {
-  components: Array<any>
-  selectModule: (meta: componentsType) => void
-}
-
-const Content = (props: ContentProps) => {
-  const [select, setSelect] = useState<componentsType>({
-    id: '',
-    temModule: '',
-    groupType: '',
-    setModule: '',
-    data: {},
-  })
+const Content = () => {
+  const { components, selectedModule, setSelectedModule } = useStore()
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
@@ -27,10 +16,7 @@ const Content = (props: ContentProps) => {
 
   const isActive = canDrop && isOver
 
-  const itemClick = (item: componentsType) => {
-    setSelect(item)
-    props.selectModule(item)
-  }
+  const itemClick = (item: Component) => setSelectedModule(item)
 
   return (
     <div
@@ -68,14 +54,14 @@ const Content = (props: ContentProps) => {
         >
           标题--后期可设置
         </div>
-        {props.components.map(item => (
+        {components.map(item => (
           <div
             key={item.id}
             onClick={() => itemClick(item)}
             css={css`
               cursor: pointer;
-              border: ${item.id === select.id ? 'solid 1px #20a0ff' : 'none'};
-              border-radius: ${item.id === select.id ? '4px' : '0'};
+              border: ${item.id === selectedModule?.id ? 'solid 1px #20a0ff' : 'none'};
+              border-radius: ${item.id === selectedModule?.id ? '4px' : '0'};
             `}
           >
             <ItemTemplate type={item.temModule} message={item.data} />

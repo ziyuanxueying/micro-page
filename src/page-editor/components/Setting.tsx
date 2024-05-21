@@ -1,26 +1,17 @@
-import { componentsType } from '../type'
+import useStore from '@/store'
 import ItemTemplate from './ItemTemplate'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
-interface SettingProps {
-  selected: componentsType
-  onDataChange?: (data: any) => void
-}
-const onChange = (key: string) => {
-  console.log(key)
-}
 
-const Setting = (props: SettingProps) => {
+const Setting = () => {
+  const { selectedModule } = useStore()
+
   const items: TabsProps['items'] = [
     {
       key: '1',
       label: '组件设置',
-      children: (
-        <ItemTemplate
-          type={props.selected.setModule}
-          message={props.selected.data}
-          onDataChange={props.onDataChange}
-        />
+      children: selectedModule && (
+        <ItemTemplate type={selectedModule.setModule} message={selectedModule.data} />
       ),
     },
     { key: '2', label: '组件管理', children: 'Content of Tab Pane 1' },
@@ -38,7 +29,13 @@ const Setting = (props: SettingProps) => {
         gap: 10,
       })}
     >
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Tabs
+        defaultActiveKey="1"
+        items={items}
+        onChange={key => {
+          console.log(key)
+        }}
+      />
     </div>
   )
 }

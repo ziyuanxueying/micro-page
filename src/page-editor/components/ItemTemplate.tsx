@@ -26,13 +26,11 @@ importAll()
 interface ItemProps {
   type: string
   message?: object
-  onDataChange?: (data: any) => void
 }
 
 const ItemTemplate = (props: ItemProps) => {
-  // console.log('props: ', props)
   const Component = components[props.type]
-  return Component ? <Component data={props.message} dataChange={props.onDataChange} /> : null
+  return Component ? <Component /> : null
 }
 
 export default ItemTemplate

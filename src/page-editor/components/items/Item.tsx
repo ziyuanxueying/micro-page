@@ -1,15 +1,17 @@
 import { Typography } from 'antd'
 import { useDrag } from 'react-dnd'
-import { MateType } from '../../type'
+import useStore, { Component } from '@/store'
+import defaultJson from '../../json'
 
 const { Text } = Typography
 
 type ItemProps = {
-  data: MateType
-  pushModule: (meta: MateType) => void
+  data: Component
 }
 
-const Item = ({ data, pushModule }: ItemProps) => {
+const Item = ({ data }: ItemProps) => {
+  const { pushComponent } = useStore()
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'box',
     item: data,
@@ -18,8 +20,11 @@ const Item = ({ data, pushModule }: ItemProps) => {
         name: string
       }>()
       if (item && dropResult) {
-        console.log(item)
-        pushModule(item)
+        pushComponent({
+          ...item,
+          id: Date.now(),
+          data: defaultJson[item.groupType as keyof typeof defaultJson],
+        })
       }
     },
     collect: monitor => ({

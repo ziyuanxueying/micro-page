@@ -1,15 +1,10 @@
-import { css } from '@emotion/react'
 import { MateType, MatesType } from '../../type'
 import Item from './Item'
 import { Typography } from 'antd'
 
 const { Text } = Typography
 
-interface ContentProps {
-  pushModule: (meta: MateType) => void
-}
-
-const Content = ({ pushModule }: ContentProps) => {
+const Items = () => {
   const [metas, setMetas] = useState<MatesType>({})
 
   useEffect(() => {
@@ -66,7 +61,7 @@ const Content = ({ pushModule }: ContentProps) => {
             `}
           >
             {value.map(meta => (
-              <Item data={meta} key={meta.name} pushModule={pushModule} />
+              <Item data={meta} key={meta.name} />
             ))}
           </div>
         </div>
@@ -75,4 +70,4 @@ const Content = ({ pushModule }: ContentProps) => {
   )
 }
 
-export default Content
+export default Items

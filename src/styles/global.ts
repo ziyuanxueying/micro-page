@@ -1,4 +1,3 @@
-import { css } from '@emotion/react'
 // todo: define global variables here
 export const colors = {
   primary: '#0d6efd',

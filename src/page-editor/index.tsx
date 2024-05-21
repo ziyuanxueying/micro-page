@@ -16,7 +16,7 @@ const TemplateEngine = () => {
   const [components, setComponents] = useState<componentsType[]>([])
   const [selected, setSelected] = useState<componentsType>({
     id: 0,
-    groupType: '',
+    metaType: '',
     temModule: '',
     setModule: '',
     data: {},
@@ -27,10 +27,10 @@ const TemplateEngine = () => {
       ...components,
       {
         id: Date.now(),
-        groupType: meta.groupType,
+        metaType: meta.metaType,
         temModule: meta.temModule,
         setModule: meta.setModule,
-        data: defaultJson[meta.groupType as keyof typeof defaultJson],
+        data: defaultJson[meta.metaType as keyof typeof defaultJson],
       },
     ])
   }

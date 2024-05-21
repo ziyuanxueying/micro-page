@@ -11,7 +11,7 @@ const Content = (props: ContentProps) => {
   const [select, setSelect] = useState<componentsType>({
     id: '',
     temModule: '',
-    groupType: '',
+    metaType: '',
     setModule: '',
     data: {},
   })

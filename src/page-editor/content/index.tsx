@@ -16,7 +16,8 @@ const Content = () => {
 
   const isActive = canDrop && isOver
 
-  const itemClick = (item: Component) => updateSelectedComponentId(item.id)
+  const itemClick = (item: Component) =>
+    updateSelectedComponentId(selectedComponentId === item.id ? undefined : item.id)
 
   return (
     <div

@@ -3,9 +3,11 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
 import { resolve, join } from 'path'
 import dts from 'vite-plugin-dts'
+
 const rootDir = resolve(__dirname)
 const srcDir = resolve(rootDir, 'src')
 const global = resolve(rootDir, 'src/styles/global.ts')
+
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   return defineConfig({

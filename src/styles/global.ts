@@ -1,4 +1,5 @@
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 // todo: define global variables here
 export const colors = {
   primary: '#0d6efd',
@@ -11,9 +12,14 @@ export const flex = css({
   backgroundColor: '#f0f2f5',
 })
 
-export const flexColumn = css({
+export const flexc = css({
   display: 'flex',
   flexDirection: 'column',
+})
+
+export const flexb = css({
+  display: 'flex',
+  justifyContent: 'space-between',
 })
 
 export const textSingle = css({
@@ -33,10 +39,26 @@ export const textTwice = css({
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: 2,
 })
+
 export const textGray9 = css({
   color: '#999',
   fontSize: 12,
 })
+
+export const line = css({
+  height: 1,
+  background: '#ddd',
+  margin: '10px 0',
+})
+
+export const Line = styled.div`
+  background: #ddd;
+  height: 1px;
+  margin: 10px 0;
+`
+export const Divp = styled.div`
+  padding: 8px 0px;
+`
 
 export const buttonStyles = css`
   padding: 10px 20px;

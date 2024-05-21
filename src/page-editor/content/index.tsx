@@ -38,7 +38,7 @@ const Content = () => {
           overflowY: 'auto',
           boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
           margin: '0 auto',
-          backgroundColor: isActive ? '#d6d6d6' : canDrop && !isOver ? '#ededed80' : '#ededed',
+          backgroundColor: isActive ? '#d6d6d6' : canDrop && !isOver ? '#ededed80' : '#fff',
         })}
       >
         <div
@@ -61,8 +61,8 @@ const Content = () => {
             onClick={() => itemClick(item)}
             css={css`
               cursor: pointer;
-              border: ${item.id === selectedComponentId ? 'solid 1px #20a0ff' : 'none'};
-              border-radius: ${item.id === selectedComponentId ? '4px' : '0'};
+              border: 1px solid;
+              border-color: ${item.id === selectedComponentId ? '#20a0ff' : 'transparent'};
             `}
           >
             <ItemTemplate type={item.temModule} message={item.data} />

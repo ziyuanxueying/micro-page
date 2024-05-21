@@ -1,7 +1,7 @@
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import Content from './content/index.tsx'
 import MetasBar from './metas-bar/index.tsx'
+import Content from './content/index.tsx'
 import Setting from './setting/index.tsx'
 
 const TemplateEngine = () => {

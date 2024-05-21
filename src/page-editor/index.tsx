@@ -1,8 +1,8 @@
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import Content from './components/Content.tsx'
-import Items from './components/items/index.tsx'
-import Setting from './components/Setting.tsx'
+import Content from './content/index.tsx'
+import MetasBar from './metas-bar/index.tsx'
+import Setting from './setting/index.tsx'
 
 const TemplateEngine = () => {
   return (
@@ -14,7 +14,7 @@ const TemplateEngine = () => {
           height: '100%',
         })}
       >
-        <Items />
+        <MetasBar />
         <Content />
         <Setting />
       </main>

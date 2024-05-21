@@ -1,5 +1,5 @@
 import useStore from '@/store'
-import ItemTemplate from './ItemTemplate'
+import ItemTemplate from '../components/ItemTemplate'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 

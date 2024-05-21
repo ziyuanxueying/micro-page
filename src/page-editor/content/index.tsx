@@ -1,5 +1,5 @@
 import useStore, { Component } from '@/store'
-import ItemTemplate from './ItemTemplate'
+import ItemTemplate from '../components/ItemTemplate'
 import { useDrop } from 'react-dnd'
 
 const Content = () => {

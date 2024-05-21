@@ -1,14 +1,14 @@
-import { MateType, MatesType } from '../../type'
+import { MateType, MatesType } from '../type'
 import Item from './Item'
 import { Typography } from 'antd'
 
 const { Text } = Typography
 
-const Items = () => {
+const MetasBar = () => {
   const [metas, setMetas] = useState<MatesType>({})
 
   useEffect(() => {
-    const modules = import.meta.glob<MateType>('../../metas/**/index.tsx', {
+    const modules = import.meta.glob<MateType>('../metas/**/index.tsx', {
       import: 'default',
     })
     const nextMetas: MatesType = {}
@@ -70,4 +70,4 @@ const Items = () => {
   )
 }
 
-export default Items
+export default MetasBar

@@ -1,7 +1,7 @@
 import { Typography } from 'antd'
 import { useDrag } from 'react-dnd'
 import useStore, { Component } from '@/store'
-import defaultJson from '../../json'
+import defaultJson from '../json'
 
 const { Text } = Typography
 
@@ -55,7 +55,7 @@ const Item = ({ data }: ItemProps) => {
       `}
     >
       <img
-        src={new URL(`../../../assets/${data.icon}.svg`, import.meta.url).href}
+        src={new URL(`../../assets/${data.icon}.svg`, import.meta.url).href}
         css={css`
           width: 30px;
           height: 30px;

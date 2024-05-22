@@ -17,7 +17,7 @@ const Content = () => {
   const isActive = canDrop && isOver
 
   const move = (dragIndex: number, hoverIndex: number) => {
-    console.log({ dragIndex, hoverIndex })
+    // console.log({ dragIndex, hoverIndex })
 
     const newComponents = [...components]
     const [removed] = newComponents.splice(dragIndex, 1)

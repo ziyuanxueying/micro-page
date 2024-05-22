@@ -61,7 +61,7 @@ const Item = ({ data }: ItemProps) => {
           height: 30px;
         `}
       />
-      <Text>{data.name}</Text>
+      <Text style={{ fontSize: 12 }}>{data.name}</Text>
     </div>
   )
 }

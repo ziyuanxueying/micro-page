@@ -2,6 +2,8 @@ import useStore, { type Component } from '@/store'
 import ItemTemplate from '../components/ItemTemplate'
 import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier, XYCoord } from 'dnd-core'
+import { Button } from 'antd'
+import { DeleteOutlined } from '@ant-design/icons'
 
 type ContentItemProps = {
   data: Component
@@ -17,7 +19,7 @@ interface DragItem {
 }
 
 const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
-  const { selectedComponentId, updateSelectedComponentId } = useStore()
+  const { selectedComponentId, updateSelectedComponentId, removeComponent } = useStore()
   const ref = useRef<HTMLDivElement>(null)
 
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
@@ -103,9 +105,24 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
         cursor: move;
         border-color: ${data.id === selectedComponentId ? '#20a0ff' : 'transparent'};
         opacity: ${isDragging ? 0 : 1};
+        position: relative;
       `}
     >
-      <ItemTemplate type={data.temModule} message={data.data} />
+      <>
+        {selectedComponentId === data.id && (
+          <Button
+            type="text"
+            css={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+            }}
+            icon={<DeleteOutlined />}
+            onClick={() => removeComponent(data.id)}
+          />
+        )}
+        <ItemTemplate type={data.temModule} message={data.data} />
+      </>
     </div>
   )
 }

@@ -18,7 +18,8 @@ export type Store = {
   selectedComponentId: Component['id'] | undefined
   pushComponent: (component: Component) => void
   updateComponents: (components: Component[]) => void
-  updateComponentById: (id: Component['id'], data: Omit<Component, 'id'>) => void
+  updateComponent: (id: Component['id'], data: Omit<Component, 'id'>) => void
+  removeComponent: (id: Component['id']) => void
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
 }
 
@@ -35,10 +36,14 @@ export const useStore = create<Store>()(
       })
     },
     updateComponents: components => set({ components }),
-    updateComponentById: (id, data) =>
+    updateComponent: (id, data) =>
       set(state => {
         const index = state.components.findIndex(item => item.id === id)
         state.components[index] = { ...data, id: state.components[index].id }
+      }),
+    removeComponent: id =>
+      set(state => {
+        state.components = state.components.filter(item => item.id !== id)
       }),
     updateSelectedComponentId: id => set({ selectedComponentId: id }),
   })),

@@ -3,7 +3,7 @@ import { line, flexb, Divp, Line } from '@global'
 import useStore from '@/store'
 
 const Index = () => {
-  const { selectedComponentId, components, updateComponentById } = useStore()
+  const { selectedComponentId, components, updateComponent } = useStore()
 
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
@@ -14,7 +14,7 @@ const Index = () => {
     setValue(e.target.value)
 
     selectedComponent &&
-      updateComponentById(selectedComponent.id, {
+      updateComponent(selectedComponent.id, {
         ...selectedComponent,
         data: {
           ...selectedComponent.data,

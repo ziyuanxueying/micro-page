@@ -44,7 +44,7 @@ const Content = () => {
           overflowY: 'auto',
           boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
           margin: '0 auto',
-          backgroundColor: isActive ? '#d6d6d6' : canDrop && !isOver ? '#ededed80' : '#fff',
+          backgroundColor: isActive ? '#bedcf9' : '#f5f5f5',
         })}
       >
         <div

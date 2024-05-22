@@ -8,12 +8,16 @@ export const colors = {
 }
 export const flex = css({
   display: 'flex',
-  backgroundColor: '#f0f2f5',
 })
 
 export const flexc = css({
   display: 'flex',
   flexDirection: 'column',
+})
+export const flexcc = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 })
 
 export const flexb = css({
@@ -42,6 +46,7 @@ export const textTwice = css({
 export const textGray9 = css({
   color: '#999',
   fontSize: 12,
+  lineHeight: '20px',
 })
 
 export const line = css({

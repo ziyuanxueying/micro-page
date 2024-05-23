@@ -11,31 +11,13 @@ const ImageTextSet = () => {
           <Radio value={2}>允许广场配置</Radio>
         </Radio.Group>
       </Form.Item>
-      <Form.Item label="标题内容">
+      <Form.Item label="标题">
         <Input required />
       </Form.Item>
-      <Form.Item label="描述内容">
+      <Form.Item label="描述">
         <TextArea />
       </Form.Item>
       <Form.Item label="倒角">
-        <Input />
-      </Form.Item>
-      <Form.Item label="显示位置">
-        <Input />
-      </Form.Item>
-      <Form.Item label="标题粗细">
-        <Input />
-      </Form.Item>
-      <Form.Item label="描述粗细">
-        <Input />
-      </Form.Item>
-      <Form.Item label="标题颜色">
-        <Input />
-      </Form.Item>
-      <Form.Item label="描述颜色">
-        <Input />
-      </Form.Item>
-      <Form.Item label="背景颜色">
         <Input />
       </Form.Item>
     </Form>

@@ -116,6 +116,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
               position: 'absolute',
               top: 0,
               right: 0,
+              zIndex: 100,
             }}
             icon={<DeleteOutlined />}
             onClick={() => removeComponent(data.id)}

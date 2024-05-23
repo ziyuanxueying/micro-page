@@ -1,7 +1,13 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
+import useStore from '@/store'
 
 const BottomNavTem = (props: TemProps) => {
-  console.log(props)
+  const { components } = useStore()
+  const current = components.find(c => c.id === props.id)
+
+  const { data } = current || {}
+
+  console.log(data)
 
   return (
     <div

@@ -7,5 +7,7 @@ export default {
   metaType: 'video',
   temModule: 'VideoTem',
   setModule: 'VideoSet',
-  data: {},
+  data: {
+    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  },
 } as Component

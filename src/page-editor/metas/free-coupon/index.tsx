@@ -5,4 +5,5 @@ export default {
   metaType: 'freeCoupon',
   temModule: 'FreeTem',
   setModule: 'FreeSet',
+  data: { mouldTpye: 1 },
 }

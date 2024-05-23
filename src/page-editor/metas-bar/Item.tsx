@@ -22,7 +22,6 @@ const Item = ({ data }: ItemProps) => {
       if (item && dropResult) {
         pushComponent({
           ...item,
-          id: Date.now(),
           data: defaultJson[item.metaType as keyof typeof defaultJson],
         })
       }

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
+import { v4 as uuidv4 } from 'uuid'
 
 export type Component = {
   id?: string | number
@@ -31,7 +32,7 @@ export const useStore = create<Store>()(
       set(state => {
         state.components.push({
           ...component,
-          id: Date.now(),
+          id: uuidv4(),
         })
       })
     },

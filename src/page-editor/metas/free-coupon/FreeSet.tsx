@@ -3,23 +3,26 @@ import { Radio, RadioChangeEvent } from 'antd'
 import useStore from '@/store'
 
 const Index = () => {
-  const { selectedModule, setSelectedModule } = useStore()
+  const { selectedComponentId, components, updateComponent } = useStore()
 
-  const [value, setValue] = useState(1)
+  const selectedComponent = components.find(c => c.id === selectedComponentId)
+
+  const [value, setValue] = useState(selectedComponent?.data?.moduleType || 1)
   // const [shopVal, setShopValue] = useState(1)
 
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value)
 
-    selectedModule &&
-      setSelectedModule({
-        ...selectedModule,
+    selectedComponent &&
+      updateComponent(selectedComponent.id, {
+        ...selectedComponent,
         data: {
-          ...selectedModule.data,
-          mouldTpye: e.target.value,
+          ...selectedComponent.data,
+          moduleType: e.target.value,
         },
       })
   }
+
   return (
     <div>
       <div css={css({ fontSize: 17 })}>免费优惠券</div>

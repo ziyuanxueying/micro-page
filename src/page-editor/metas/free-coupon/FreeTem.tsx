@@ -9,13 +9,13 @@ const Index = (props: TemProps) => {
 
   const current = components.find(c => c.id === props.id)
 
-  const { mouldTpye = 1 } = current?.data || {}
+  const { moduleType = 1 } = current?.data || {}
   return (
     <>
-      {mouldTpye !== 3 ? (
+      {moduleType !== 3 ? (
         <div style={{ margin: '0 12px' }}>
           <div css={css([flex, { backgroundColor: '#fff', padding: 10, borderRadius: 8 }])}>
-            {mouldTpye === 1 && (
+            {moduleType === 1 && (
               <div
                 style={{
                   width: 70,
@@ -33,7 +33,7 @@ const Index = (props: TemProps) => {
                 <div>代金券</div>
               </div>
             )}
-            {mouldTpye === 2 && (
+            {moduleType === 2 && (
               <img
                 style={{ width: 48, height: 48, borderRadius: 4, marginRight: 10 }}
                 src="https://img.zcool.cn/community/0168195b333395a80121b9948c9557.jpg@1280w_1l_2o_100sh.jpg"

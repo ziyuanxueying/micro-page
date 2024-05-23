@@ -8,18 +8,18 @@ const Index = (props: TemProps) => {
 
   const current = components.find(c => c.id === props.id)
 
-  const { mouldTpye = 1 } = current?.data || {}
+  const { moduleType = 1 } = current?.data || {}
 
   return (
     <div style={{ backgroundColor: '#fff', padding: '10px' }}>
-      <div css={css(style[`shopItem${mouldTpye}`])}>
+      <div css={css(style[`shopItem${moduleType}`])}>
         <img
-          css={css(style[`shopImg${mouldTpye}`])}
+          css={css(style[`shopImg${moduleType}`])}
           src="https://res.beyonds.com/static-qianfan/template/qcs_20220425.png"
         />
-        <div css={css(style[`shopTitle${mouldTpye}`])}>屈臣氏 彩妆护肤体验套餐</div>
+        <div css={css(style[`shopTitle${moduleType}`])}>屈臣氏 彩妆护肤体验套餐</div>
         <div css={css(style[`priceView`])}>
-          ¥<span css={css(style[`priceText${mouldTpye}`])}>99</span>
+          ¥<span css={css(style[`priceText${moduleType}`])}>99</span>
         </div>
         <div css={css(style[`original`])}>¥99</div>
       </div>

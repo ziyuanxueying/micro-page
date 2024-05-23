@@ -32,7 +32,7 @@ importAll()
 
 interface ItemProps {
   type: Component['temModule'] | Component['setModule']
-  id: Component['id']
+  id?: Component['id']
 }
 
 const ItemTemplate = (props: ItemProps) => {

@@ -1,7 +1,6 @@
 import { Typography } from 'antd'
 import { useDrag } from 'react-dnd'
 import useStore, { Component } from '@/store'
-import defaultJson from '../json'
 
 const { Text } = Typography
 
@@ -20,10 +19,7 @@ const Item = ({ data }: ItemProps) => {
         name: string
       }>()
       if (item && dropResult) {
-        pushComponent({
-          ...item,
-          data: defaultJson[item.metaType as keyof typeof defaultJson],
-        })
+        pushComponent(item)
       }
     },
     collect: monitor => ({

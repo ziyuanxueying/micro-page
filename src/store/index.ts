@@ -3,15 +3,17 @@ import { immer } from 'zustand/middleware/immer'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { v4 as uuidv4 } from 'uuid'
 
+export type Group = '业务组件' | '基础组件'
+
 export type Component = {
-  id?: string | number
+  id?: string
   name: string
-  group: string
+  group: Group
   icon: string
   metaType: string
   temModule: string
   setModule: string
-  data?: any // 这里的 any 可以替换为具体的数据类型
+  data?: Record<string, any> // 这里的 any 可以替换为具体的数据类型
 }
 
 export type Store = {

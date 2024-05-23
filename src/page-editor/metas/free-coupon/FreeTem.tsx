@@ -1,9 +1,15 @@
 import { flex, textGray9, colors } from '@global'
 import useStore from '@/store'
-const Index = () => {
-  const { selectedModule } = useStore()
+import { TemProps } from '@/page-editor/components/ItemTemplate'
 
-  const { mouldTpye = 1 } = selectedModule?.data || {}
+const Index = (props: TemProps) => {
+  console.log(props)
+
+  const { components } = useStore()
+
+  const current = components.find(c => c.id === props.id)
+
+  const { mouldTpye = 1 } = current?.data || {}
   return (
     <>
       {mouldTpye !== 3 ? (

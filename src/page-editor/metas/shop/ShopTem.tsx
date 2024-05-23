@@ -1,10 +1,13 @@
 // @ts-nocheck
 import useStore from '@/store'
 import style from './style'
+import { TemProps } from '@/page-editor/components/ItemTemplate'
 
-const Index = (prop: any) => {
+const Index = (props: TemProps) => {
   const { components } = useStore()
-  const current = components.find(c => c.id === prop.id)
+
+  const current = components.find(c => c.id === props.id)
+
   const { mouldTpye = 1 } = current?.data || {}
 
   return (

@@ -62,7 +62,7 @@ const Content = () => {
           标题--后期可设置
         </div>
         {components.map((item, index) => (
-          <ContentItem data={item} key={item.id} index={index} id={item.id} move={move} />
+          <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
         ))}
       </div>
     </div>

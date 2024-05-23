@@ -1,5 +1,9 @@
+import { TemProps } from '@/page-editor/components/ItemTemplate'
 import { flex, textGray9 } from '@global'
-const Index = () => {
+
+const Index = (props: TemProps) => {
+  console.log(props)
+
   return (
     <div style={{ backgroundColor: '#fff', padding: '10px' }}>
       <div css={css([flex, {}])}>

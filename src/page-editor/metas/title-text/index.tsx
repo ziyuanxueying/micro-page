@@ -1,3 +1,5 @@
+import { type Component } from '@/store'
+
 export default {
   name: '标题文本',
   group: '基础组件',
@@ -5,4 +7,5 @@ export default {
   metaType: 'titletext',
   temModule: 'TitleTextTem',
   setModule: 'TitleTextSet',
-}
+  data: {},
+} as Component

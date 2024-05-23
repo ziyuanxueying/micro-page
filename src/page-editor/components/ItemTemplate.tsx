@@ -1,35 +1,42 @@
-import { ItemType } from '../type'
+import { Component } from '@/store'
 
-const moduleTem = import.meta.glob<React.ComponentType<any>>('../metas/**/*Tem.tsx', {
+export type TemProps = {
+  id: Component['id']
+}
+
+export type SetProps = Record<string, any>
+
+const moduleTem = import.meta.glob<(props: TemProps) => JSX.Element>('../metas/**/*Tem.tsx', {
   import: 'default',
 })
-const moduleSet = import.meta.glob<React.ComponentType<any>>('../metas/**/*Set.tsx', {
+const moduleSet = import.meta.glob<(props: SetProps) => JSX.Element>('../metas/**/*Set.tsx', {
   import: 'default',
 })
 
-const components: ItemType = {}
+const modules: Record<string, (props: TemProps | SetProps) => JSX.Element> = {}
 
 const importAll = async () => {
   for (const path in moduleTem) {
     const module = await moduleTem[path]()
     const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-    components[filename] = module
+    // @ts-expect-error
+    modules[filename] = module
   }
   for (const path in moduleSet) {
     const module = await moduleSet[path]()
     const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-    components[filename] = module
+    modules[filename] = module
   }
 }
 importAll()
 
 interface ItemProps {
-  type: string
-  id?: string | number
+  type: Component['temModule'] | Component['setModule']
+  id: Component['id']
 }
 
 const ItemTemplate = (props: ItemProps) => {
-  const Component = components[props.type]
+  const Component = modules[props.type]
   return Component ? <Component key={props.id} id={props.id} /> : null
 }
 

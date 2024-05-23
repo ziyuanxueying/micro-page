@@ -2,12 +2,13 @@
 import useStore from '@/store'
 import style from './style'
 
-const Index = () => {
-  const { components, selectedComponentId } = useStore()
+const Index = (prop: any) => {
+  console.log('prop: ', prop)
+  const { components } = useStore()
 
-  const selectedComponent = components.find(c => c.id === selectedComponentId)
+  const current = components.find(c => c.id === prop)
 
-  const { mouldTpye = 1 } = selectedComponent?.data || {}
+  const { mouldTpye = 1 } = current?.data || {}
 
   return (
     <div style={{ backgroundColor: '#fff', padding: '10px' }}>

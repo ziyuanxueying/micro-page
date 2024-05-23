@@ -121,7 +121,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
             onClick={() => removeComponent(data.id)}
           />
         )}
-        <ItemTemplate type={data.temModule} message={data.data} />
+        <ItemTemplate key={id} type={data.temModule} id={id} />
       </>
     </div>
   )

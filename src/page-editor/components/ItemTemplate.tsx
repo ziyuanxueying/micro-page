@@ -25,12 +25,12 @@ importAll()
 
 interface ItemProps {
   type: string
-  message?: object
+  id?: string | number
 }
 
 const ItemTemplate = (props: ItemProps) => {
   const Component = components[props.type]
-  return Component ? <Component /> : null
+  return Component ? <Component key={props.id} id={props.id} /> : null
 }
 
 export default ItemTemplate

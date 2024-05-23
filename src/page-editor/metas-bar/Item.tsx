@@ -52,11 +52,17 @@ const Item = ({ data }: ItemProps) => {
       <img
         src={new URL(`../../assets/${data.icon}.svg`, import.meta.url).href}
         css={css`
-          width: 30px;
-          height: 30px;
+          height: 25px;
         `}
       />
-      <Text style={{ fontSize: 12 }}>{data.name}</Text>
+      <Text
+        css={css({
+          fontSize: 12,
+          marginTop: 2,
+        })}
+      >
+        {data.name}
+      </Text>
     </div>
   )
 }

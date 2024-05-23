@@ -3,11 +3,8 @@ import useStore from '@/store'
 import style from './style'
 
 const Index = (prop: any) => {
-  console.log('prop: ', prop)
   const { components } = useStore()
-
-  const current = components.find(c => c.id === prop)
-
+  const current = components.find(c => c.id === prop.id)
   const { mouldTpye = 1 } = current?.data || {}
 
   return (

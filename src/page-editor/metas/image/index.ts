@@ -7,5 +7,7 @@ export default {
   metaType: 'image',
   temModule: 'ImageTem',
   setModule: 'ImageSet',
-  data: {},
+  data: {
+    src: 'https://res.wandacm.com.cn/static-qianfan/template/default-img.png',
+  },
 } as Component

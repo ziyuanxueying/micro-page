@@ -1,9 +1,24 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
+import useStore from '@/store'
 
 const ImageMapTem = (props: TemProps) => {
-  console.log(props)
+  const { components } = useStore()
+  const current = components.find(c => c.id === props.id)
 
-  return <div>热区图片</div>
+  const { data } = current || {}
+
+  console.log(data)
+
+  return (
+    <div
+      css={css({
+        padding: 10,
+        background: '#fff',
+      })}
+    >
+      <div>热区图片</div>
+    </div>
+  )
 }
 
 export default ImageMapTem

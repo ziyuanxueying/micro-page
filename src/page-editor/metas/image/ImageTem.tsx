@@ -1,9 +1,22 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
+import useStore from '@/store'
 
 const ImageTem = (props: TemProps) => {
-  console.log(props)
+  const { components } = useStore()
+  const current = components.find(c => c.id === props.id)
 
-  return <div>图片</div>
+  const { data } = current || {}
+
+  console.log(data)
+
+  return (
+    <img
+      src={data?.src}
+      css={css({
+        width: '100%',
+      })}
+    />
+  )
 }
 
 export default ImageTem

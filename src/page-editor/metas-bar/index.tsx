@@ -1,17 +1,27 @@
-import { MateType, MatesType } from '../type'
+// import { MateType, MatesType } from '../type'
+import { Component, Group } from '@/store'
 import Item from './Item'
 import { Typography } from 'antd'
 
 const { Text } = Typography
 
+type Metas = Record<Group, Component[]>
+
 const MetasBar = () => {
-  const [metas, setMetas] = useState<MatesType>({})
+  const [metas, setMetas] = useState<Metas>({
+    业务组件: [],
+    基础组件: [],
+  })
 
   useEffect(() => {
-    const modules = import.meta.glob<MateType>('../metas/**/index.tsx', {
+    const modules = import.meta.glob<Component>('../metas/**/index.tsx', {
       import: 'default',
     })
-    const nextMetas: MatesType = {}
+
+    const nextMetas: Metas = {
+      业务组件: [],
+      基础组件: [],
+    }
 
     const promises = []
     for (const path in modules) {
@@ -61,7 +71,7 @@ const MetasBar = () => {
             `}
           >
             {value.map(meta => (
-              <Item data={meta} key={meta.name} />
+              <Item key={meta.metaType} data={meta} />
             ))}
           </div>
         </div>

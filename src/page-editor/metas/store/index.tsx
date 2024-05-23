@@ -1,3 +1,5 @@
+import { type Component } from '@/store'
+
 export default {
   name: '门店',
   group: '业务组件',
@@ -5,4 +7,5 @@ export default {
   metaType: 'store',
   temModule: 'StoreTem',
   setModule: 'StoreSet',
-}
+  data: {},
+} as Component

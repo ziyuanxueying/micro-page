@@ -8,7 +8,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 type ContentItemProps = {
   data: Component
   index: number
-  id: any
+  id: string
   move: (dragIndex: number, hoverIndex: number) => void
 }
 

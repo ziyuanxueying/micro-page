@@ -1,3 +1,5 @@
+import { type Component } from '@/store'
+
 export default {
   name: '免费优惠券',
   group: '业务组件',
@@ -5,4 +7,5 @@ export default {
   metaType: 'freeCoupon',
   temModule: 'FreeTem',
   setModule: 'FreeSet',
-}
+  data: {},
+} as Component

@@ -1,5 +1,5 @@
-const Index = () => {
-  return <div>标题文本 设置内容</div>
+const TitleTextSet = () => {
+  return <div>标题文本</div>
 }
 
-export default Index
+export default TitleTextSet

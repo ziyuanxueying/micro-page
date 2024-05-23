@@ -7,7 +7,7 @@ const Index = () => {
 
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
-  const [value, setValue] = useState(1)
+  const [value, setValue] = useState(selectedComponent?.data.mouldTpye || 1)
   const [shopVal, setShopValue] = useState(1)
 
   const onChange = (e: RadioChangeEvent) => {
@@ -25,10 +25,11 @@ const Index = () => {
 
   const onShopChange = (e: RadioChangeEvent) => {
     setShopValue(e.target.value)
-    // data.mouldTpye = e.target.value
-    // prop.dataChange(data)
   }
 
+  useEffect(() => {
+    setValue(selectedComponent?.data.mouldTpye || 1)
+  }, [selectedComponent])
   return (
     <div>
       <div css={css({ fontSize: 17 })}>商品组件</div>

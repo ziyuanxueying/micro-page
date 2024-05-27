@@ -5,19 +5,34 @@ const TitleTextTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { data } = current || {}
-
-  console.log(data)
+  const { title, desc, textAlign, titleSize, descSize, titleColor, descColor, bgColor } =
+    current?.data || {}
 
   return (
     <div
       css={css({
         padding: 10,
-        background: '#fff',
+        backgroundColor: bgColor,
+        textAlign,
       })}
     >
-      <div>标题文本</div>
-      {/* <div>我是一段描述</div> */}
+      <div
+        css={css({
+          fontSize: titleSize,
+          color: titleColor,
+        })}
+      >
+        {title}
+      </div>
+      <p
+        css={css({
+          fontSize: descSize,
+          color: descColor,
+          marginTop: 4,
+        })}
+      >
+        {desc}
+      </p>
     </div>
   )
 }

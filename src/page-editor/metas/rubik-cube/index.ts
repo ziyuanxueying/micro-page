@@ -8,5 +8,7 @@ export default {
   temModule: 'RubikCubeTem',
   setModule: 'RubikCubeSet',
   order: 1,
-  data: {},
+  data: {
+    template: 2,
+  },
 } as Component

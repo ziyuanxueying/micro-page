@@ -12,7 +12,9 @@ const Setting = () => {
     {
       key: '1',
       label: '组件设置',
-      children: selectedComponent && <ItemTemplate type={selectedComponent.setModule} />,
+      children: selectedComponent && (
+        <ItemTemplate key={selectedComponentId} type={selectedComponent.setModule} />
+      ),
     },
     { key: '2', label: '组件管理', children: 'Content of Tab Pane 1' },
     { key: '3', label: '页面设置', children: 'Content of Tab Pane 2' },

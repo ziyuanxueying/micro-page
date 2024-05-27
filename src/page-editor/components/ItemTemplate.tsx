@@ -37,7 +37,7 @@ interface ItemProps {
 
 const ItemTemplate = (props: ItemProps) => {
   const Component = modules[props.type]
-  return Component ? <Component key={props.id} id={props.id} /> : null
+  return Component ? <Component id={props.id} /> : null
 }
 
 export default ItemTemplate

@@ -36,6 +36,13 @@ const MetasBar = () => {
           nextMetas[module.group] = [module]
         }
       })
+
+      // sort nextMetas by order
+      Object.keys(nextMetas).forEach(key => {
+        // @ts-expect-error
+        nextMetas[key] = nextMetas[key].sort((a, b) => a.order - b.order)
+      })
+
       setMetas(nextMetas)
     })
   }, [])

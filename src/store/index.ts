@@ -11,6 +11,7 @@ export type Component = {
   group: Group
   icon: string
   metaType: string
+  moduleType?: string
   temModule: string
   setModule: string
   data?: Record<string, any> // 这里的 any 可以替换为具体的数据类型

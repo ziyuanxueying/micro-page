@@ -64,14 +64,8 @@ export const Divp = styled.div`
   padding: 8px 0px;
 `
 
-export const buttonStyles = css`
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #ddd;
-  }
+export const TextGray9 = styled.div`
+  color: #999;
+  font-size: 12px;
+  line-height: 20px;
 `

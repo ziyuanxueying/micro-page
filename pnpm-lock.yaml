@@ -17,6 +17,9 @@ importers:
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
+      '@wd/component-ui':
+        specifier: 0.0.11-beta.9
+        version: 0.0.11-beta.9(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd:
         specifier: '>=5.16.0'
         version: 5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -821,6 +824,20 @@ packages:
   '@vue/shared@3.4.27':
     resolution: {integrity: sha512-DL3NmY2OFlqmYYrzp39yi3LDkKxa5vZVwxWdQ3rG0ekuWscHraeIbnI8t+aZK7qhYqEqWKTUdijadunb9pnrgA==}
 
+  '@wd/component-ui@0.0.11-beta.9':
+    resolution: {integrity: sha512-gghVdtlUbITAhnSgcpXbwZQP91UcSOSAKUHIVNFfrKGhWSF9JKIZoeDAr9eDdl9AvpB7BUlyJhZaTMAYDUPPlA==}
+    peerDependencies:
+      '@ant-design/icons': ^5.3.6
+      antd: ^5.16.2
+      axios: ^1.6.8
+      cos-js-sdk-v5: ^1.7.1
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+
+  '@xmldom/xmldom@0.8.10':
+    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+    engines: {node: '>=10.0.0'}
+
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==, tarball: https://r2.cnpmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz}
     peerDependencies:
@@ -988,9 +1005,15 @@ packages:
   copy-to-clipboard@3.3.3:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
 
+  cos-js-sdk-v5@1.7.1:
+    resolution: {integrity: sha512-0iEPck4nsgGA7FwTCsNMBYPctOCO1Qb04x6RZYYnRJ+tazUO7JIFElORjIsgFqCGpIov8pNsFS18WumGgQPzDQ==}
+
   cosmiconfig@7.1.0:
     resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
     engines: {node: '>=10'}
+
+  cropperjs@1.6.2:
+    resolution: {integrity: sha512-nhymn9GdnV3CqiEHJVai54TULFAE3VshJTXSqSJKa8yXAKyBKDWdhHarnlIPrshJ0WMFTGuFvG02YjLXfPiuOA==}
 
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==, tarball: https://r2.cnpmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz}
@@ -1834,6 +1857,11 @@ packages:
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
+
+  react-cropper@2.3.3:
+    resolution: {integrity: sha512-zghiEYkUb41kqtu+2jpX2Ntigf+Jj1dF9ew4lAobPzI2adaPE31z0p+5TcWngK6TvmWQUwK3lj4G+NDh1PDQ1w==}
+    peerDependencies:
+      react: '>=17.0.2'
 
   react-dnd-html5-backend@16.0.1:
     resolution: {integrity: sha512-Wu3dw5aDJmOGw8WjH1I1/yTH+vlXEL4vmjk5p+MHxP8HuHJS1lAGeIdG/hze1AvNeXWo/JgULV87LyQOr+r5jw==}
@@ -2943,6 +2971,21 @@ snapshots:
 
   '@vue/shared@3.4.27': {}
 
+  '@wd/component-ui@0.0.11-beta.9(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@ant-design/icons': 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      antd: 5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios: 1.6.8
+      classnames: 2.5.1
+      cos-js-sdk-v5: 1.7.1
+      cropperjs: 1.6.2
+      dayjs: 1.11.11
+      react: 18.3.1
+      react-cropper: 2.3.3(react@18.3.1)
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@xmldom/xmldom@0.8.10': {}
+
   acorn-jsx@5.3.2(acorn@8.11.3):
     dependencies:
       acorn: 8.11.3
@@ -3157,6 +3200,10 @@ snapshots:
     dependencies:
       toggle-selection: 1.0.6
 
+  cos-js-sdk-v5@1.7.1:
+    dependencies:
+      '@xmldom/xmldom': 0.8.10
+
   cosmiconfig@7.1.0:
     dependencies:
       '@types/parse-json': 4.0.2
@@ -3164,6 +3211,8 @@ snapshots:
       parse-json: 5.2.0
       path-type: 4.0.0
       yaml: 1.10.2
+
+  cropperjs@1.6.2: {}
 
   cross-spawn@7.0.3:
     dependencies:
@@ -4116,6 +4165,11 @@ snapshots:
       rc-util: 5.39.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  react-cropper@2.3.3(react@18.3.1):
+    dependencies:
+      cropperjs: 1.6.2
+      react: 18.3.1
 
   react-dnd-html5-backend@16.0.1:
     dependencies:

@@ -1,25 +1,26 @@
-import { flex, textGray9, colors } from '@global'
+import { flex, flexb, TextGray9, colors } from '@global'
 import useStore from '@/store'
 import { TemProps } from '@/page-editor/components/ItemTemplate'
+import Coupon from '@/page-editor/components/coupon'
 
 const Index = (props: TemProps) => {
-  console.log(props)
-
   const { components } = useStore()
-
   const current = components.find(c => c.id === props.id)
+  console.log('current: ', current)
 
-  const { moduleType = 1 } = current?.data || {}
+  const moduleType = current?.moduleType || '3'
+
+  useEffect(() => {}, [current?.data])
   return (
     <>
-      {moduleType !== 3 ? (
+      {moduleType !== '3' ? (
         <div style={{ margin: '0 12px' }}>
           <div css={css([flex, { backgroundColor: '#fff', padding: 10, borderRadius: 8 }])}>
-            {moduleType === 1 && (
+            {moduleType === '1' && (
               <div
                 style={{
                   width: 70,
-                  height: 48,
+                  height: 60,
                   textAlign: 'center',
                   fontSize: 12,
                   color: colors.red,
@@ -28,21 +29,15 @@ const Index = (props: TemProps) => {
                 }}
               >
                 <div>
-                  <span style={{ fontSize: 24, lineHeight: '30px' }}>10</span> 元
+                  <span style={{ fontSize: 24, lineHeight: '40px' }}>10</span> 元
                 </div>
                 <div>代金券</div>
               </div>
             )}
-            {moduleType === 2 && (
-              <img
-                style={{ width: 48, height: 48, borderRadius: 4, marginRight: 10 }}
-                src="https://img.zcool.cn/community/0168195b333395a80121b9948c9557.jpg@1280w_1l_2o_100sh.jpg"
-                alt=""
-              />
-            )}
-            <div css={css([{ flex: 1, marginTop: 6, marginLeft: 14 }])}>
-              <div>肯德基10元早餐代金券</div>
-              <div css={css([textGray9, {}])}>无门槛使用</div>
+            {moduleType === '2' && <Coupon type="free"></Coupon>}
+            <div css={css([{ flex: 1, marginTop: 14, marginLeft: 14 }])}>
+              <div>1元停车 代金券</div>
+              <TextGray9 css={css({ marginTop: 4 })}>无门槛使用</TextGray9>
             </div>
             <div
               css={css({
@@ -61,7 +56,59 @@ const Index = (props: TemProps) => {
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div css={css([flexb, { flexWrap: 'wrap', padding: '0px 6px' }])}>
+          {[1, 2, 3].map(index => (
+            <div
+              key={index}
+              css={css([
+                flex,
+                {
+                  backgroundColor: '#fff',
+                  padding: 6,
+                  borderRadius: 4,
+                  width: '49%',
+                  marginBottom: 6,
+                },
+              ])}
+            >
+              <Coupon type="free"></Coupon>
+              <div>
+                <div css={css({ color: colors.red, fontSize: 10 })}>
+                  ￥<span style={{ fontSize: 20 }}>1</span>
+                </div>
+                <div
+                  css={css({
+                    background: '#fdece9',
+                    color: colors.red,
+                    fontSize: 11,
+                    padding: '2px 8px',
+                    borderRadius: 2,
+                    margin: '2px 0 6px',
+                  })}
+                >
+                  无使用门槛
+                </div>
+                <div
+                  css={css({
+                    width: 54,
+                    height: 21,
+                    border: '1px solid #718cc0',
+                    color: '#718cc0',
+                    borderRadius: 20,
+                    fontSize: 12,
+                    margin: 'auto 0',
+                    textAlign: 'center',
+                    lineHeight: '20px',
+                  })}
+                >
+                  免费领
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   )
 }

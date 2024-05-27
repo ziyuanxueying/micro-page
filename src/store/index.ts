@@ -22,6 +22,7 @@ export type Store = {
   selectedComponentId: Component['id'] | undefined
   pushComponent: (component: Component) => void
   updateComponents: (components: Component[]) => void
+  updateComponent: (id: Component['id'], component: Omit<Component, 'id'>) => void
   updateComponentData: (id: Component['id'], data: Component['data']) => void
   removeComponent: (id: Component['id']) => void
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
@@ -40,6 +41,12 @@ export const useStore = create<Store>()(
       })
     },
     updateComponents: components => set({ components }),
+    updateComponent(id, component) {
+      set(state => {
+        const index = state.components.findIndex(item => item.id === id)
+        state.components[index] = component
+      })
+    },
     updateComponentData: (id, data) =>
       set(state => {
         const index = state.components.findIndex(item => item.id === id)

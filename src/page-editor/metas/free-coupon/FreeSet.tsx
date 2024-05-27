@@ -15,7 +15,9 @@ const Index = () => {
 
   const [moduleType, setModuleType] = useState(selectedComponent?.moduleType || '1')
   const [showTable, setShowTable] = useState(false)
-
+  const [list] = useState({ list: json, page: { dataTotal: 12 } }) //数据
+  const [tags, setTags] = useState<dataType[]>([])
+  const [selectedRows, setSelectedRows] = useState<dataType[]>([])
   const onChange = (e: RadioChangeEvent) => {
     setModuleType(e.target.value)
 
@@ -36,15 +38,14 @@ const Index = () => {
     okText: '确定',
     size: 'large',
     cancelText: '取消',
+    // destroyOnClose: true,
     onOk: () => {
-      console.log('点击了确定按钮')
-      console.log('tags: ', tags)
       setShowTable(false)
+      setTags(selectedRows)
     },
     onCancel: () => {
-      console.log('点击了取消按钮')
       setShowTable(false)
-      setTags([])
+      setTags(tags)
     },
   }
   const columns: ProColumnsType = [
@@ -65,7 +66,6 @@ const Index = () => {
     { title: '投放状态', dataIndex: 'outerType' },
     { title: '投放库存', dataIndex: 'totalNum' },
   ]
-  const [list] = useState({ list: json, page: { dataTotal: 10 } }) //数据
   const handleSearch = (searchValue: any) => {
     // 在这里处理搜索结果，增加网络请求等
     console.log('handleSearch:', searchValue)
@@ -80,18 +80,19 @@ const Index = () => {
   useEffect(() => {
     setModuleType(selectedComponent?.moduleType || '3')
   }, [selectedComponent])
-
-  const [tags, setTags] = useState<dataType[]>([])
   const rowSelection = {
-    tags,
+    selectedRowKeys: selectedRows.map(item => item.id + ''),
     onChange: (selectedRowKeys: React.Key[], selectedRows: dataType[]) => {
+      console.log(typeof selectedRowKeys[0])
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
-      setTags(selectedRows)
+      setSelectedRows(selectedRows)
+      // setSelectedRowKeys(selectedRowKeys)
     },
   }
   const handleClose = (removedTag: dataType) => {
     const newTags = tags.filter(tag => tag !== removedTag)
     setTags(newTags)
+    setSelectedRows(newTags)
   }
   const options = [
     { channel: '好券', appId: 5054, channelId: 'bs_0c326a0471907632c3049ca43d434c9c' },
@@ -153,6 +154,7 @@ const Index = () => {
 
       <WdModal open={showTable} modalProps={propsTable}>
         <WdTable
+          loading={false}
           data={list}
           columns={columns}
           rowSelection={{ ...rowSelection }}

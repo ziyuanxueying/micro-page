@@ -7,5 +7,6 @@ export default {
   metaType: 'notification',
   temModule: 'NotificationTem',
   setModule: 'NotificationSet',
+  order: 9,
   data: {},
 } as Component

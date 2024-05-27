@@ -7,5 +7,6 @@ export default {
   metaType: 'titletext',
   temModule: 'TitleTextTem',
   setModule: 'TitleTextSet',
+  order: 4,
   data: {},
 } as Component

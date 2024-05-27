@@ -7,6 +7,7 @@ export default {
   metaType: 'image-text',
   temModule: 'ImageTextTem',
   setModule: 'ImageTextSet',
+  order: 5,
   data: {
     src: 'https://res.wandacm.com.cn/static-qianfan/template/default-img.png',
     title: '默认标题',

@@ -7,5 +7,6 @@ export default {
   metaType: 'bottom-nav',
   temModule: 'BottomNavTem',
   setModule: 'BottomNavSet',
+  order: 7,
   data: {},
 } as Component

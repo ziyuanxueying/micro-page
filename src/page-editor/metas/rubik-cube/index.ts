@@ -7,5 +7,6 @@ export default {
   metaType: 'rubik-cube',
   temModule: 'RubikCubeTem',
   setModule: 'RubikCubeSet',
+  order: 1,
   data: {},
 } as Component

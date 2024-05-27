@@ -7,5 +7,6 @@ export default {
   metaType: 'image-map',
   temModule: 'ImageMapTem',
   setModule: 'ImageMapSet',
+  order: 3,
   data: {},
 } as Component

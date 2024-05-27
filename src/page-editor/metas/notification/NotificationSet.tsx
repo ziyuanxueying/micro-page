@@ -1,16 +1,10 @@
-import { Form, Input, Radio } from 'antd'
+import { Form, Input } from 'antd'
 
 const { TextArea } = Input
 
 const NotificationSet = () => {
   return (
     <Form labelCol={{ span: 5 }}>
-      <Form.Item label="权限">
-        <Radio.Group>
-          <Radio value={1}>集团统一配置</Radio>
-          <Radio value={2}>允许广场配置</Radio>
-        </Radio.Group>
-      </Form.Item>
       <Form.Item label="标题内容">
         <Input required />
       </Form.Item>

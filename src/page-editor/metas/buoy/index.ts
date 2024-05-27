@@ -7,5 +7,6 @@ export default {
   metaType: 'buoy',
   temModule: 'BuoyTem',
   setModule: 'BuoySet',
+  order: 8,
   data: {},
 } as Component

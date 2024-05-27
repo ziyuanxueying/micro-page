@@ -2,7 +2,7 @@ import { Form, Input, Radio } from 'antd'
 
 const { TextArea } = Input
 
-const TitleTextSet = () => {
+const NotificationSet = () => {
   return (
     <Form labelCol={{ span: 5 }}>
       <Form.Item label="权限">
@@ -42,4 +42,4 @@ const TitleTextSet = () => {
   )
 }
 
-export default TitleTextSet
+export default NotificationSet

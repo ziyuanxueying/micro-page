@@ -1,7 +1,7 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
 
-const TitleTextTem = (props: TemProps) => {
+const ImageMapTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
@@ -16,10 +16,9 @@ const TitleTextTem = (props: TemProps) => {
         background: '#fff',
       })}
     >
-      <div>标题文本</div>
-      {/* <div>我是一段描述</div> */}
+      <div>热区图片</div>
     </div>
   )
 }
 
-export default TitleTextTem
+export default ImageMapTem

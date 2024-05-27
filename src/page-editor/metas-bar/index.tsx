@@ -14,7 +14,7 @@ const MetasBar = () => {
   })
 
   useEffect(() => {
-    const modules = import.meta.glob<Component>('../metas/**/index.tsx', {
+    const modules = import.meta.glob<Component>('../metas/**/index.ts', {
       import: 'default',
     })
 

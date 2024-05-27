@@ -8,5 +8,8 @@ export default {
   moduleType: '1',
   temModule: 'FreeTem',
   setModule: 'FreeSet',
-  data: {},
+  data: {
+    channelId: 'bs_0c326a0471907632c3049ca43d434c9c',
+    coupons: [],
+  },
 } as Component

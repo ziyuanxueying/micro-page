@@ -8,28 +8,28 @@ import json from './mock'
 type dataType = {
   id: number
   couponName: string
+  no: string
 }
 const Index = () => {
   const { selectedComponentId, components, updateComponent } = useStore()
-  const selectedComponent = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId)
 
-  const [moduleType, setModuleType] = useState(selectedComponent?.moduleType || '1')
+  const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
+  const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
   const [showTable, setShowTable] = useState(false)
   const [list] = useState({ list: json, page: { dataTotal: 12 } }) //数据
   const [tags, setTags] = useState<dataType[]>([])
   const [selectedRows, setSelectedRows] = useState<dataType[]>([])
   const onChange = (e: RadioChangeEvent) => {
     setModuleType(e.target.value)
-
-    selectedComponent &&
-      updateComponent(selectedComponent.id, {
-        ...selectedComponent,
-        moduleType: e.target.value,
-      })
+    setting && updateComponent(setting.id, { ...setting, moduleType: e.target.value })
   }
-  const handleChange = (value: string, option: object) => {
+  const channeChange = (value: string, option: object) => {
     console.log('option: ', option)
     console.log(`selected ${value}`)
+    setChannelId(value)
+    setting &&
+      updateComponent(setting.id, { ...setting, data: { ...setting.data, channelId: value } })
   }
 
   const propsTable: WdModalProps['modalProps'] = {
@@ -78,29 +78,38 @@ const Index = () => {
   }
 
   useEffect(() => {
-    setModuleType(selectedComponent?.moduleType || '3')
-  }, [selectedComponent])
+    setModuleType(setting?.moduleType || '3')
+    console.log('setting: ', setting)
+  }, [setting])
+  useEffect(() => {
+    setting &&
+      updateComponent(setting.id, {
+        ...setting,
+        data: {
+          ...setting.data,
+          coupons: tags.map(item => {
+            return { no: item.no, couponName: item.couponName }
+          }),
+        },
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tags])
   const rowSelection = {
     selectedRowKeys: selectedRows.map(item => item.id + ''),
     onChange: (selectedRowKeys: React.Key[], selectedRows: dataType[]) => {
-      console.log(typeof selectedRowKeys[0])
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
       setSelectedRows(selectedRows)
-      // setSelectedRowKeys(selectedRowKeys)
     },
   }
   const handleClose = (removedTag: dataType) => {
     const newTags = tags.filter(tag => tag !== removedTag)
+    console.log('newTags: ', newTags)
     setTags(newTags)
     setSelectedRows(newTags)
   }
   const options = [
     { channel: '好券', appId: 5054, channelId: 'bs_0c326a0471907632c3049ca43d434c9c' },
-    {
-      channel: '微页面专用渠道',
-      appId: 100699,
-      channelId: 'bs_f97fdee674c4edef793725d71a9054df',
-    },
+    { channel: '微页面专用渠道', appId: 100699, channelId: 'bs_f97fdee674c4edef793725d71a9054df' },
   ]
   return (
     <div>
@@ -118,10 +127,11 @@ const Index = () => {
       <div>
         选择渠道：
         <Select
+          value={channelId}
           showSearch
           allowClear
           style={{ width: '200px' }}
-          onChange={handleChange}
+          onChange={channeChange}
           disabled={tags.length > 0}
         >
           {options.map(item => (

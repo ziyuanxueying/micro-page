@@ -1,38 +1,37 @@
-import { Form, Input } from 'antd'
+import useStore from '@/store'
+import { Divider, Form, Input, Typography } from 'antd'
 
-const { TextArea } = Input
+const { Title } = Typography
 
 const VideoSet = () => {
+  const { components, selectedComponentId, updateComponentData } = useStore()
+
+  const selectedComponent = components.find(c => c.id === selectedComponentId)
+
   return (
-    <Form labelCol={{ span: 5 }}>
-      <Form.Item label="标题内容">
-        <Input required />
-      </Form.Item>
-      <Form.Item label="描述内容">
-        <TextArea />
-      </Form.Item>
-      <Form.Item label="倒角">
-        <Input />
-      </Form.Item>
-      <Form.Item label="显示位置">
-        <Input />
-      </Form.Item>
-      <Form.Item label="标题粗细">
-        <Input />
-      </Form.Item>
-      <Form.Item label="描述粗细">
-        <Input />
-      </Form.Item>
-      <Form.Item label="标题颜色">
-        <Input />
-      </Form.Item>
-      <Form.Item label="描述颜色">
-        <Input />
-      </Form.Item>
-      <Form.Item label="背景颜色">
-        <Input />
-      </Form.Item>
-    </Form>
+    <>
+      <Title level={5} style={{ fontWeight: 500, marginBottom: 0 }} css={css({ textIndent: 10 })}>
+        标题文本
+      </Title>
+      <Divider css={css({ margin: '16px 0' })} />
+      <Form
+        labelCol={{ span: 5 }}
+        initialValues={selectedComponent?.data}
+        onValuesChange={(_, allValues) => {
+          updateComponentData(selectedComponentId, allValues)
+        }}
+      >
+        <Form.Item label="标题" name="title">
+          <Input />
+        </Form.Item>
+        <Form.Item label="视频" name="src" required>
+          <Input />
+        </Form.Item>
+        <Form.Item label="封面图" name="cover">
+          <Input />
+        </Form.Item>
+      </Form>
+    </>
   )
 }
 

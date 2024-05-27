@@ -5,14 +5,14 @@ const VideoTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { data } = current || {}
+  const { src } = current?.data || {}
 
   return (
     <video
       css={css({
         width: '100%',
       })}
-      src={data?.src}
+      src={src}
       controls
     />
   )

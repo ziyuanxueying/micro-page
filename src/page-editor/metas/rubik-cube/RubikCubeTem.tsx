@@ -30,10 +30,6 @@ const RubikCubeTem = (props: TemProps) => {
               borderRadius: 4,
               cursor: 'pointer',
             })}
-            onClick={() => {
-              const link = pictures[i]?.link
-              link && window.open(link)
-            }}
           />
         ))}
     </div>

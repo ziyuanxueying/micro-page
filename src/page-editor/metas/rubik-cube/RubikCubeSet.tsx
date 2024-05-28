@@ -81,7 +81,7 @@ const RubikCubeSet = () => {
                         height={100}
                       />
                     </Form.Item>
-                    <Form.Item {...restField} label="链接" name={[name, 'link']}>
+                    <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
                       <Input />
                     </Form.Item>
                   </Card>

@@ -9,6 +9,7 @@ export default {
   setModule: 'ImageSet',
   order: 2,
   data: {
-    src: 'https://res.wandacm.com.cn/static-qianfan/template/default-img.png',
+    template: 'image',
+    pictures: [],
   },
 } as Component

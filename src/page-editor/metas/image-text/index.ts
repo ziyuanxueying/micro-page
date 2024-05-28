@@ -9,7 +9,9 @@ export default {
   setModule: 'ImageTextSet',
   order: 5,
   data: {
-    src: 'https://res.wandacm.com.cn/static-qianfan/template/default-img.png',
+    template: 1,
+    url: '',
+    link: '',
     title: '默认标题',
     desc: '默认描述',
   },

@@ -28,7 +28,7 @@ const TitleTextSet = () => {
             ...allValues,
             titleColor: toHexString(allValues.titleColor),
             descColor: toHexString(allValues.descColor),
-            bgColor: toHexString(allValues.bgColor),
+            backgroundColor: toHexString(allValues.backgroundColor),
           })
         }}
       >
@@ -56,7 +56,7 @@ const TitleTextSet = () => {
         <Form.Item label="描述颜色" name="descColor">
           <ColorPicker showText />
         </Form.Item>
-        <Form.Item label="背景颜色" name="bgColor">
+        <Form.Item label="背景颜色" name="backgroundColor">
           <ColorPicker showText />
         </Form.Item>
       </Form>

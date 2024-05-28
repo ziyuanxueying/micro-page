@@ -58,6 +58,7 @@ const MetasBar = () => {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        flex-shrink: 0;
       `}
     >
       {Object.entries(metas).map(([key, value]) => (

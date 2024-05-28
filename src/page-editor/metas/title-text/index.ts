@@ -16,6 +16,6 @@ export default {
     descSize: 14,
     titleColor: '#000',
     descColor: '#999',
-    bgColor: '#fff',
+    backgroundColor: '#fff',
   },
 } as Component

@@ -29,6 +29,8 @@ const Setting = () => {
         display: 'flex',
         flexDirection: 'column',
         gap: 10,
+        flexShrink: 0,
+        overflowY: 'auto',
       })}
     >
       <Tabs

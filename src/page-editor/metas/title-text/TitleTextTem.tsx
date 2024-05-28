@@ -5,14 +5,14 @@ const TitleTextTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { title, desc, textAlign, titleSize, descSize, titleColor, descColor, bgColor } =
+  const { title, desc, textAlign, titleSize, descSize, titleColor, descColor, backgroundColor } =
     current?.data || {}
 
   return (
     <div
       css={css({
         padding: 10,
-        backgroundColor: bgColor,
+        backgroundColor,
         textAlign,
       })}
     >

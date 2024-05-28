@@ -1,5 +1,6 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
+import { Image } from 'antd'
 
 const ImageTextTem = (props: TemProps) => {
   const { components } = useStore()
@@ -18,7 +19,7 @@ const ImageTextTem = (props: TemProps) => {
         gap: 10,
       })}
     >
-      <img
+      <Image
         src={data?.src}
         css={css({
           height: 120,

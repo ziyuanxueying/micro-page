@@ -1,5 +1,6 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
+import { Image } from 'antd'
 
 const ImageTem = (props: TemProps) => {
   const { components } = useStore()
@@ -10,8 +11,9 @@ const ImageTem = (props: TemProps) => {
   console.log(data)
 
   return (
-    <img
+    <Image
       src={data?.src}
+      preview={false}
       css={css({
         width: '100%',
       })}

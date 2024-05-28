@@ -10,5 +10,6 @@ export default {
   order: 1,
   data: {
     template: 2,
+    pictures: [],
   },
 } as Component

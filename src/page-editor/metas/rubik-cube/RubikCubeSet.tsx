@@ -1,6 +1,7 @@
 import useStore from '@/store'
 import { Form, Input, Radio, Typography, Divider, Card } from 'antd'
 import { WdUploadPicture } from '@wd/component-ui'
+import { toComponentPictures } from '@/utils'
 
 const { Title } = Typography
 
@@ -12,18 +13,19 @@ const RubikCubeSet = () => {
   const [form] = Form.useForm()
 
   const handleTemplateChange = () => {
-    const { template, pictures } = form.getFieldsValue()
+    const { template, pictures, ...values } = form.getFieldsValue()
 
     const nextPictures =
-      pictures.length < template ? [...pictures, undefined] : pictures.slice(0, template)
+      pictures.length < template
+        ? [...pictures, ...Array(template - pictures.length)]
+        : pictures.slice(0, template)
 
     form.setFieldValue('pictures', nextPictures)
+
     updateComponentData(selectedComponentId, {
+      ...values,
       template,
-      pictures: nextPictures.map((picture: any) => ({
-        ...picture,
-        url: picture?.url?.at(0)?.url ?? '',
-      })),
+      pictures: toComponentPictures(nextPictures),
     })
   }
 
@@ -45,10 +47,7 @@ const RubikCubeSet = () => {
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
             ...allValues,
-            pictures: allValues.pictures.map((picture: any) => ({
-              ...picture,
-              url: picture?.url?.at(0)?.url ?? '',
-            })),
+            pictures: toComponentPictures(allValues.pictures),
           })
         }}
       >
@@ -62,30 +61,36 @@ const RubikCubeSet = () => {
           {fields => {
             return (
               <div css={css({ display: 'flex', flexDirection: 'column', gap: 20 })}>
-                {fields.map(({ key, name, ...restField }) => (
-                  <Card
-                    key={key}
-                    size="small"
-                    styles={{ body: { paddingLeft: 0, paddingTop: 30 } }}
-                  >
-                    <Form.Item {...restField} label="图片" name={[name, 'url']}>
-                      <WdUploadPicture
-                        url="/cos-api/xapi-pc-web/file/tmpSecret"
-                        cosType="QD"
-                        // fileList={[posterUrl]}
-                        multiple={false}
-                        maxCount={1}
-                        theme="drag"
-                        defaultTip="更换图片"
-                        width={100}
-                        height={100}
-                      />
-                    </Form.Item>
-                    <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
-                      <Input />
-                    </Form.Item>
-                  </Card>
-                ))}
+                {fields.map(({ key, name, ...restField }) => {
+                  const url = selectedComponent?.data?.pictures?.[key]?.url
+                  const fileList = url ? [{ url }] : []
+
+                  return (
+                    <Card
+                      key={key}
+                      size="small"
+                      styles={{ body: { paddingLeft: 0, paddingTop: 30 } }}
+                    >
+                      <Form.Item {...restField} label="图片" name={[name, 'url']}>
+                        <WdUploadPicture
+                          url="/cos-api/xapi-pc-web/file/tmpSecret"
+                          cosType="QD"
+                          fileList={fileList}
+                          path="micro-page"
+                          multiple={false}
+                          maxCount={1}
+                          theme="drag"
+                          defaultTip="更换图片"
+                          width={100}
+                          height={100}
+                        />
+                      </Form.Item>
+                      <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
+                        <Input />
+                      </Form.Item>
+                    </Card>
+                  )
+                })}
               </div>
             )
           }}

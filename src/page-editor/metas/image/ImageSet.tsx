@@ -2,6 +2,7 @@ import useStore from '@/store'
 import { Form, Input, Radio, Typography, Divider, Card, Button } from 'antd'
 import { WdUploadPicture } from '@wd/component-ui'
 import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
+import { toComponentPictures } from '@/utils'
 
 const { Title } = Typography
 
@@ -20,10 +21,7 @@ const ImageSet = () => {
     form.setFieldValue('pictures', nextPictures)
     updateComponentData(selectedComponentId, {
       template,
-      pictures: nextPictures.map((picture: any) => ({
-        ...picture,
-        url: picture?.url?.at(0)?.url ?? '',
-      })),
+      pictures: toComponentPictures(nextPictures),
     })
   }
 
@@ -45,10 +43,7 @@ const ImageSet = () => {
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
             ...allValues,
-            pictures: allValues.pictures.map((picture: any) => ({
-              ...picture,
-              url: picture?.url?.at(0)?.url ?? '',
-            })),
+            pictures: toComponentPictures(allValues.pictures),
           })
         }}
       >
@@ -65,45 +60,51 @@ const ImageSet = () => {
             return (
               <>
                 <div css={css({ display: 'flex', flexDirection: 'column', gap: 20 })}>
-                  {fields.map(({ key, name, ...restField }) => (
-                    <Card
-                      key={key}
-                      size="small"
-                      styles={{ body: { paddingLeft: 0, paddingTop: 30 } }}
-                      css={css({ position: 'relative' })}
-                    >
-                      <Form.Item {...restField} label="图片" name={[name, 'url']}>
-                        <WdUploadPicture
-                          url="/cos-api/xapi-pc-web/file/tmpSecret"
-                          cosType="QD"
-                          // fileList={[posterUrl]}
-                          multiple={false}
-                          maxCount={1}
-                          theme="drag"
-                          defaultTip="更换图片"
-                          width={100}
-                          height={100}
-                        />
-                      </Form.Item>
-                      <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
-                        <Input />
-                      </Form.Item>
+                  {fields.map(({ key, name, ...restField }) => {
+                    const url = selectedComponent?.data?.pictures?.[key]?.url
+                    const fileList = url ? [{ url }] : []
 
-                      {fields.length > 1 ? (
-                        <Button
-                          type="text"
-                          css={{
-                            position: 'absolute',
-                            top: 0,
-                            right: 0,
-                            zIndex: 100,
-                          }}
-                          icon={<DeleteOutlined />}
-                          onClick={() => remove(name)}
-                        />
-                      ) : null}
-                    </Card>
-                  ))}
+                    return (
+                      <Card
+                        key={key}
+                        size="small"
+                        styles={{ body: { paddingLeft: 0, paddingTop: 30 } }}
+                        css={css({ position: 'relative' })}
+                      >
+                        <Form.Item {...restField} label="图片" name={[name, 'url']}>
+                          <WdUploadPicture
+                            url="/cos-api/xapi-pc-web/file/tmpSecret"
+                            cosType="QD"
+                            fileList={fileList}
+                            path="micro-page"
+                            multiple={false}
+                            maxCount={1}
+                            theme="drag"
+                            defaultTip="更换图片"
+                            width={100}
+                            height={100}
+                          />
+                        </Form.Item>
+                        <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
+                          <Input />
+                        </Form.Item>
+
+                        {fields.length > 1 ? (
+                          <Button
+                            type="text"
+                            css={{
+                              position: 'absolute',
+                              top: 0,
+                              right: 0,
+                              zIndex: 100,
+                            }}
+                            icon={<DeleteOutlined />}
+                            onClick={() => remove(name)}
+                          />
+                        ) : null}
+                      </Card>
+                    )
+                  })}
                 </div>
                 <Form.Item
                   shouldUpdate={(prev, cur) => prev.template !== cur.template}

@@ -1,6 +1,7 @@
 import useStore from '@/store'
 import { Divider, Form, Typography } from 'antd'
 import { WdUploadVideo, WdUploadPicture } from '@wd/component-ui'
+import { toComponentUrl } from '@/utils'
 
 const { Title } = Typography
 
@@ -8,7 +9,12 @@ const VideoSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
-  // const { videoUrl, posterUrl } = selectedComponent?.data || {}
+  const { videoUrl, posterUrl } = selectedComponent?.data || {}
+
+  const videoList = videoUrl ? [{ url: videoUrl }] : []
+  const posterList = posterUrl ? [{ url: posterUrl }] : []
+
+  console.log({ videoList, posterList })
 
   return (
     <>
@@ -21,8 +27,8 @@ const VideoSet = () => {
         initialValues={selectedComponent?.data}
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
-            videoUrl: allValues.videoUrl[0]?.url ?? '',
-            posterUrl: allValues.posterUrl[0]?.url ?? '',
+            videoUrl: toComponentUrl(allValues.videoUrl),
+            posterUrl: toComponentUrl(allValues.posterUrl),
           })
         }}
       >
@@ -30,7 +36,8 @@ const VideoSet = () => {
           <WdUploadVideo
             url="/cos-api/xapi-pc-web/file/tmpSecret"
             cosType="QD"
-            // fileList={[videoUrl]}
+            fileList={videoList}
+            path="micro-page"
             accept="video/mp4"
             multiple={false}
             maxCount={1}
@@ -42,7 +49,8 @@ const VideoSet = () => {
           <WdUploadPicture
             url="/cos-api/xapi-pc-web/file/tmpSecret"
             cosType="QD"
-            // fileList={[posterUrl]}
+            fileList={posterList}
+            path="micro-page"
             multiple={false}
             maxCount={1}
             theme="drag"

@@ -1,13 +1,9 @@
 import useStore from '@/store'
+import { toHexString } from '@/utils'
 import { ColorPicker, Divider, Form, Input, InputNumber, Radio, Typography } from 'antd'
-import { type Color } from 'antd/es/color-picker'
 
 const { TextArea } = Input
 const { Title } = Typography
-
-export function toHexString(color: string | Color) {
-  return typeof color === 'string' ? color : color.toHexString()
-}
 
 const TitleTextSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()

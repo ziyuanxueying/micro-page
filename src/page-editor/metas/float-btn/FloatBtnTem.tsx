@@ -1,7 +1,7 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
 
-const BuoyTem = (props: TemProps) => {
+const FloatBtnTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
@@ -21,4 +21,4 @@ const BuoyTem = (props: TemProps) => {
   )
 }
 
-export default BuoyTem
+export default FloatBtnTem

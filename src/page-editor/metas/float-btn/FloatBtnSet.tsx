@@ -2,7 +2,7 @@ import { Form, Input } from 'antd'
 
 const { TextArea } = Input
 
-const BuoySet = () => {
+const FloatBtnSet = () => {
   return (
     <Form labelCol={{ span: 5 }}>
       <Form.Item label="标题内容">
@@ -36,4 +36,4 @@ const BuoySet = () => {
   )
 }
 
-export default BuoySet
+export default FloatBtnSet

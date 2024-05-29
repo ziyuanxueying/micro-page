@@ -5,7 +5,7 @@ import { type Color } from 'antd/es/color-picker'
 const { TextArea } = Input
 const { Title } = Typography
 
-function toHexString(color: string | Color) {
+export function toHexString(color: string | Color) {
   return typeof color === 'string' ? color : color.toHexString()
 }
 

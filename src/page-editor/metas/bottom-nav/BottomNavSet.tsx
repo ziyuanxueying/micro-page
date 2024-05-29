@@ -13,13 +13,14 @@ const BottomNavSet = () => {
   const [form] = Form.useForm()
 
   const handleTemplateChange = () => {
-    const { template, pictures } = form.getFieldsValue()
+    const { template, pictures, ...values } = form.getFieldsValue()
 
     const nextPictures =
       pictures.length < template ? [...pictures, undefined] : pictures.slice(0, template)
 
     form.setFieldValue('pictures', nextPictures)
     updateComponentData(selectedComponentId, {
+      ...values,
       template,
       pictures: nextPictures.map((picture: any) => ({
         ...picture,
@@ -27,8 +28,6 @@ const BottomNavSet = () => {
       })),
     })
   }
-
-  console.log('electedComponent:', selectedComponent?.data)
 
   return (
     <>

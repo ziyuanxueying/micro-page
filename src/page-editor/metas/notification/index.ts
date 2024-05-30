@@ -8,5 +8,10 @@ export default {
   temModule: 'NotificationTem',
   setModule: 'NotificationSet',
   order: 9,
-  data: {},
+  data: {
+    title: '开抢提醒',
+    titleColor: '#222',
+    backgroundColor: '#fff',
+    subscribedTitle: '已设置提醒',
+  },
 } as Component

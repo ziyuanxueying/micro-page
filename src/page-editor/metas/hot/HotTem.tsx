@@ -1,7 +1,7 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
 
-const ImageMapTem = (props: TemProps) => {
+const HotTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
@@ -21,4 +21,4 @@ const ImageMapTem = (props: TemProps) => {
   )
 }
 
-export default ImageMapTem
+export default HotTem

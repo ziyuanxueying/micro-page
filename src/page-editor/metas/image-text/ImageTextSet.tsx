@@ -30,7 +30,7 @@ const ImageTextSet = () => {
           })
         }}
       >
-        <Form.Item label="模版" name="template" required>
+        <Form.Item label="模版" name="moduleType" required>
           <Radio.Group>
             <Radio value={1}>左图右文</Radio>
             <Radio value={2}>上图下文</Radio>

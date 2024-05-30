@@ -9,7 +9,7 @@ export default {
   setModule: 'BottomNavSet',
   order: 7,
   data: {
-    template: 2,
+    moduleType: 2,
     pictures: [],
     backgroundColor: '#fff',
   },

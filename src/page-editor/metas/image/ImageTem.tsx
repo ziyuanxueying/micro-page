@@ -7,7 +7,7 @@ const ImageTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { template, pictures } = current?.data || {}
+  const { moduleType, pictures } = current?.data || {}
 
   const renderImage = (pic: any) => {
     return (
@@ -30,7 +30,7 @@ const ImageTem = (props: TemProps) => {
         background: '#fff',
       })}
     >
-      {template === 'image' || pictures.length < 2 ? (
+      {moduleType === 'image' || pictures.length < 2 ? (
         renderImage(pictures[0])
       ) : (
         <Slider

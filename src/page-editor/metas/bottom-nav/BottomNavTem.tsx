@@ -6,7 +6,7 @@ const BottomNavTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { template, pictures, backgroundColor } = current?.data || {}
+  const { moduleType, pictures, backgroundColor } = current?.data || {}
 
   return (
     <div
@@ -14,12 +14,12 @@ const BottomNavTem = (props: TemProps) => {
         padding: 10,
         backgroundColor,
         display: 'grid',
-        gridTemplateColumns: `repeat(${template}, 1fr)`,
+        gridTemplateColumns: `repeat(${moduleType}, 1fr)`,
         justifyItems: 'center',
         gap: 10,
       })}
     >
-      {Array(template)
+      {Array(moduleType)
         .fill(0)
         .map((_, i) => (
           <Image

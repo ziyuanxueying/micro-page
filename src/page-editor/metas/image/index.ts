@@ -9,7 +9,7 @@ export default {
   setModule: 'ImageSet',
   order: 2,
   data: {
-    template: 'image',
+    moduleType: 'image',
     pictures: [],
   },
 } as Component

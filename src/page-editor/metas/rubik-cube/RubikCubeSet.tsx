@@ -12,19 +12,19 @@ const RubikCubeSet = () => {
 
   const [form] = Form.useForm()
 
-  const handleTemplateChange = () => {
-    const { template, pictures, ...values } = form.getFieldsValue()
+  const handleModuleTypeChange = () => {
+    const { moduleType, pictures, ...values } = form.getFieldsValue()
 
     const nextPictures =
-      pictures.length < template
-        ? [...pictures, ...Array(template - pictures.length)]
-        : pictures.slice(0, template)
+      pictures.length < moduleType
+        ? [...pictures, ...Array(moduleType - pictures.length)]
+        : pictures.slice(0, moduleType)
 
     form.setFieldValue('pictures', nextPictures)
 
     updateComponentData(selectedComponentId, {
       ...values,
-      template,
+      moduleType,
       pictures: toComponentPictures(nextPictures),
     })
   }
@@ -42,7 +42,7 @@ const RubikCubeSet = () => {
           ...selectedComponent?.data,
           pictures: selectedComponent?.data?.pictures.length
             ? selectedComponent.data.pictures
-            : Array(selectedComponent?.data?.template).fill(undefined),
+            : Array(selectedComponent?.data?.moduleType).fill(undefined),
         }}
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
@@ -51,8 +51,8 @@ const RubikCubeSet = () => {
           })
         }}
       >
-        <Form.Item label="模版" name="template" required>
-          <Radio.Group onChange={handleTemplateChange}>
+        <Form.Item label="模版" name="moduleType" required>
+          <Radio.Group onChange={handleModuleTypeChange}>
             <Radio value={2}>一行两个</Radio>
             <Radio value={3}>一行三个</Radio>
           </Radio.Group>

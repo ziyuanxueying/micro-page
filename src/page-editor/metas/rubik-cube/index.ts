@@ -9,7 +9,7 @@ export default {
   setModule: 'RubikCubeSet',
   order: 1,
   data: {
-    template: 2,
+    moduleType: 2,
     pictures: [],
   },
 } as Component

@@ -4,7 +4,7 @@ export default {
   name: '视频',
   group: '基础组件',
   icon: 'icon-video',
-  metaType: 'video',
+  metaType: 'bas-video',
   temModule: 'VideoTem',
   setModule: 'VideoSet',
   order: 6,

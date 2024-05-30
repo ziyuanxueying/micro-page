@@ -13,14 +13,14 @@ const ImageSet = () => {
 
   const [form] = Form.useForm()
 
-  const handleTemplateChange = () => {
-    const { template, pictures } = form.getFieldsValue()
+  const handleModuleTypeChange = () => {
+    const { moduleType, pictures } = form.getFieldsValue()
 
-    const nextPictures = template === 'image' ? pictures.slice(0, 1) : pictures
+    const nextPictures = moduleType === 'image' ? pictures.slice(0, 1) : pictures
 
     form.setFieldValue('pictures', nextPictures)
     updateComponentData(selectedComponentId, {
-      template,
+      moduleType,
       pictures: toComponentPictures(nextPictures),
     })
   }
@@ -38,7 +38,7 @@ const ImageSet = () => {
           ...selectedComponent?.data,
           pictures: selectedComponent?.data?.pictures.length
             ? selectedComponent.data.pictures
-            : Array(selectedComponent?.data?.template).fill(undefined),
+            : Array(selectedComponent?.data?.moduleType).fill(undefined),
         }}
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
@@ -47,8 +47,8 @@ const ImageSet = () => {
           })
         }}
       >
-        <Form.Item label="模版" name="template" required>
-          <Radio.Group onChange={handleTemplateChange}>
+        <Form.Item label="模版" name="moduleType" required>
+          <Radio.Group onChange={handleModuleTypeChange}>
             <Radio value="image">单张</Radio>
             <Radio value="carousel">轮播</Radio>
             <Radio value="carousel-fullscreen">全屏轮播</Radio>
@@ -107,12 +107,12 @@ const ImageSet = () => {
                   })}
                 </div>
                 <Form.Item
-                  shouldUpdate={(prev, cur) => prev.template !== cur.template}
+                  shouldUpdate={(prev, cur) => prev.moduleType !== cur.moduleType}
                   css={css({ marginTop: 20 })}
                 >
                   {({ getFieldValue }) => {
-                    const template = getFieldValue('template')
-                    if (template === 'image') {
+                    const moduleType = getFieldValue('moduleType')
+                    if (moduleType === 'image') {
                       return null
                     }
                     return (

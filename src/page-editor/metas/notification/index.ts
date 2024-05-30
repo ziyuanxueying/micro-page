@@ -4,7 +4,7 @@ export default {
   name: '消息订阅',
   group: '基础组件',
   icon: 'icon-notification',
-  metaType: 'notification',
+  metaType: 'bas-notification',
   temModule: 'NotificationTem',
   setModule: 'NotificationSet',
   order: 9,

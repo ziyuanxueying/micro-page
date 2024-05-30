@@ -12,19 +12,19 @@ const BottomNavSet = () => {
 
   const [form] = Form.useForm()
 
-  const handleTemplateChange = () => {
-    const { template, pictures, ...values } = form.getFieldsValue()
+  const handleModuleTypeChange = () => {
+    const { moduleType, pictures, ...values } = form.getFieldsValue()
 
     const nextPictures =
-      pictures.length < template
-        ? [...pictures, ...Array(template - pictures.length)]
-        : pictures.slice(0, template)
+      pictures.length < moduleType
+        ? [...pictures, ...Array(moduleType - pictures.length)]
+        : pictures.slice(0, moduleType)
 
     form.setFieldValue('pictures', nextPictures)
 
     updateComponentData(selectedComponentId, {
       ...values,
-      template,
+      moduleType,
       pictures: toComponentPictures(nextPictures),
     })
   }
@@ -42,7 +42,7 @@ const BottomNavSet = () => {
           ...selectedComponent?.data,
           pictures: selectedComponent?.data?.pictures.length
             ? selectedComponent.data.pictures
-            : Array(selectedComponent?.data?.template).fill(undefined),
+            : Array(selectedComponent?.data?.moduleType).fill(undefined),
         }}
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
@@ -52,9 +52,9 @@ const BottomNavSet = () => {
           })
         }}
       >
-        <Form.Item label="模版" name="template" required>
+        <Form.Item label="模版" name="moduleType" required>
           <Radio.Group
-            onChange={handleTemplateChange}
+            onChange={handleModuleTypeChange}
             css={css({
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 100px)',

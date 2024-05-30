@@ -18,8 +18,8 @@ importers:
         specifier: ^0.23.13
         version: 0.23.13
       '@wd/component-ui':
-        specifier: 0.0.11-beta.9
-        version: 0.0.11-beta.9(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ' 0.0.12-beta.1'
+        version: 0.0.12-beta.1(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd:
         specifier: '>=5.16.0'
         version: 5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -836,8 +836,8 @@ packages:
   '@vue/shared@3.4.27':
     resolution: {integrity: sha512-DL3NmY2OFlqmYYrzp39yi3LDkKxa5vZVwxWdQ3rG0ekuWscHraeIbnI8t+aZK7qhYqEqWKTUdijadunb9pnrgA==}
 
-  '@wd/component-ui@0.0.11-beta.9':
-    resolution: {integrity: sha512-gghVdtlUbITAhnSgcpXbwZQP91UcSOSAKUHIVNFfrKGhWSF9JKIZoeDAr9eDdl9AvpB7BUlyJhZaTMAYDUPPlA==}
+  '@wd/component-ui@0.0.12-beta.1':
+    resolution: {integrity: sha512-NTsBoKJ6Rv072chFX/jfpz+nv5BDZ2SU4H9JD0L3gKUX57Cfz0duOTeH6H2w9LAi7yd2DTyWfs2G4VTfXQRXjQ==}
     peerDependencies:
       '@ant-design/icons': ^5.3.6
       antd: ^5.16.2
@@ -3007,7 +3007,7 @@ snapshots:
 
   '@vue/shared@3.4.27': {}
 
-  '@wd/component-ui@0.0.11-beta.9(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@wd/component-ui@0.0.12-beta.1(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ant-design/icons': 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd: 5.17.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

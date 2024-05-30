@@ -6,7 +6,7 @@ const RubikCubeTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { template, pictures } = current?.data || {}
+  const { moduleType, pictures } = current?.data || {}
 
   return (
     <div
@@ -14,11 +14,11 @@ const RubikCubeTem = (props: TemProps) => {
         padding: 10,
         background: '#fff',
         display: 'grid',
-        gridTemplateColumns: `repeat(${template}, 1fr)`,
+        gridTemplateColumns: `repeat(${moduleType}, 1fr)`,
         gap: 10,
       })}
     >
-      {Array(template)
+      {Array(moduleType)
         .fill(0)
         .map((_, i) => (
           <Image

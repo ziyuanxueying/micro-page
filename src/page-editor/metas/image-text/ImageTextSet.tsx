@@ -1,6 +1,7 @@
 import useStore from '@/store'
 import { Form, Input, Radio, Typography, Divider } from 'antd'
 import { WdUploadPicture } from '@wd/component-ui'
+import { toComponentUrl } from '@/utils'
 
 const { TextArea } = Input
 const { Title } = Typography
@@ -10,10 +11,13 @@ const ImageTextSet = () => {
 
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
+  const url = selectedComponent?.data?.url
+  const fileList = url ? [{ url }] : []
+
   return (
     <>
       <Title level={5} style={{ fontWeight: 500, marginBottom: 0 }} css={css({ textIndent: 10 })}>
-        魔方
+        图文
       </Title>
       <Divider css={css({ margin: '16px 0' })} />
       <Form
@@ -22,11 +26,11 @@ const ImageTextSet = () => {
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
             ...allValues,
-            url: allValues.url?.at(0)?.url ?? '',
+            url: toComponentUrl(allValues.url),
           })
         }}
       >
-        <Form.Item label="模版" name="template" required>
+        <Form.Item label="模版" name="moduleType" required>
           <Radio.Group>
             <Radio value={1}>左图右文</Radio>
             <Radio value={2}>上图下文</Radio>
@@ -42,7 +46,8 @@ const ImageTextSet = () => {
           <WdUploadPicture
             url="/cos-api/xapi-pc-web/file/tmpSecret"
             cosType="QD"
-            // fileList={[posterUrl]}
+            fileList={fileList}
+            path="wxxcx/img"
             multiple={false}
             maxCount={1}
             theme="drag"

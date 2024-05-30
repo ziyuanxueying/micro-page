@@ -4,7 +4,7 @@ export default {
   name: '标题文本',
   group: '基础组件',
   icon: 'icon-title-text',
-  metaType: 'titletext',
+  metaType: 'bas-title',
   temModule: 'TitleTextTem',
   setModule: 'TitleTextSet',
   order: 4,

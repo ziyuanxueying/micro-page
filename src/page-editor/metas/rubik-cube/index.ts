@@ -4,12 +4,12 @@ export default {
   name: '魔方',
   group: '基础组件',
   icon: 'icon-rubik-cube',
-  metaType: 'rubik-cube',
+  metaType: 'bas-cube',
   temModule: 'RubikCubeTem',
   setModule: 'RubikCubeSet',
   order: 1,
   data: {
-    template: 2,
+    moduleType: 2,
     pictures: [],
   },
 } as Component

@@ -76,7 +76,7 @@ const ImageSet = () => {
                             url="/cos-api/xapi-pc-web/file/tmpSecret"
                             cosType="QD"
                             fileList={fileList}
-                            path="micro-page"
+                            path="wxxcx/img"
                             multiple={false}
                             maxCount={1}
                             theme="drag"

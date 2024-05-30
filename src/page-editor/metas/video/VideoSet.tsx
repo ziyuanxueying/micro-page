@@ -37,7 +37,7 @@ const VideoSet = () => {
             url="/cos-api/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={videoList}
-            path="micro-page"
+            path="wxxcx/img"
             accept="video/mp4"
             multiple={false}
             maxCount={1}
@@ -50,7 +50,7 @@ const VideoSet = () => {
             url="/cos-api/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={posterList}
-            path="micro-page"
+            path="wxxcx/img"
             multiple={false}
             maxCount={1}
             theme="drag"

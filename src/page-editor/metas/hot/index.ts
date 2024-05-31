@@ -10,6 +10,6 @@ export default {
   order: 3,
   data: {
     url: '',
-    links: [],
+    hots: [],
   },
 } as Component

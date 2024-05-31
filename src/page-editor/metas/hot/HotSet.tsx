@@ -77,22 +77,13 @@ const HotSet = () => {
               overflowY: 'auto',
             })}
           >
-            <div
-              css={css({
-                width: 375,
-                backgroundColor: '#fff',
-                boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
-                height: 500,
-              })}
-            >
-              <Image src={url} preview={false} />
-            </div>
+            <Image src={url} preview={false} width={375} />
             <div
               css={css({
                 flex: 1,
               })}
             >
-              <Form.List name="links">
+              <Form.List name="hots">
                 {(fields, { add, remove }, { errors }) => {
                   return (
                     <>
@@ -105,7 +96,22 @@ const HotSet = () => {
                               styles={{ body: { padding: '20px 40px 0 20px' } }}
                               css={css({ position: 'relative' })}
                             >
-                              <Form.Item {...restField} label="跳转链接" name={[name]} required>
+                              <Form.Item
+                                {...restField}
+                                label="热区名称"
+                                name={[name, 'name']}
+                                required
+                                initialValue={`热区${key + 1}`}
+                              >
+                                <Input />
+                              </Form.Item>
+
+                              <Form.Item
+                                {...restField}
+                                label="跳转链接"
+                                name={[name, 'link']}
+                                required
+                              >
                                 <Input />
                               </Form.Item>
 
@@ -125,7 +131,7 @@ const HotSet = () => {
                         })}
                       </div>
                       <Form.Item
-                        shouldUpdate={(prev, cur) => prev.links !== cur.links}
+                        shouldUpdate={(prev, cur) => prev.hots !== cur.hots}
                         css={css({ marginTop: 20 })}
                       >
                         <>

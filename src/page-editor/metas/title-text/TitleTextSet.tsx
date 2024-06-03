@@ -1,13 +1,9 @@
 import useStore from '@/store'
+import { toHexString } from '@/utils'
 import { ColorPicker, Divider, Form, Input, InputNumber, Radio, Typography } from 'antd'
-import { type Color } from 'antd/es/color-picker'
 
 const { TextArea } = Input
 const { Title } = Typography
-
-function toHexString(color: string | Color) {
-  return typeof color === 'string' ? color : color.toHexString()
-}
 
 const TitleTextSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()
@@ -28,7 +24,7 @@ const TitleTextSet = () => {
             ...allValues,
             titleColor: toHexString(allValues.titleColor),
             descColor: toHexString(allValues.descColor),
-            bgColor: toHexString(allValues.bgColor),
+            backgroundColor: toHexString(allValues.backgroundColor),
           })
         }}
       >
@@ -56,7 +52,7 @@ const TitleTextSet = () => {
         <Form.Item label="描述颜色" name="descColor">
           <ColorPicker showText />
         </Form.Item>
-        <Form.Item label="背景颜色" name="bgColor">
+        <Form.Item label="背景颜色" name="backgroundColor">
           <ColorPicker showText />
         </Form.Item>
       </Form>

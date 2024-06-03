@@ -4,11 +4,12 @@ export default {
   name: '图片',
   group: '基础组件',
   icon: 'icon-image',
-  metaType: 'image',
+  metaType: 'bas-img',
   temModule: 'ImageTem',
   setModule: 'ImageSet',
   order: 2,
   data: {
-    src: 'https://res.wandacm.com.cn/static-qianfan/template/default-img.png',
+    moduleType: 'image',
+    pictures: [],
   },
 } as Component

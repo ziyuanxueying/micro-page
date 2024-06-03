@@ -8,12 +8,23 @@ const rootDir = resolve(__dirname)
 const srcDir = resolve(rootDir, 'src')
 const global = resolve(rootDir, 'src/styles/global.ts')
 
+const HOST = {
+  dev: 'http://gatewayp-dev.baopukeji-dev.cn',
+}
+
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
   return defineConfig({
     server: {
-      port: 8088, // 设置服务启动端口号
-      open: false, // 设置服务启动时是否自动打开浏览器
+      port: 8088,
+      open: false,
+      proxy: {
+        '/cos-api': {
+          target: HOST.dev,
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/cos-api/, ''),
+        },
+      },
     },
     resolve: {
       alias: {

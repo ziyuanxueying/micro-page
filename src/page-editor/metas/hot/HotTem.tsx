@@ -1,7 +1,7 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
 
-const BuoyTem = (props: TemProps) => {
+const HotTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
@@ -16,9 +16,9 @@ const BuoyTem = (props: TemProps) => {
         background: '#fff',
       })}
     >
-      <div>浮标</div>
+      <div>热区图片</div>
     </div>
   )
 }
 
-export default BuoyTem
+export default HotTem

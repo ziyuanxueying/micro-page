@@ -4,8 +4,8 @@ export default {
   name: '付费优惠券',
   group: '业务组件',
   icon: 'icon-pay',
-  metaType: 'payCoupon',
-  moduleType: '1',
+  metaType: 'biz-payCoupon',
+  moduleType: 'biz-pay-img',
   temModule: 'PayTem',
   setModule: 'PaySet',
   data: {

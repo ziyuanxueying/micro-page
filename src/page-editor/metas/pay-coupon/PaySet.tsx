@@ -118,9 +118,9 @@ const Index = () => {
       <div>
         选择模板：
         <Radio.Group onChange={onChange} value={moduleType}>
-          <Radio value={'1'}>纯文字</Radio>
-          <Radio value={'2'}>图文</Radio>
-          <Radio value={'3'}>一行两个</Radio>
+          <Radio value={'biz-pay-img'}>图文</Radio>
+          <Radio value={'biz-pay-memphis'}>孟菲斯风格</Radio>
+          <Radio value={'biz-pay-twice'}>一行两个</Radio>
         </Radio.Group>
       </div>
       <Line />

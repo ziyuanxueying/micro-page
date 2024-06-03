@@ -12,10 +12,10 @@ const Index = (props: TemProps) => {
   useEffect(() => {}, [current?.data])
   return (
     <>
-      {moduleType !== '3' ? (
+      {moduleType !== 'biz-free-twice' ? (
         <div style={{ margin: '0 12px' }}>
           <div css={css([flex, { backgroundColor: '#fff', padding: 10, borderRadius: 8 }])}>
-            {moduleType === '1' && (
+            {moduleType === 'biz-free-text' && (
               <div
                 style={{
                   width: 70,
@@ -33,7 +33,7 @@ const Index = (props: TemProps) => {
                 <div>代金券</div>
               </div>
             )}
-            {moduleType === '2' && (
+            {moduleType === 'biz-free-img' && (
               <img
                 css={css({
                   width: 70,
@@ -46,7 +46,7 @@ const Index = (props: TemProps) => {
               />
             )}
             <div css={css([{ flex: 1, marginTop: 14, marginLeft: 14 }])}>
-              <div>1元停车 代金券</div>
+              <div>10元停车 代金券</div>
               <TextGray9 css={css({ marginTop: 4 })}>无门槛使用</TextGray9>
             </div>
             <div

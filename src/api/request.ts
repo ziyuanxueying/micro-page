@@ -36,10 +36,16 @@ const createRequestInterceptors = (headers: any) => {
         config.headers.plazaCode = store.org.plazaCode || ''
         config.headers.storeCode = store.org.storeCode || ''
         config.headers.orgcode = store.org.code
-        config.headers.workingOrgCode = store.org.code
+        config.headers.workingOrgCode = store.org.code || '1'
+        config.headers.userid = store.org.userid || '1'
         config.headers.orgname = encodeURIComponent(store.org.name)
-        config.headers.orgTypeCode = store.org.orgTypeCode
+        config.headers.orgTypeCode = store.org.orgTypeCode || '1'
         config.headers.orgTypeName = encodeURIComponent(store.org.orgTypeName)
+      } else {
+        // 测试用
+        config.headers.workingOrgCode = '1'
+        config.headers.userid = '1'
+        config.headers.orgTypeCode = '1'
       }
     } catch (e) {
       console.log(e)

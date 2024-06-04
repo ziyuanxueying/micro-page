@@ -15,6 +15,7 @@ export interface OrgParamsType {
   name: string
   orgTypeCode: string
   orgTypeName: string
+  userid?: string
 }
 
 export interface UserParamsType {

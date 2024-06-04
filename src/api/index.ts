@@ -26,5 +26,22 @@ export const checkImgUrl = (params?: any) => {
       return Promise.reject('图片不合法')
     })
 }
-
-export default { getVideoSignature, getPlazaTree, checkImgUrl }
+export const createJson = (params?: any) => {
+  return post('/cos-api/base-configurable/v1/configurablePage/create', params)
+  // .then((response: any) => {
+  //   if (response.status === 200) {
+  //     return Promise.resolve(response.data)
+  //   } else {
+  //     return Promise.reject(response.message)
+  //   }
+  // })
+  // .catch(() => {
+  //   return Promise.reject('图片不合法')
+  // })
+}
+export const updateJson = (params?: any) => {
+  return post(`/cos-api/base-configurable/v1/configurablePage/update`, params)
+}
+export const findByIdForB = (id: string) => {
+  return get(`/cos-api/base-configurable/v1/configurablePage/findByIdForB/${id}`)
+}

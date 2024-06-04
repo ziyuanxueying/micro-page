@@ -9,6 +9,10 @@ export const colors = {
 export const flex = css({
   display: 'flex',
 })
+export const flexrc = css({
+  display: 'flex',
+  justifyContent: 'center',
+})
 
 export const flexc = css({
   display: 'flex',

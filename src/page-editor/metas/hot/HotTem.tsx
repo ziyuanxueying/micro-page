@@ -6,9 +6,7 @@ const HotTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { url, links } = current?.data || {}
-
-  console.log({ links })
+  const { url } = current?.data || {}
 
   return (
     <div

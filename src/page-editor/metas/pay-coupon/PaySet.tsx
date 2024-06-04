@@ -17,7 +17,7 @@ const Index = () => {
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
   const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
   const [showTable, setShowTable] = useState(false)
-  const [list] = useState({ list: json, page: { dataTotal: 12 } }) //数据
+  const [list] = useState({ list: json, page: { dataTotal: 1 } }) //数据
   const [tags, setTags] = useState<dataType[]>([])
   const [selectedRows, setSelectedRows] = useState<dataType[]>([])
   const onChange = (e: RadioChangeEvent) => {
@@ -118,9 +118,9 @@ const Index = () => {
       <div>
         选择模板：
         <Radio.Group onChange={onChange} value={moduleType}>
-          <Radio value={'biz-free-text'}>纯文字</Radio>
-          <Radio value={'biz-free-img'}>图文</Radio>
-          <Radio value={'biz-free-twice'}>一行两个</Radio>
+          <Radio value={'biz-pay-img'}>图文</Radio>
+          <Radio value={'biz-pay-memphis'}>孟菲斯风格</Radio>
+          <Radio value={'biz-pay-twice'}>一行两个</Radio>
         </Radio.Group>
       </div>
       <Line />

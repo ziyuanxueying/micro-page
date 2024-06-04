@@ -5,48 +5,27 @@ import { TemProps } from '@/page-editor/components/ItemTemplate'
 const Index = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
-  console.log('current: ', current)
 
   const moduleType = current?.moduleType || '3'
 
   useEffect(() => {}, [current?.data])
   return (
     <>
-      {moduleType !== 'biz-free-twice' ? (
+      {moduleType === 'biz-pay-img' && (
         <div style={{ margin: '0 12px' }}>
           <div css={css([flex, { backgroundColor: '#fff', padding: 10, borderRadius: 8 }])}>
-            {moduleType === 'biz-free-text' && (
-              <div
-                style={{
-                  width: 70,
-                  height: 60,
-                  textAlign: 'center',
-                  fontSize: 12,
-                  color: colors.red,
-                  borderRight: '1px solid #f5f5f5',
-                  paddingRight: 10,
-                }}
-              >
-                <div>
-                  <span style={{ fontSize: 24, lineHeight: '40px' }}>10</span> 元
-                </div>
-                <div>代金券</div>
-              </div>
-            )}
-            {moduleType === 'biz-free-img' && (
-              <img
-                css={css({
-                  width: 70,
-                  height: 70,
-                  objectFit: 'cover',
-                  marginRight: 10,
-                  borderRadius: 4,
-                })}
-                src="https://image-1257137391.cos.ap-beijing.myqcloud.com/images/f1a6789e4eae302c547f6ad12f3de2eb.png"
-              />
-            )}
+            <img
+              css={css({
+                width: 70,
+                height: 70,
+                objectFit: 'cover',
+                marginRight: 10,
+                borderRadius: 4,
+              })}
+              src="https://image-1257137391.cos.ap-beijing.myqcloud.com/images/3b993296477c364bcc68992e950c6a59.png"
+            />
             <div css={css([{ flex: 1, marginTop: 14, marginLeft: 14 }])}>
-              <div>10元停车 代金券</div>
+              <div>1元停车 代金券</div>
               <TextGray9 css={css({ marginTop: 4 })}>无门槛使用</TextGray9>
             </div>
             <div
@@ -66,7 +45,9 @@ const Index = (props: TemProps) => {
             </div>
           </div>
         </div>
-      ) : (
+      )}
+      {moduleType === 'biz-pay-memphis' && <div style={{ margin: '0 12px' }}></div>}
+      {moduleType === 'biz-pay-twice' && (
         <div css={css([flexb, { flexWrap: 'wrap', padding: '0px 6px' }])}>
           {[1, 2, 3].map(index => (
             <div
@@ -90,7 +71,7 @@ const Index = (props: TemProps) => {
                   marginRight: 10,
                   borderRadius: 4,
                 })}
-                src="https://image-1257137391.cos.ap-beijing.myqcloud.com/images/f1a6789e4eae302c547f6ad12f3de2eb.png"
+                src="https://image-1257137391.cos.ap-beijing.myqcloud.com/images/3b993296477c364bcc68992e950c6a59.png"
               />
               <div>
                 <div css={css({ color: colors.red, fontSize: 10 })}>

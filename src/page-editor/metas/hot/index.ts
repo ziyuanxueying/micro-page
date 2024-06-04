@@ -8,5 +8,8 @@ export default {
   temModule: 'HotTem',
   setModule: 'HotSet',
   order: 3,
-  data: {},
+  data: {
+    url: '',
+    hots: [],
+  },
 } as Component

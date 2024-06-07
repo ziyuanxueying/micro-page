@@ -5,7 +5,8 @@ import Content from './content/index.tsx'
 import Setting from './setting/index.tsx'
 import { flexrc } from '@global'
 import { Button, Space } from 'antd'
-import { updateJson, findByIdForB } from '@/api'
+// import { updateJson, findByIdForB, getCoupons } from '@/api'
+import { updateJson } from '@/api'
 import useStore from '@/store'
 
 const TemplateEngine = () => {
@@ -19,8 +20,9 @@ const TemplateEngine = () => {
     console.log(data)
   }
   const findById = async () => {
-    const data = await findByIdForB('CP0795244269648879616')
-    console.log(data)
+    // const data = await getCoupons('CP0795244269648879616')
+    // const data = await findByIdForB('CP0795244269648879616')
+    // console.log(data)
   }
   return (
     <div

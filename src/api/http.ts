@@ -1,6 +1,17 @@
 import { AxiosRequestConfig } from 'axios'
 import http from './request'
-
+interface ResponseData {
+  status: number
+  data: any // Change `any` to the type of your response data
+}
+const _processResponse = (res: ResponseData, resolve: (value?: unknown) => void) => {
+  const { status, data } = res
+  if (status === 200) {
+    resolve(data)
+  } else {
+    throw res
+  }
+}
 /**
  * @description post请求
  * @param url 请求地址
@@ -18,6 +29,21 @@ export const post = (url: string, params: any, config?: AxiosRequestConfig) => {
  * */
 export const get = (url: string, params: any = {}, config?: AxiosRequestConfig) => {
   return http.get(url, { params, ...config })
+}
+export const $get = (url: string, params: any = {}, config?: AxiosRequestConfig) => {
+  // return http.get(url, { params, ...config })
+  return new Promise((resolve, reject) => {
+    http
+      .get(url, { params, ...config })
+      .then(res => {
+        _processResponse(res, resolve)
+      })
+      .catch(e => {
+        console.log('e: ', e)
+        // _showErrorModal(e)
+        reject(e)
+      })
+  })
 }
 
 /**

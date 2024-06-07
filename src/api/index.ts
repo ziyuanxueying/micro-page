@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import { get, post } from './http'
+import { get, post, $get } from './http'
 // 获取上传签名的函数
 export const getVideoSignature = (params?: any) => {
   return get('/api/permission/voyager/basisb/v1/upload/video/signature', params)
@@ -44,4 +44,7 @@ export const updateJson = (params?: any) => {
 }
 export const findByIdForB = (id: string) => {
   return get(`/cos-api/base-configurable/v1/configurablePage/findByIdForB/${id}`)
+}
+export const getCoupons = (params?: any) => {
+  return $get(`/coupons/inner/coupons`, { params })
 }

@@ -10,6 +10,7 @@ const global = resolve(rootDir, 'src/styles/global.ts')
 
 const HOST = {
   dev: 'http://gatewayp-dev.baopukeji-dev.cn',
+  coupons: 'http://coupon-dev.baopukeji-dev.cn',
 }
 
 // https://vitejs.dev/config/
@@ -23,6 +24,11 @@ export default ({ mode }: { mode: string }) => {
           target: HOST.dev,
           changeOrigin: true,
           rewrite: path => path.replace(/^\/cos-api/, ''),
+        },
+        '/coupons': {
+          target: HOST.coupons,
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/coupons/, ''),
         },
       },
     },

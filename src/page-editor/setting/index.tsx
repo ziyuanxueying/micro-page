@@ -1,5 +1,6 @@
 import useStore from '@/store'
 import ItemTemplate from '../components/ItemTemplate'
+import PageSet from './pageSet'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 
@@ -16,8 +17,7 @@ const Setting = () => {
         <ItemTemplate key={selectedComponentId} type={selectedComponent.setModule} />
       ),
     },
-    { key: '2', label: '组件管理', children: 'Content of Tab Pane 1' },
-    { key: '3', label: '页面设置', children: 'Content of Tab Pane 2' },
+    { key: '2', label: '页面设置', children: <PageSet /> },
   ]
   return (
     <div

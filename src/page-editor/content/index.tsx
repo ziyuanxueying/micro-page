@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd'
 import ContentItem from './Item'
 
 const Content = () => {
-  const { components, updateComponents } = useStore()
+  const { components, pageConfig, updateComponents } = useStore()
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
@@ -60,7 +60,7 @@ const Content = () => {
             lineHeight: '32px',
           })}
         >
-          标题--后期可设置
+          {pageConfig.title}
         </div>
         {components.map((item, index) => (
           <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />

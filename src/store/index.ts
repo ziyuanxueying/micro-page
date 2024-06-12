@@ -17,6 +17,16 @@ export type Component = {
   data?: Record<string, any> // 这里的 any 可以替换为具体的数据类型
 }
 
+export type pageType = {
+  id?: string
+  title: string
+  bgColor?: string
+  bgImage: string
+  isShare?: boolean
+  shareTitle?: string
+  shareDesc?: string
+  shareImg: string
+}
 export type Store = {
   components: Component[]
   selectedComponentId: Component['id'] | undefined
@@ -26,6 +36,8 @@ export type Store = {
   updateComponentData: (id: Component['id'], data: Component['data']) => void
   removeComponent: (id: Component['id']) => void
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
+  pageConfig: pageType
+  updatePageConfig: (pageData: pageType) => void
 }
 
 export const useStore = create<Store>()(
@@ -57,6 +69,8 @@ export const useStore = create<Store>()(
         state.components = state.components.filter(item => item.id !== id)
       }),
     updateSelectedComponentId: id => set({ selectedComponentId: id }),
+    pageConfig: { title: '默认标题', bgImage: '', shareImg: '' },
+    updatePageConfig: pageConfig => set({ pageConfig }),
   })),
 )
 

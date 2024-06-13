@@ -2,7 +2,7 @@ import { pageType } from '@/store'
 import { WdUploadPicture } from '@wd/component-ui'
 import { ColorPicker, Form, FormProps, Input, Switch } from 'antd'
 import useStore from '@/store'
-import { toComponentUrl } from '@/utils'
+import { toComponentUrl, toHexString } from '@/utils'
 
 const onFinish: FormProps<pageType>['onFinish'] = values => {
   console.log('Success:', values)
@@ -14,7 +14,7 @@ const onFinishFailed: FormProps<pageType>['onFinishFailed'] = errorInfo => {
 
 const Index = () => {
   const { pageConfig, updatePageConfig } = useStore()
-  const [isShare, setIsShare] = useState(false)
+  const [isShare, setIsShare] = useState(pageConfig.isShare)
   const bgImageList = pageConfig?.bgImage ? [{ url: pageConfig.bgImage }] : []
   const shareImgList = pageConfig?.shareImg ? [{ url: pageConfig.shareImg }] : []
   const onShareChange = (checked: boolean) => {
@@ -33,6 +33,7 @@ const Index = () => {
         onValuesChange={(_, allValues) => {
           updatePageConfig({
             ...allValues,
+            bgColor: toHexString(allValues.bgColor),
             bgImage: toComponentUrl(allValues.bgImage),
             shareImg: toComponentUrl(allValues.shareImg),
           })
@@ -59,6 +60,7 @@ const Index = () => {
             maxCount={1}
             theme="drag"
             defaultTip="更换图片"
+            noValidate={true}
             width={100}
             height={100}
           />
@@ -84,6 +86,7 @@ const Index = () => {
                 maxCount={1}
                 theme="drag"
                 defaultTip="更换图片"
+                noValidate={true}
                 width={100}
                 height={100}
               />

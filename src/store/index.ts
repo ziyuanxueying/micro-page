@@ -20,7 +20,7 @@ export type Component = {
 export type pageType = {
   id?: string
   title: string
-  bgColor?: string
+  bgColor: string
   bgImage: string
   isShare?: boolean
   shareTitle?: string
@@ -69,7 +69,7 @@ export const useStore = create<Store>()(
         state.components = state.components.filter(item => item.id !== id)
       }),
     updateSelectedComponentId: id => set({ selectedComponentId: id }),
-    pageConfig: { title: '默认标题', bgImage: '', shareImg: '' },
+    pageConfig: { title: '默认标题', bgImage: '', shareImg: '', bgColor: '' },
     updatePageConfig: pageConfig => set({ pageConfig }),
   })),
 )

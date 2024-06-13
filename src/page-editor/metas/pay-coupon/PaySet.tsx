@@ -4,10 +4,11 @@ import { WdModal, WdTable } from '@wd/component-ui'
 import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import useStore from '@/store'
-import json from './mock'
+import { getCoupons } from '@/api'
 type dataType = {
   id: number
   couponName: string
+  title: string
   no: string
 }
 const Index = () => {
@@ -17,9 +18,10 @@ const Index = () => {
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
   const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
   const [showTable, setShowTable] = useState(false)
-  const [list] = useState({ list: json, page: { dataTotal: 1 } }) //数据
-  const [tags, setTags] = useState<dataType[]>([])
-  const [selectedRows, setSelectedRows] = useState<dataType[]>([])
+  const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
+  const [tags, setTags] = useState<dataType[]>(setting?.data?.coupons || [])
+  const [selectedRows, setSelectedRows] = useState<dataType[]>(setting?.data?.coupons || [])
+
   const onChange = (e: RadioChangeEvent) => {
     setModuleType(e.target.value)
     setting && updateComponent(setting.id, { ...setting, moduleType: e.target.value })
@@ -38,7 +40,9 @@ const Index = () => {
     okText: '确定',
     size: 'large',
     cancelText: '取消',
-    // destroyOnClose: true,
+    styles: {
+      body: { height: '700px', overflow: 'auto' },
+    },
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)
@@ -46,6 +50,7 @@ const Index = () => {
     onCancel: () => {
       setShowTable(false)
       setTags(tags)
+      setSelectedRows(tags)
     },
   }
   const columns: ProColumnsType = [
@@ -57,48 +62,38 @@ const Index = () => {
       hideInTable: true,
       option: [{ value: '1000274', label: '上海周浦万达广场' }],
     },
-    { title: '券ID', dataIndex: 'id', align: 'center', searchType: 'input' },
-    { title: '券名称', dataIndex: 'couponName', searchType: 'input' },
-    { title: '发放时间', dataIndex: 'useStartTime' },
-    { title: '类型', dataIndex: 'couponStatus' },
-    { title: '市场价值', dataIndex: 'couponValue' },
-    { title: '券状态', dataIndex: 'couponValueType' },
-    { title: '投放状态', dataIndex: 'outerType' },
+    { title: '券ID', dataIndex: 'no', align: 'center', searchType: 'input' },
+    { title: '券名称', dataIndex: 'title', searchType: 'input' },
+    { title: '发放时间', dataIndex: 'provideStartTime' },
+    { title: '失效时间', dataIndex: 'provideEndTime' },
     { title: '投放库存', dataIndex: 'totalNum' },
   ]
-  const handleSearch = (searchValue: any) => {
-    // 在这里处理搜索结果，增加网络请求等
-    console.log('handleSearch:', searchValue)
-    // setTimeout(() => {
-    //   setData({
-    //     list: json,
-    //     page: { dataTotal: 10 },
-    //   })
-    // }, 1000)
+
+  const handleSearch = async (searchValue: any) => {
+    const data = await getCoupons(searchValue)
+    setList({ list: data.records, page: { total: data.totalSize } })
   }
 
   useEffect(() => {
     setModuleType(setting?.moduleType || '3')
-    console.log('setting: ', setting)
   }, [setting])
   useEffect(() => {
     setting &&
       updateComponent(setting.id, {
         ...setting,
-        data: {
-          ...setting.data,
-          coupons: tags.map(item => {
-            return { no: item.no, couponName: item.couponName }
-          }),
-        },
+        data: { ...setting.data, coupons: selectedRows },
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags])
   const rowSelection = {
-    selectedRowKeys: selectedRows.map(item => item.id + ''),
-    onChange: (selectedRowKeys: React.Key[], selectedRows: dataType[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
-      setSelectedRows(selectedRows)
+    selectedRowKeys: selectedRows.map(item => item.no),
+    onChange: (_selectedRowKeys: React.Key[], selectedRows: dataType[]) => {
+      console.log('selectedRows: ', selectedRows)
+      console.log('_selectedRowKeys: ', _selectedRowKeys)
+      const coupons = selectedRows.map(item => {
+        return { no: item.no, couponName: item.title }
+      }) as dataType[]
+      setSelectedRows(coupons)
     },
   }
   const handleClose = (removedTag: dataType) => {
@@ -151,7 +146,7 @@ const Index = () => {
           {tags.map(tag => (
             <Tag
               css={css({ fontSize: 13 })}
-              key={tag.id}
+              key={tag.no}
               closable
               color="blue"
               onClose={() => handleClose(tag)}
@@ -167,6 +162,7 @@ const Index = () => {
           loading={false}
           data={list}
           columns={columns}
+          rowKey="no"
           rowSelection={{ ...rowSelection }}
           onParamsChange={handleSearch}
         ></WdTable>

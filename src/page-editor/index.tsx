@@ -6,24 +6,37 @@ import Setting from './setting/index.tsx'
 import { flexrc } from '@global'
 import { Button, Space } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
-import { updateJson } from '@/api'
-import useStore from '@/store'
-
+import { updateJson, findByIdForB } from '@/api'
+import useStore, { Component, pageType } from '@/store'
+type dataType = {
+  components: Component[]
+  pageConfig: pageType
+}
+//CP0795244269648879616,三端联调
+//CP0795244269648879616,微页面自测
 const TemplateEngine = () => {
-  const { components } = useStore()
+  const { components, pageConfig, updateComponents, updatePageConfig } = useStore()
   const handleSave = async () => {
     const data = await updateJson({
-      content: components,
+      content: { components, pageConfig },
       id: 'CP0795244269648879616',
-      title: '测试数据',
+      title: pageConfig.title,
     })
     console.log(data)
   }
   const findById = async () => {
     // const data = await getCoupons('CP0795244269648879616')
-    // const data = await findByIdForB('CP0795244269648879616')
-    // console.log(data)
+    const data = (await findByIdForB('CP0795244269648879616')) as { content: dataType }
+    console.log('data: ', data)
+    setTimeout(() => {
+      // 防止数据渲染不出来
+      updateComponents(data.content.components)
+      updatePageConfig(data.content.pageConfig)
+    }, 1000)
   }
+  useEffect(() => {
+    findById()
+  }, [])
   return (
     <div
       css={css({

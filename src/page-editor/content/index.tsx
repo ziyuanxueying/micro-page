@@ -24,7 +24,9 @@ const Content = () => {
     newComponents.splice(hoverIndex, 0, removed)
     updateComponents(newComponents)
   }
-
+  useEffect(() => {
+    console.log(components)
+  }, [components])
   return (
     <div
       css={css`
@@ -63,6 +65,7 @@ const Content = () => {
           {pageConfig.title}
         </div>
         {components.map((item, index) => (
+          // <div>{index}</div>
           <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
         ))}
       </div>

@@ -43,8 +43,8 @@ export const updateJson = (params?: any) => {
   return post(`/cos-api/base-configurable/v1/configurablePage/update`, params)
 }
 export const findByIdForB = (id: string) => {
-  return get(`/cos-api/base-configurable/v1/configurablePage/findByIdForB/${id}`)
+  return $get(`/cos-api/base-configurable/v1/configurablePage/findByIdForB/${id}`)
 }
-export const getCoupons = (params?: any) => {
-  return $get(`/coupons/inner/coupons`, { params })
+export const getCoupons: any = (params?: any) => {
+  return $get(`/coupons/inner/coupons`, params)
 }

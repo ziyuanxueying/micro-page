@@ -71,7 +71,7 @@ const HotSet = () => {
       >
         <Form.Item label="添加图片" name="url">
           <WdUploadPicture
-            url="/cos-api/xapi-pc-web/file/tmpSecret"
+            url="/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={fileList}
             path="wxxcx/img"

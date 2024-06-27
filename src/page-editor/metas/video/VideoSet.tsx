@@ -34,7 +34,7 @@ const VideoSet = () => {
       >
         <Form.Item label="视频" name="videoUrl" required>
           <WdUploadVideo
-            url="/cos-api/xapi-pc-web/file/tmpSecret"
+            url="/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={videoList}
             path="wxxcx/img"
@@ -47,7 +47,7 @@ const VideoSet = () => {
         </Form.Item>
         <Form.Item label="封面图" name="posterUrl">
           <WdUploadPicture
-            url="/cos-api/xapi-pc-web/file/tmpSecret"
+            url="/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={posterList}
             path="wxxcx/img"

@@ -82,7 +82,7 @@ const BottomNavSet = () => {
                     >
                       <Form.Item {...restField} label="图片" name={[name, 'url']}>
                         <WdUploadPicture
-                          url="/cos-api/xapi-pc-web/file/tmpSecret"
+                          url="/xapi-pc-web/file/tmpSecret"
                           cosType="QD"
                           fileList={fileList}
                           path="wxxcx/img"

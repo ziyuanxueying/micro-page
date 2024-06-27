@@ -55,10 +55,9 @@ const Index = () => {
     {
       title: '发放主体',
       dataIndex: 'plazaid',
-      searchType: 'select',
+      searchType: 'plaza',
       key: 'plazaid',
       hideInTable: true,
-      option: [{ value: '1000274', label: '上海周浦万达广场' }],
     },
     { title: '券ID', dataIndex: 'no', align: 'center', searchType: 'input' },
     { title: '券名称', dataIndex: 'title', searchType: 'input' },

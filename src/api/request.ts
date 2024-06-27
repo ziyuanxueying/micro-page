@@ -44,7 +44,7 @@ const createRequestInterceptors = (headers: any) => {
       } else {
         // 测试用
         config.headers.workingOrgCode = '1'
-        config.headers.userid = '1'
+        config.headers.userid = '682279896289095680'
         config.headers.orgTypeCode = '1'
       }
     } catch (e) {

@@ -52,7 +52,7 @@ const Index = () => {
         </Form.Item>
         <Form.Item label="添加背景图" name="bgImage">
           <WdUploadPicture
-            url="/cos-api/xapi-pc-web/file/tmpSecret"
+            url="/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={bgImageList}
             path="wxxcx/img"
@@ -78,7 +78,7 @@ const Index = () => {
             </Form.Item>
             <Form.Item label="自定义分享图标" name="shareImg">
               <WdUploadPicture
-                url="/cos-api/xapi-pc-web/file/tmpSecret"
+                url="/xapi-pc-web/file/tmpSecret"
                 cosType="QD"
                 fileList={shareImgList}
                 path="wxxcx/img"

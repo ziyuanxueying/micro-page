@@ -2,6 +2,7 @@
 import { Component, Group } from '@/store'
 import Item from './Item'
 import { Typography } from 'antd'
+import { flexc } from '@/styles/global'
 
 const { Text } = Typography
 
@@ -49,17 +50,29 @@ const MetasBar = () => {
 
   return (
     <div
-      css={css`
-        width: 200px;
-        padding: 10px;
-        border-radius: 4px;
-        background-color: #faebd7;
-        box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        flex-shrink: 0;
-      `}
+      css={css([
+        flexc,
+        //   `
+        //   width: 200px;
+        //   padding: 10px;
+        //   border-radius: 4px;
+        //   background-color: #faebd7;
+        //   box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+        //   display: flex;
+        //   flex-direction: column;
+        //   gap: 10px;
+        //   flex-shrink: 0;
+        // `
+        {
+          width: 200,
+          padding: 10,
+          borderRadius: 4,
+          background: '#fff',
+          boxShadow: '0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)',
+          gap: 12,
+          flexShrink: 0,
+        },
+      ])}
     >
       {Object.entries(metas).map(([key, value]) => (
         <div

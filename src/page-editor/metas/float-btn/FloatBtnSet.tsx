@@ -56,7 +56,7 @@ const FloatBtnSet = () => {
       >
         <Form.Item label="按钮图片" name="buttonImgUrl" required>
           <WdUploadPicture
-            url="/cos-api/xapi-pc-web/file/tmpSecret"
+            url="/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={buttonImgList}
             path="wxxcx/img"
@@ -85,7 +85,7 @@ const FloatBtnSet = () => {
                 <>
                   <Form.Item label="弹窗图片" name="modalImgUrl">
                     <WdUploadPicture
-                      url="/cos-api/xapi-pc-web/file/tmpSecret"
+                      url="/xapi-pc-web/file/tmpSecret"
                       cosType="QD"
                       fileList={modalImgList}
                       path="wxxcx/img"

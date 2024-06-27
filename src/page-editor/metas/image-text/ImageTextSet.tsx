@@ -44,7 +44,7 @@ const ImageTextSet = () => {
         </Form.Item>
         <Form.Item label="图片" name="url" required>
           <WdUploadPicture
-            url="/cos-api/xapi-pc-web/file/tmpSecret"
+            url="/xapi-pc-web/file/tmpSecret"
             cosType="QD"
             fileList={fileList}
             path="wxxcx/img"

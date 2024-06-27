@@ -15,8 +15,8 @@ importers:
         specifier: ^11.11.5
         version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1)
       '@wd/component-ui':
-        specifier: 0.0.13-beta.15
-        version: 0.0.13-beta.15(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.0.14-beta.4
+        version: 0.0.14-beta.4(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd:
         specifier: '>=5.17.4'
         version: 5.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -842,8 +842,8 @@ packages:
   '@vue/shared@3.4.27':
     resolution: {integrity: sha512-DL3NmY2OFlqmYYrzp39yi3LDkKxa5vZVwxWdQ3rG0ekuWscHraeIbnI8t+aZK7qhYqEqWKTUdijadunb9pnrgA==}
 
-  '@wd/component-ui@0.0.13-beta.15':
-    resolution: {integrity: sha512-iGZcR3FL71mb2InDv+5QlqWwZQ/9bwsast/IE4cw0SDVnj4cteTlYk+5SXsSQ62+Kgv5BdGXl04p6hIiTBEpDQ==}
+  '@wd/component-ui@0.0.14-beta.4':
+    resolution: {integrity: sha512-82IBI4hxdussvqM5OMDQdWplrFQ9kdNJgVBOjGICzZATENf5ey28nnyfvE52jSD9RAN8ngA5oQyMDYtNV1MqrA==}
     peerDependencies:
       '@ant-design/icons': ^5.3.6
       antd: ^5.16.2
@@ -2248,6 +2248,10 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
 
+  uuid@10.0.0:
+    resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -3049,7 +3053,7 @@ snapshots:
 
   '@vue/shared@3.4.27': {}
 
-  '@wd/component-ui@0.0.13-beta.15(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@wd/component-ui@0.0.14-beta.4(@ant-design/icons@5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(antd@5.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.8.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ant-design/icons': 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd: 5.17.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3061,6 +3065,7 @@ snapshots:
       react: 18.3.1
       react-cropper: 2.3.3(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
+      uuid: 10.0.0
 
   '@xmldom/xmldom@0.8.10': {}
 
@@ -4604,6 +4609,8 @@ snapshots:
   use-sync-external-store@1.2.0(react@18.3.1):
     dependencies:
       react: 18.3.1
+
+  uuid@10.0.0: {}
 
   uuid@9.0.1: {}
 

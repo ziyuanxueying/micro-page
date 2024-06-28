@@ -21,6 +21,7 @@ export const flexc = css({
 export const flexcc = css({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   justifyContent: 'center',
 })
 

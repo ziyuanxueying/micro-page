@@ -24,9 +24,7 @@ const Content = () => {
     newComponents.splice(hoverIndex, 0, removed)
     updateComponents(newComponents)
   }
-  useEffect(() => {
-    console.log(components)
-  }, [components])
+
   return (
     <div
       css={css`
@@ -42,7 +40,8 @@ const Content = () => {
         css={css({
           width: 375,
           minHeight: 667,
-          maxHeight: 812,
+          maxHeight: 'calc(100% - 20px)',
+          // maxHeight: 780,
           overflowY: 'auto',
           boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
           margin: '0 auto',
@@ -63,6 +62,9 @@ const Content = () => {
             marginBottom: 10,
             textAlign: 'center',
             lineHeight: '32px',
+            position: 'sticky',
+            top: 0,
+            zIndex: 9,
           })}
         >
           {pageConfig.title}

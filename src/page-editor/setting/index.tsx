@@ -5,7 +5,7 @@ import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 
 const Setting = () => {
-  const { components, selectedComponentId } = useStore()
+  const { components, selectedComponentId, pageConfig, updatePageConfig } = useStore()
 
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
@@ -34,10 +34,11 @@ const Setting = () => {
       })}
     >
       <Tabs
-        defaultActiveKey="1"
+        activeKey={pageConfig.tab || '1'}
         items={items}
         onChange={key => {
-          console.log(key)
+          console.log('key: ', key)
+          updatePageConfig({ ...pageConfig, tab: key })
         }}
       />
     </div>

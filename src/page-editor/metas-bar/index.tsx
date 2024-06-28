@@ -52,17 +52,6 @@ const MetasBar = () => {
     <div
       css={css([
         flexc,
-        //   `
-        //   width: 200px;
-        //   padding: 10px;
-        //   border-radius: 4px;
-        //   background-color: #faebd7;
-        //   box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
-        //   display: flex;
-        //   flex-direction: column;
-        //   gap: 10px;
-        //   flex-shrink: 0;
-        // `
         {
           width: 200,
           padding: 10,

@@ -19,7 +19,14 @@ interface DragItem {
 }
 
 const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
-  const { selectedComponentId, components, updateSelectedComponentId, removeComponent } = useStore()
+  const {
+    selectedComponentId,
+    components,
+    updateSelectedComponentId,
+    removeComponent,
+    pageConfig,
+    updatePageConfig,
+  } = useStore()
   const ref = useRef<HTMLDivElement>(null)
 
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
@@ -90,8 +97,10 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
 
   drag(drop(ref))
 
-  const handleClick = (item: Component) =>
+  const handleClick = (item: Component) => {
     updateSelectedComponentId(selectedComponentId === item.id ? undefined : item.id)
+    updatePageConfig({ ...pageConfig, tab: '1' })
+  }
 
   const content = (style?: ReturnType<typeof css>) => (
     <div
@@ -101,11 +110,13 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
       onClick={() => handleClick(data)}
       css={css(
         {
+          boxSizing: 'content-box',
           cursor: 'move',
           border: '1px dashed',
           borderColor: data.id === selectedComponentId ? '#20a0ff' : 'transparent',
           opacity: isDragging ? 0 : 1,
           position: 'relative',
+          zIndex: 1,
         },
         style,
       )}

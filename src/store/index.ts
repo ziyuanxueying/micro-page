@@ -1,7 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
-import { v4 as uuidv4 } from 'uuid'
 
 export type Group = '业务组件' | '基础组件'
 
@@ -26,6 +25,7 @@ export type pageType = {
   shareTitle?: string
   shareDesc?: string
   shareImg: string
+  tab?: string
 }
 export type Store = {
   components: Component[]
@@ -46,10 +46,7 @@ export const useStore = create<Store>()(
     selectedComponentId: undefined,
     pushComponent: component => {
       set(state => {
-        state.components.push({
-          ...component,
-          id: uuidv4(),
-        })
+        state.components.push(component)
       })
     },
     updateComponents: components => set({ components }),

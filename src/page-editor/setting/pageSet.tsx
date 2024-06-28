@@ -31,11 +31,13 @@ const Index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         onValuesChange={(_, allValues) => {
+          console.log('allValues: ', allValues)
           updatePageConfig({
             ...allValues,
             bgColor: toHexString(allValues.bgColor),
             bgImage: toComponentUrl(allValues.bgImage),
             shareImg: toComponentUrl(allValues.shareImg),
+            tab: '2',
           })
         }}
       >

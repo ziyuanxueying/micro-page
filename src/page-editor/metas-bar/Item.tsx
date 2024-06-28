@@ -1,6 +1,7 @@
 import { Typography } from 'antd'
 import { useDrag } from 'react-dnd'
 import useStore, { Component } from '@/store'
+import { v4 as uuidv4 } from 'uuid'
 
 const { Text } = Typography
 
@@ -9,17 +10,17 @@ type ItemProps = {
 }
 
 const Item = ({ data }: ItemProps) => {
-  const { pushComponent } = useStore()
+  const { pushComponent, updateSelectedComponentId } = useStore()
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'box',
     item: data,
     end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<{
-        name: string
-      }>()
+      const dropResult = monitor.getDropResult<{ name: string }>()
       if (item && dropResult) {
-        pushComponent(item)
+        const id = uuidv4()
+        pushComponent({ ...item, id })
+        updateSelectedComponentId(id)
       }
     },
     collect: monitor => ({

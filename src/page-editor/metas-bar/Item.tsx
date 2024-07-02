@@ -1,4 +1,4 @@
-import { Typography } from 'antd'
+import { Typography, message } from 'antd'
 import { useDrag } from 'react-dnd'
 import useStore, { Component } from '@/store'
 import { v4 as uuidv4 } from 'uuid'
@@ -11,7 +11,7 @@ type ItemProps = {
 
 const Item = ({ data }: ItemProps) => {
   const { pushComponent, updateSelectedComponentId } = useStore()
-
+  const [messageApi, contextHolder] = message.useMessage()
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'box',
     item: data,
@@ -20,7 +20,11 @@ const Item = ({ data }: ItemProps) => {
       if (item && dropResult) {
         const id = uuidv4()
         pushComponent({ ...item, id })
-        updateSelectedComponentId(id)
+          ? messageApi.open({
+              type: 'error',
+              content: '该组件只能添加一个',
+            })
+          : updateSelectedComponentId(id)
       }
     },
     collect: monitor => ({
@@ -50,6 +54,7 @@ const Item = ({ data }: ItemProps) => {
         }
       `}
     >
+      {contextHolder}
       <img
         src={new URL(`../../assets/${data.icon}.svg`, import.meta.url).href}
         css={css`

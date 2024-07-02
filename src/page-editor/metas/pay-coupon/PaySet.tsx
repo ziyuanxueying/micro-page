@@ -40,9 +40,6 @@ const Index = () => {
     okText: '确定',
     size: 'large',
     cancelText: '取消',
-    styles: {
-      body: { height: '700px', overflow: 'auto' },
-    },
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)

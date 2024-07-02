@@ -140,8 +140,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
 
   // 单独处理浮标组件样式
   if (data.metaType === 'bas-floatBtn') {
-    const selectedComponent = components.find(c => c.id === selectedComponentId)
-
+    const selectedComponent = components.find(c => c.metaType === 'bas-floatBtn')
     return (
       <>
         {content(
@@ -185,7 +184,21 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
       </>
     )
   }
-
+  // 单独处理红包组件样式
+  if (data.metaType === 'biz-red') {
+    return (
+      <>
+        {content(
+          css({
+            position: 'absolute',
+            left: 0,
+            top: 100,
+            zIndex: 10,
+          }),
+        )}
+      </>
+    )
+  }
   return content()
 }
 

@@ -30,7 +30,7 @@ export type pageType = {
 export type Store = {
   components: Component[]
   selectedComponentId: Component['id'] | undefined
-  pushComponent: (component: Component) => void
+  pushComponent: (component: Component) => string | undefined
   updateComponents: (components: Component[]) => void
   updateComponent: (id: Component['id'], component: Omit<Component, 'id'>) => void
   updateComponentData: (id: Component['id'], data: Component['data']) => void
@@ -41,10 +41,15 @@ export type Store = {
 }
 
 export const useStore = create<Store>()(
-  immer(set => ({
+  immer((set, get) => ({
     components: [],
     selectedComponentId: undefined,
     pushComponent: component => {
+      const singleTypes = ['biz-red', 'biz-lottery', 'bas-floatBtn']
+      if (singleTypes.includes(component.metaType)) {
+        const item = get().components.find(c => c.metaType === component.metaType)
+        if (item) return '该组件只能添加一个'
+      }
       set(state => {
         state.components.push(component)
       })

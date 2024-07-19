@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
-    "@wd/component-ui": "0.0.14-beta.5",
+    "@wd/component-ui": "0.0.15-beta.17",
     "dayjs": "^1.11.11",
     "dnd-core": "^16.0.1",
     "immer": "^10.1.1",
@@ -61,6 +61,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "less": "^4.2.0",
     "lint-staged": "^15.2.2",
     "picocolors": "^1.0.1",
     "prettier": "^2.8.8",

@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
-    "@wd/component-ui": "0.0.14-beta.5",
+    "@wd/component-ui": "0.0.15",
     "dayjs": "^1.11.11",
     "dnd-core": "^16.0.1",
     "immer": "^10.1.1",

@@ -1,9 +1,9 @@
 import useStore from '@/store'
-import { Line, flexb } from '@/styles/global'
-import { WdModal, WdTable } from '@wd/component-ui'
+import { SetTitle, flexb } from '@/styles/global'
+import { WdModal, WdTable, WdMaterial, ImagePreview } from '@wd/component-ui'
 import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
-import { Button, Space, Tag } from 'antd'
+import { Button, Form, Space, Tag } from 'antd'
 import { getActivityList } from '@/api'
 type DataType = {
   actId: number
@@ -16,7 +16,8 @@ const Index = () => {
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
   const [tags, setTags] = useState<DataType[]>(setting?.data?.activity || {})
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
-
+  const [isOpen, setIsOpen] = useState(false)
+  const [imgData, setImgData] = useState([])
   const propsTable: WdModalProps['modalProps'] = {
     // 传递给 Modal 组件的属性和方法
     title: '选择活动',
@@ -79,15 +80,58 @@ const Index = () => {
     setTags(newTags)
     setSelectedRows(newTags)
   }
-
+  const handleCancel = () => {
+    setIsOpen(false)
+  }
+  const handleDelete = () => {
+    console.log(1111111)
+    setImgData([])
+  }
+  const handleOk = (url?: string) => {
+    setImgData([{ src: url || '', name: '抽奖图片' }])
+    setIsOpen(false)
+  }
   return (
     <>
-      <div css={css({ fontSize: 16 })}>红包雨</div>
-      <Line />
-      <div css={css([flexb, { flexWrap: 'wrap', margin: '10px 0' }])}>
-        <Button onClick={() => setShowTable(true)}>选择活动</Button>
-        <Button onClick={() => setTags([])}>清除</Button>
-      </div>
+      <SetTitle>抽奖活动</SetTitle>
+      <Form name="basic" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
+        <Form.Item label="添加图片" name="img" rules={[{ required: true }]}>
+          <div css={css([flexb, { flexWrap: 'wrap' }])}>
+            <Button type="link" onClick={() => setShowTable(true)}>
+              选择活动
+            </Button>
+            <Button type="link" onClick={() => setTags([])}>
+              清除
+            </Button>
+          </div>
+        </Form.Item>
+        <Form.Item label="活动配置" name="activity" rules={[{ required: true }]}>
+          <div css={css([flexb, { flexWrap: 'wrap' }])}>
+            <Button type="primary" onClick={() => setIsOpen(true)}>
+              素材库
+            </Button>
+            <WdMaterial
+              limit={1}
+              maxCount={1}
+              disabled={false}
+              noValidate={false}
+              open={isOpen}
+              onCancel={handleCancel}
+              onOk={handleOk}
+            />
+            {imgData.length > 0 && (
+              <ImagePreview
+                data={imgData}
+                width={200}
+                height={200}
+                colNum={1}
+                isDefault={false}
+                onDelete={handleDelete}
+              />
+            )}
+          </div>
+        </Form.Item>
+      </Form>
       {tags.length > 0 && (
         <Space css={css({ flexWrap: 'wrap', fontSize: 13 })}>
           {tags.map(tag => (

@@ -47,9 +47,35 @@ export const $get = (url: string, params: any = {}, config?: AxiosRequestConfig)
 }
 export const $post = (url: string, params: any = {}) => {
   // return http.get(url, { params, ...config })
+  const payload = params.payload || {}
   return new Promise((resolve, reject) => {
     http
-      .post(url, params)
+      .post(url, payload, params)
+      .then(res => {
+        _processResponse(res, resolve)
+      })
+      .catch(e => {
+        console.log('e: ', e)
+        // _showErrorModal(e)
+        reject(e)
+      })
+  })
+}
+export const postBody = (url: string, params: any = {}) => {
+  console.log('params: ', params)
+  // return http.get(url, { params, ...config })
+  const data = params.payload || {}
+  delete params.payload
+  return http.post(url, data, { params: params })
+}
+export const $postBody = (url: string, params: any = {}) => {
+  console.log('params: ', params)
+  // return http.get(url, { params, ...config })
+  const data = params.payload || {}
+  delete params.payload
+  return new Promise((resolve, reject) => {
+    http
+      .post(url, data, { params: params })
       .then(res => {
         _processResponse(res, resolve)
       })

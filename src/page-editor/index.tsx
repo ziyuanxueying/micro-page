@@ -25,14 +25,14 @@ const TemplateEngine = () => {
     // })
     const data = await updateJson({
       content: { components, pageConfig },
-      id: 'CP0811527827121074176',
+      id: 'CP0811283496616108032',
       title: pageConfig.title,
     })
     console.log(data)
   }
   const findById = async () => {
     // const data = await getCoupons('CP0795244269648879616')
-    const data = (await findByIdForB('CP0811527827121074176')) as { content: dataType }
+    const data = (await findByIdForB('CP0811283496616108032')) as { content: dataType }
     console.log('data: ', data)
     setTimeout(() => {
       // 防止数据渲染不出来

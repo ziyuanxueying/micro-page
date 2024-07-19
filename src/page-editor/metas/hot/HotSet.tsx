@@ -76,6 +76,7 @@ const HotSet = () => {
             fileList={fileList}
             path="wxxcx/img"
             multiple={false}
+            noValidate={true}
             maxCount={1}
             theme="drag"
             defaultTip="更换图片"

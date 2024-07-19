@@ -74,3 +74,10 @@ export const TextGray9 = styled.div`
   font-size: 12px;
   line-height: 20px;
 `
+
+export const SetTitle = styled.div`
+  font-size: 16px;
+  color: #636363;
+  line-height: 40px;
+  margin-bottom: 10px;
+`

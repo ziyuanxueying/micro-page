@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import { get, post, $get } from './http'
+import { get, post, $get, $post } from './http'
 // 获取上传签名的函数
 export const getVideoSignature = (params?: any) => {
   return get('/api/permission/voyager/basisb/v1/upload/video/signature', params)
@@ -47,4 +47,7 @@ export const findByIdForB = (id: string) => {
 }
 export const getCoupons: any = (params?: any) => {
   return $get(`/coupons/inner/coupons`, params)
+}
+export const getActivityList: any = (params?: any) => {
+  return $post(`/api/fortune/fortune/activities/getActPage`, params)
 }

@@ -63,6 +63,7 @@ const FloatBtnSet = () => {
             multiple={false}
             maxCount={1}
             theme="drag"
+            noValidate={true}
             defaultTip="更换图片"
             width={100}
             height={100}

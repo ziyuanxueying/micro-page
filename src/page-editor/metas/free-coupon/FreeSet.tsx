@@ -1,5 +1,5 @@
-import { Line, TextGray9, flexb } from '@/styles/global'
-import { Button, Radio, RadioChangeEvent, Select, Space, Tag } from 'antd'
+import { SetTitle, flexb } from '@/styles/global'
+import { Avatar, Button, ColorPicker, Form, Segmented, Space, Tag } from 'antd'
 import { WdModal, WdTable } from '@wd/component-ui'
 import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
@@ -16,21 +16,22 @@ const Index = () => {
   const setting = components.find(c => c.id === selectedComponentId)
 
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
-  const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
+  // const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 0 } }) //数据
   const [tags, setTags] = useState<dataType[]>(setting?.data?.coupons || [])
   const [selectedRows, setSelectedRows] = useState<dataType[]>(setting?.data?.coupons || [])
+  const [initialValues] = useState<Record<string, any>>(setting?.data || {})
 
-  const onChange = (e: RadioChangeEvent) => {
-    setModuleType(e.target.value)
-    setting && updateComponent(setting.id, { ...setting, moduleType: e.target.value })
+  const onChange = (val: string) => {
+    setModuleType(val)
+    setting && updateComponent(setting.id, { ...setting, moduleType: val })
   }
-  const channeChange = (value: string) => {
-    setChannelId(value)
-    setting &&
-      updateComponent(setting.id, { ...setting, data: { ...setting.data, channelId: value } })
-  }
+  // const channeChange = (value: string) => {
+  //   setChannelId(value)
+  //   setting &&
+  //     updateComponent(setting.id, { ...setting, data: { ...setting.data, channelId: value } })
+  // }
 
   const propsTable: WdModalProps['modalProps'] = {
     // 传递给 Modal 组件的属性和方法
@@ -49,23 +50,33 @@ const Index = () => {
     },
   }
   const columns: ProColumnsType = [
-    {
-      title: '发放主体',
-      dataIndex: 'plazaid',
-      searchType: 'plaza',
-      key: 'plazaid',
-      hideInTable: true,
-    },
     { title: '券ID', dataIndex: 'no', align: 'center', searchType: 'input' },
     { title: '券名称', dataIndex: 'title', searchType: 'input' },
+    {
+      title: '券图标',
+      dataIndex: 'pic',
+      render: (text: string) => (
+        <img
+          src={text}
+          alt=""
+          style={{ width: '90px', height: '60px', marginBottom: '-16px', objectFit: 'contain' }}
+        />
+      ),
+    },
+    {
+      title: '发放主体',
+      dataIndex: 'createOrgFullName',
+      // searchType: 'plaza',
+      // hideInTable: true,
+    },
     { title: '发放时间', dataIndex: 'provideStartTime' },
     { title: '失效时间', dataIndex: 'provideEndTime' },
     { title: '投放库存', dataIndex: 'totalNum' },
   ]
 
   const handleSearch = async (searchValue: any) => {
-    const data = await getCoupons(searchValue)
-    setList({ list: data.records, page: { total: data.totalSize } })
+    const data = await getCoupons({ ...searchValue, saleType: 0 })
+    setList({ list: data.list, page: { total: data.totalSize } })
   }
 
   useEffect(() => {
@@ -77,7 +88,6 @@ const Index = () => {
         ...setting,
         data: { ...setting.data, coupons: selectedRows },
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags])
   const rowSelection = {
     selectedRowKeys: selectedRows.map(item => item.no),
@@ -94,60 +104,80 @@ const Index = () => {
     setTags(newTags)
     setSelectedRows(newTags)
   }
-  const options = [
-    { channel: '好券', appId: 5054, channelId: 'bs_0c326a0471907632c3049ca43d434c9c' },
-    { channel: '微页面专用渠道', appId: 100699, channelId: 'bs_f97fdee674c4edef793725d71a9054df' },
-  ]
   return (
     <div>
-      <div css={css({ fontSize: 16 })}>免费优惠券</div>
-      <Line />
-      <div>
-        选择模板：
-        <Radio.Group onChange={onChange} value={moduleType}>
-          <Radio value={'biz-free-text'}>纯文字</Radio>
-          <Radio value={'biz-free-img'}>图文</Radio>
-          <Radio value={'biz-free-twice'}>一行两个</Radio>
-        </Radio.Group>
-      </div>
-      <Line />
-      <div>
-        选择渠道：
-        <Select
-          value={channelId}
-          showSearch
-          allowClear
-          style={{ width: '200px' }}
-          onChange={channeChange}
-          disabled={tags.length > 0}
-        >
-          {options.map(item => (
-            <Select.Option key={item.appId} value={item.channelId}>
-              {item.channel}
-            </Select.Option>
-          ))}
-        </Select>
-        <TextGray9>*请清空列表数据后更换渠道</TextGray9>
-      </div>
-      <div css={css([flexb, { flexWrap: 'wrap', margin: '10px 0' }])}>
-        <Button onClick={() => setShowTable(true)}>选择券</Button>
-        <Button onClick={() => setTags([])}>清除</Button>
-      </div>
-      {tags.length > 0 && (
-        <Space css={css({ flexWrap: 'wrap', fontSize: 13 })}>
-          {tags.map(tag => (
-            <Tag
-              css={css({ fontSize: 13 })}
-              key={tag.no}
-              closable
-              color="blue"
-              onClose={() => handleClose(tag)}
-            >
-              {tag.couponName}
-            </Tag>
-          ))}
-        </Space>
-      )}
+      <SetTitle>免费优惠券</SetTitle>
+      <Form
+        name="basic"
+        labelCol={{ span: 5 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={initialValues}
+      >
+        <Form.Item label="选择样式">
+          <Segmented
+            value={moduleType}
+            onChange={onChange}
+            options={[
+              {
+                label: (
+                  <div style={{ padding: 4 }}>
+                    <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
+                    <div>样式一</div>
+                  </div>
+                ),
+                value: 'biz-free-once',
+              },
+              {
+                label: (
+                  <div style={{ padding: 4 }}>
+                    <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                    <div>样式二</div>
+                  </div>
+                ),
+                value: 'biz-free-twice',
+              },
+              {
+                label: (
+                  <div style={{ padding: 4 }}>
+                    <Avatar style={{ backgroundColor: '#87d068' }} />
+                    <div>样式三</div>
+                  </div>
+                ),
+                value: 'biz-free-three',
+              },
+            ]}
+          />
+        </Form.Item>
+        <Form.Item label="选择券" name="coupons" rules={[{ required: true }]}>
+          <div css={css([flexb, { flexWrap: 'wrap' }])}>
+            <Button type="link" onClick={() => setShowTable(true)}>
+              选择券
+            </Button>
+            <Button type="link" onClick={() => setTags([])}>
+              清除
+            </Button>
+          </div>
+        </Form.Item>
+        {tags.length > 0 && (
+          <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
+            {tags.map(tag => (
+              <Tag
+                css={css({ fontSize: 13 })}
+                key={tag.no}
+                closable
+                color="blue"
+                onClose={() => handleClose(tag)}
+              >
+                {tag.couponName}
+              </Tag>
+            ))}
+          </Space>
+        )}
+
+        <Form.Item label="按钮颜色" name="titleColor">
+          <ColorPicker showText disabledAlpha />
+        </Form.Item>
+      </Form>
 
       <WdModal open={showTable} modalProps={propsTable}>
         <WdTable

@@ -45,7 +45,21 @@ export const $get = (url: string, params: any = {}, config?: AxiosRequestConfig)
       })
   })
 }
-
+export const $post = (url: string, params: any = {}) => {
+  // return http.get(url, { params, ...config })
+  return new Promise((resolve, reject) => {
+    http
+      .post(url, params)
+      .then(res => {
+        _processResponse(res, resolve)
+      })
+      .catch(e => {
+        console.log('e: ', e)
+        // _showErrorModal(e)
+        reject(e)
+      })
+  })
+}
 /**
  * @description put请求
  * @param url 请求地址

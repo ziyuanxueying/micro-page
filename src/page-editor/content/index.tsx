@@ -64,7 +64,7 @@ const Content = () => {
             lineHeight: '32px',
             position: 'sticky',
             top: 0,
-            zIndex: 9,
+            zIndex: 99,
           })}
         >
           {pageConfig.title}

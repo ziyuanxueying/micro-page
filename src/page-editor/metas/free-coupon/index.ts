@@ -9,7 +9,7 @@ export default {
   temModule: 'FreeTem',
   setModule: 'FreeSet',
   data: {
-    channelId: 'bs_0c326a0471907632c3049ca43d434c9c',
     coupons: [],
+    btnColor: '#718cc0',
   },
 } as Component

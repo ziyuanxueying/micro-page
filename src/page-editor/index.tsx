@@ -6,27 +6,33 @@ import Setting from './setting/index.tsx'
 import { flexrc } from '@global'
 import { Button, Space } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
-import { updateJson, findByIdForB } from '@/api'
+import { findByIdForB, updateJson } from '@/api'
 import useStore, { Component, pageType } from '@/store'
 type dataType = {
   components: Component[]
   pageConfig: pageType
 }
 //CP0795244269648879616,三端联调
-//CP0795244269648879616,微页面自测
+//CP0811283496616108032,微页面自测
+//CP0811527827121074176,全量自测
 const TemplateEngine = () => {
   const { components, pageConfig, updateComponents, updatePageConfig } = useStore()
   const handleSave = async () => {
+    // const data = await createJson({
+    //   content: { components, pageConfig },
+    //   title: pageConfig.title,
+    //   channel: 'MICRO',
+    // })
     const data = await updateJson({
       content: { components, pageConfig },
-      id: 'CP0795244269648879616',
+      id: 'CP0811527827121074176',
       title: pageConfig.title,
     })
     console.log(data)
   }
   const findById = async () => {
     // const data = await getCoupons('CP0795244269648879616')
-    const data = (await findByIdForB('CP0795244269648879616')) as { content: dataType }
+    const data = (await findByIdForB('CP0811527827121074176')) as { content: dataType }
     console.log('data: ', data)
     setTimeout(() => {
       // 防止数据渲染不出来

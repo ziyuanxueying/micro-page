@@ -41,3 +41,11 @@ export const getCoupons: any = (params?: any) => {
 export const getActivityList: any = (params?: any) => {
   return postBody(`/api/fortune/fortune/activities/getActPage`, params)
 }
+
+export const generateMPCode: any = (params: any) => {
+  return postBody(`/api/sharecode/v1/shareCode/getwxacodeunlimit`, params)
+}
+
+export const generateURLLink: any = (params: any) => {
+  return postBody(`/api/sharecode/v1/shareCode/generateurllink`, params)
+}

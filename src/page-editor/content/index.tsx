@@ -75,7 +75,7 @@ const Content = () => {
           <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
         ))}
 
-        {pageConfig.showShareModal && pageConfig.isShare && <ShareModal />}
+        {pageConfig.isShare && <ShareModal />}
       </div>
     </div>
   )

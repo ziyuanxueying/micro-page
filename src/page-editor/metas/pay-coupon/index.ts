@@ -5,11 +5,11 @@ export default {
   group: '业务组件',
   icon: 'icon-pay',
   metaType: 'biz-payCoupon',
-  moduleType: 'biz-pay-img',
+  moduleType: 'biz-pay-once',
   temModule: 'PayTem',
   setModule: 'PaySet',
   data: {
     coupons: [],
-    btnColor: '#718cc0',
+    btnColor: '#f24724',
   },
 } as Component

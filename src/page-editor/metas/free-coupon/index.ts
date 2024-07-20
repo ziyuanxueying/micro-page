@@ -5,11 +5,11 @@ export default {
   group: '业务组件',
   icon: 'icon-free',
   metaType: 'biz-freeCoupon',
-  moduleType: 'biz-free-text',
+  moduleType: 'biz-free-once',
   temModule: 'FreeTem',
   setModule: 'FreeSet',
   data: {
     coupons: [],
-    btnColor: '#718cc0',
+    btnColor: '#f24724',
   },
 } as Component

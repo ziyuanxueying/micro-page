@@ -91,7 +91,7 @@ export const useStore = create<Store>()(
       bgColor: '',
     },
     updatePageConfig: pageConfig => set({ pageConfig }),
-    action: 'preview', // preview edit create
+    action: 'edit', // preview edit create
   })),
 )
 

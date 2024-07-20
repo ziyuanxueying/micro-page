@@ -1,6 +1,7 @@
 import useStore from '@/store'
 import { useDrop } from 'react-dnd'
 import ContentItem from './Item'
+import { ShareModal } from './share'
 
 const Content = () => {
   const { components, pageConfig, updateComponents } = useStore()
@@ -73,6 +74,8 @@ const Content = () => {
           // <div>{index}</div>
           <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
         ))}
+
+        {pageConfig.isShare && <ShareModal />}
       </div>
     </div>
   )

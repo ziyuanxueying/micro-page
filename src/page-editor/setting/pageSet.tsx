@@ -14,12 +14,16 @@ const onFinishFailed: FormProps<pageType>['onFinishFailed'] = errorInfo => {
 
 const Index = () => {
   const { pageConfig, updatePageConfig } = useStore()
+  const [, setShowShareModal] = useState(pageConfig.showShareModal)
   const [isShare, setIsShare] = useState(pageConfig.isShare)
+  const shareBtnImgList = pageConfig?.shareBtnImg ? [{ url: pageConfig.shareBtnImg }] : []
   const bgImageList = pageConfig?.bgImage ? [{ url: pageConfig.bgImage }] : []
+  const posterImageList = pageConfig?.posterImage ? [{ url: pageConfig.posterImage }] : []
   const shareImgList = pageConfig?.shareImg ? [{ url: pageConfig.shareImg }] : []
   const onShareChange = (checked: boolean) => {
     setIsShare(checked)
   }
+  const onShowShareModalChange = setShowShareModal
 
   return (
     <>
@@ -35,8 +39,10 @@ const Index = () => {
           updatePageConfig({
             ...allValues,
             bgColor: toHexString(allValues.bgColor),
+            shareBtnImg: toComponentUrl(allValues.shareBtnImg),
             bgImage: toComponentUrl(allValues.bgImage),
             shareImg: toComponentUrl(allValues.shareImg),
+            posterImage: toComponentUrl(allValues.posterImage),
             tab: '2',
           })
         }}
@@ -72,13 +78,34 @@ const Index = () => {
         </Form.Item>
         {isShare && (
           <>
-            <Form.Item label="自定义分享标题" name="shareTitle">
-              <Input />
+            <Form.Item
+              label="分享按钮图片"
+              name="shareBtnImg"
+              extra="支持png/jpg/jpeg/gif格式，最大500k, 100x100像素"
+            >
+              <WdUploadPicture
+                url="/xapi-pc-web/file/tmpSecret"
+                cosType="QD"
+                fileList={shareBtnImgList}
+                path="wxxcx/img"
+                multiple={false}
+                maxCount={1}
+                theme="drag"
+                defaultTip="更换图片"
+                noValidate={true}
+                width={100}
+                height={100}
+              />
             </Form.Item>
-            <Form.Item label="自定义分享描述" name="shareDesc">
-              <Input />
+            <Form.Item label="分享标题" name="shareTitle" required>
+              <Input placeholder="最多15字" />
             </Form.Item>
-            <Form.Item label="自定义分享图标" name="shareImg">
+            <Form.Item
+              label="分享图片"
+              name="shareImg"
+              extra="支持png/jpg/jpeg，分辨率750*600，不超过1M"
+              required
+            >
               <WdUploadPicture
                 url="/xapi-pc-web/file/tmpSecret"
                 cosType="QD"
@@ -92,6 +119,29 @@ const Index = () => {
                 width={100}
                 height={100}
               />
+            </Form.Item>
+            <Form.Item
+              label="分享海报"
+              name="posterImage"
+              extra="支持png/jpg/jpeg，分辨率750*1100，不超过1M"
+            >
+              <WdUploadPicture
+                url="/xapi-pc-web/file/tmpSecret"
+                cosType="QD"
+                fileList={posterImageList}
+                path="wxxcx/img"
+                multiple={false}
+                maxCount={1}
+                theme="drag"
+                defaultTip="更换图片"
+                noValidate={true}
+                width={100}
+                height={100}
+              />
+            </Form.Item>
+
+            <Form.Item label="分享预览" name="showShareModal">
+              <Switch onChange={onShowShareModalChange} />
             </Form.Item>
           </>
         )}

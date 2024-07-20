@@ -1,7 +1,7 @@
 import { generateMPCode, generateURLLink } from '@/api'
 import { CopyOutlined, DownloadOutlined } from '@ant-design/icons'
 import { WdPlazaSelect } from '@wd/component-ui'
-import { Button, Modal } from 'antd'
+import { Button, message, Modal } from 'antd'
 import React from 'react'
 
 interface Props {
@@ -48,14 +48,12 @@ function base64ToBlob(base64Data: string) {
 }
 
 function copyToClipboard(text: string) {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      console.log('Text copied to clipboard')
-    })
-    .catch(err => {
-      console.error('Unable to copy text to clipboard: ', err)
-    })
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  document.body.appendChild(textarea)
+  textarea.select()
+  document.execCommand('copy')
+  document.body.removeChild(textarea)
 }
 
 /**
@@ -64,6 +62,7 @@ function copyToClipboard(text: string) {
  */
 const PromotionModal: React.FC<Props> = function (props) {
   props = TestsProps
+  const [messageApi, contextHolder] = message.useMessage()
   const [plazaValue, setPlazaValue] = React.useState()
   const [loading, setLoading] = React.useState<boolean>(!!props.plazaId)
   const [mpCode, setMPCode] = React.useState<string>()
@@ -113,62 +112,75 @@ const PromotionModal: React.FC<Props> = function (props) {
     }
   }, [])
 
-  const copyLink = useCallback(() => link && copyToClipboard(link), [])
+  const copyLink = useCallback(() => {
+    if (!link) return
+    copyToClipboard(link)
+    messageApi.open({
+      type: 'success',
+      content: `复制成功：${link}`,
+    })
+  }, [link, messageApi])
 
-  const downloadMPCode = useCallback(() => mpCode && downloadBase64Image(mpCode, '太阳码'), [])
+  const downloadMPCode = useCallback(
+    () => mpCode && downloadBase64Image(mpCode, '太阳码'),
+    [mpCode],
+  )
 
   return (
-    <Modal
-      title={<p>推广</p>}
-      loading={loading}
-      open={props?.show}
-      onCancel={() => props.onCancel}
-      footer={false}
-    >
-      <div
-        css={css({
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        })}
+    <>
+      {contextHolder}
+      <Modal
+        title={<p>推广</p>}
+        loading={loading}
+        open={props?.show}
+        onCancel={() => props.onCancel}
+        footer={false}
       >
-        {!props.plazaId && (
-          <>
-            <WdPlazaSelect value={plazaValue} style={{ width: 350 }} onChange={changePlaza} />
-          </>
-        )}
-        {mpCode && (
-          <>
-            <img
-              css={css({
-                width: 230,
-                height: 230,
-                marginTop: 30,
-                marginBottom: 30,
-              })}
-              src={mpCode}
-            />
-            <Button
-              type="primary"
-              icon={<DownloadOutlined />}
-              size="large"
-              onClick={downloadMPCode}
-            >
-              下载太阳码
-            </Button>
-            <Button
-              type="primary"
-              style={{ marginTop: 25 }}
-              icon={<CopyOutlined />}
-              size="large"
-              onClick={copyLink}
-            >
-              复制推广链接
-            </Button>
-          </>
-        )}
-      </div>
-    </Modal>
+        <div
+          css={css({
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          })}
+        >
+          {!props.plazaId && (
+            <>
+              <WdPlazaSelect value={plazaValue} style={{ width: 350 }} onChange={changePlaza} />
+            </>
+          )}
+          {mpCode && (
+            <>
+              <img
+                css={css({
+                  width: 230,
+                  height: 230,
+                  marginTop: 30,
+                  marginBottom: 30,
+                })}
+                src={mpCode}
+              />
+              <Button
+                type="primary"
+                icon={<DownloadOutlined />}
+                size="large"
+                onClick={downloadMPCode}
+              >
+                下载太阳码
+              </Button>
+              <Button
+                type="primary"
+                style={{ marginTop: 25 }}
+                icon={<CopyOutlined />}
+                size="large"
+                onClick={copyLink}
+              >
+                复制推广链接
+              </Button>
+            </>
+          )}
+        </div>
+      </Modal>
+    </>
   )
 }
 

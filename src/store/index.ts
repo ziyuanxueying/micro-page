@@ -21,10 +21,13 @@ export type pageType = {
   title: string
   bgColor: string
   bgImage: string
+  shareBtnImg: string
   isShare?: boolean
+  showShareModal?: boolean
   shareTitle?: string
   shareDesc?: string
   shareImg: string
+  posterImage: string
   tab?: string
 }
 export type Store = {
@@ -71,7 +74,14 @@ export const useStore = create<Store>()(
         state.components = state.components.filter(item => item.id !== id)
       }),
     updateSelectedComponentId: id => set({ selectedComponentId: id }),
-    pageConfig: { title: '默认标题', bgImage: '', shareImg: '', bgColor: '' },
+    pageConfig: {
+      title: '默认标题',
+      shareBtnImg: '',
+      bgImage: '',
+      shareImg: '',
+      posterImage: '',
+      bgColor: '',
+    },
     updatePageConfig: pageConfig => set({ pageConfig }),
   })),
 )

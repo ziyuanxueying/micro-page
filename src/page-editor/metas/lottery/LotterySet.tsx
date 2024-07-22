@@ -17,7 +17,7 @@ const Index = () => {
   const [tags, setTags] = useState<DataType[]>(setting?.data?.activity || {})
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
   const [isOpen, setIsOpen] = useState(false)
-  const [imgData, setImgData] = useState([])
+  const [imgData, setImgData] = useState<any>([])
   const propsTable: WdModalProps['modalProps'] = {
     // 传递给 Modal 组件的属性和方法
     title: '选择活动',
@@ -105,6 +105,22 @@ const Index = () => {
             </Button>
           </div>
         </Form.Item>
+        {tags.length > 0 && (
+          <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
+            {tags.map(tag => (
+              <Tag
+                css={css({ fontSize: 13 })}
+                key={tag.actId}
+                closable
+                color="blue"
+                onClose={() => handleClose(tag)}
+              >
+                {tag.actTitle}
+              </Tag>
+            ))}
+          </Space>
+        )}
+
         <Form.Item label="活动配置" name="activity" rules={[{ required: true }]}>
           <div css={css([flexb, { flexWrap: 'wrap' }])}>
             <Button type="primary" onClick={() => setIsOpen(true)}>
@@ -132,21 +148,6 @@ const Index = () => {
           </div>
         </Form.Item>
       </Form>
-      {tags.length > 0 && (
-        <Space css={css({ flexWrap: 'wrap', fontSize: 13 })}>
-          {tags.map(tag => (
-            <Tag
-              css={css({ fontSize: 13 })}
-              key={tag.actId}
-              closable
-              color="blue"
-              onClose={() => handleClose(tag)}
-            >
-              {tag.actTitle}
-            </Tag>
-          ))}
-        </Space>
-      )}
 
       <WdModal open={showTable} modalProps={propsTable}>
         <WdTable

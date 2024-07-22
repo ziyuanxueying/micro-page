@@ -43,9 +43,9 @@ export const getActivityList: any = (params?: any) => {
 }
 
 export const generateMPCode: any = (params: any) => {
-  return postBody(`/api/sharecode/v1/shareCode/getwxacodeunlimit`, params)
+  return postBody(`/cos-api/sharecode/v1/shareCode/getwxacodeunlimit`, params)
 }
 
 export const generateURLLink: any = (params: any) => {
-  return postBody(`/api/sharecode/v1/shareCode/generateurllink`, params)
+  return postBody(`/cos-api/sharecode/v1/shareCode/generateurllink`, params)
 }

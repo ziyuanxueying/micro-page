@@ -112,11 +112,15 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
         {
           boxSizing: 'content-box',
           cursor: 'move',
-          border: '1px dashed',
+          // border: '4px dashed',
+          border: data.id === selectedComponentId ? '4px dashed' : '',
           borderColor: data.id === selectedComponentId ? '#20a0ff' : 'transparent',
+          // borderColor: data.id === selectedComponentId ? '#20a0ff' : 'transparent',
           opacity: isDragging ? 0 : 1,
           position: 'relative',
           zIndex: 1,
+          // width: 'calc(100% + 8px)',
+          // left: -4,
         },
         style,
       )}
@@ -129,6 +133,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
             top: 0,
             right: 0,
             zIndex: 100,
+            color: '#20a0ff',
           }}
           icon={<DeleteOutlined />}
           onClick={() => removeComponent(data.id)}

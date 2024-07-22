@@ -1,8 +1,8 @@
 // import useStore from '@/store'
-import { TemProps } from '@/page-editor/components/ItemTemplate'
+// import { TemProps } from '@/page-editor/components/ItemTemplate'
 
-const Index = (props: TemProps) => {
-  console.log('props: ', props)
+// const Index = (_props: TemProps) => {
+const Index = () => {
   // const { components } = useStore()
   // const { data } = components.find(c => c.id === props.id) || {
   //   data: { url: '', title: '', sub: '' },

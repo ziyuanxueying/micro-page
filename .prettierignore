@@ -3,3 +3,5 @@
 node_modules
 src/auto-imports.d.ts
 scripts
+
+src/utils/qrcode.js

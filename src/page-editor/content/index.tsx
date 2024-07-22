@@ -33,6 +33,7 @@ const Content = () => {
         border-radius: 4px;
         box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
         padding: 10px;
+        position: relative;
       `}
     >
       <div
@@ -79,10 +80,10 @@ const Content = () => {
             // <div>{index}</div>
             <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
           ))}
-
-          {pageConfig.isShare && <ShareModal />}
         </div>
       </div>
+
+      {pageConfig.isShare && <ShareModal />}
     </div>
   )
 }

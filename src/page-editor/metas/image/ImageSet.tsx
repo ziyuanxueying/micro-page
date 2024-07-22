@@ -61,13 +61,6 @@ const ImageSet = () => {
             ? setting.data.pictures
             : Array(setting?.data?.moduleType).fill(undefined),
         }}
-        onValuesChange={(_, allValues) => {
-          console.log('allValues: ', allValues)
-          // updateComponentData(selectedComponentId, {
-          //   ...allValues,
-          //   // pictures: toComponentPictures(allValues.pictures),
-          // })
-        }}
       >
         <Form.Item label="模版" name="moduleType" required>
           <Radio.Group onChange={handleModuleTypeChange}>

@@ -9,12 +9,7 @@ const HotTem = (props: TemProps) => {
   const { url } = current?.data || {}
 
   return (
-    <div
-      css={css({
-        padding: 10,
-        background: '#fff',
-      })}
-    >
+    <div css={css({ padding: 10, background: '#fff' })}>
       <Image
         src={url}
         width="100%"

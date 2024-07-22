@@ -1,7 +1,6 @@
 import useStore from '@/store'
-import { toComponentUrl } from '@/utils'
 import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
-import { WdUploadPicture } from '@wd/component-ui'
+import { WdMaterial, ImagePreview, WdAllocation } from '@wd/component-ui'
 import { Button, Card, Divider, Form, Image, Input, Modal, Typography } from 'antd'
 import HotItem from './HotItem'
 import { v4 as uuidv4 } from 'uuid'
@@ -24,15 +23,14 @@ export type Hot = {
 const HotSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()
 
-  const selectedComponent = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId)
 
   const [modalVisible, setModalVisible] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [url, setUrl] = useState<any>(setting?.data?.url || '')
 
   const [form] = Form.useForm()
   const hots = form.getFieldValue('hots') || []
-
-  const { url } = selectedComponent?.data || {}
-  const fileList = url ? [{ url }] : []
 
   const updateHot = (id: string, value: Partial<Hot>) => {
     form.setFieldValue(
@@ -46,10 +44,25 @@ const HotSet = () => {
     )
 
     const { url, ...values } = form.getFieldsValue()
+    console.log('form.getFieldsValue(): ', form.getFieldsValue())
     updateComponentData(selectedComponentId, {
       ...values,
-      url: toComponentUrl(url),
+      url,
     })
+  }
+
+  const handleCancel = () => {
+    setIsOpen(false)
+  }
+  const handleDelete = () => {
+    // setImgData([])
+    setting && updateComponentData(setting.id, { ...setting.data, img: '' })
+  }
+  const handleOk = (url?: string) => {
+    // setImgData([{ src: url || '', name: '图片' }])
+    setUrl(url)
+    setting && updateComponentData(setting.id, { ...setting.data, url })
+    setIsOpen(false)
   }
 
   return (
@@ -61,28 +74,41 @@ const HotSet = () => {
       <Form
         form={form}
         labelCol={{ span: 5 }}
-        initialValues={selectedComponent?.data}
+        initialValues={setting?.data}
         onValuesChange={(_, allValues) => {
+          console.log('allValues: ', allValues)
           updateComponentData(selectedComponentId, {
             ...allValues,
-            url: toComponentUrl(allValues.url),
+            // url: toComponentUrl(allValues.url),
           })
         }}
       >
         <Form.Item label="添加图片" name="url">
-          <WdUploadPicture
-            url="/xapi-pc-web/file/tmpSecret"
-            cosType="QD"
-            fileList={fileList}
-            path="wxxcx/img"
-            multiple={false}
-            noValidate={true}
-            maxCount={1}
-            theme="drag"
-            defaultTip="更换图片"
-            width={100}
-            height={100}
-          />
+          <div>
+            <Button type="primary" onClick={() => setIsOpen(true)}>
+              素材库
+            </Button>
+            <WdMaterial
+              limit={1}
+              maxCount={1}
+              disabled={false}
+              noValidate={false}
+              open={isOpen}
+              onCancel={handleCancel}
+              onOk={handleOk}
+            />
+            {url && (
+              <ImagePreview
+                data={[{ src: url, name: '图片' }]}
+                width={200}
+                height={200}
+                colNum={1}
+                isDefault={false}
+                isDelete={false}
+                onDelete={handleDelete}
+              />
+            )}
+          </div>
         </Form.Item>
         {url && (
           <Button
@@ -172,7 +198,11 @@ const HotSet = () => {
                                 name={[name, 'link']}
                                 required
                               >
-                                <Input />
+                                <WdAllocation
+                                  status={['none', 'mini', 'external']}
+                                  // value={pathVal}
+                                  // onChangeData={onClick}
+                                />
                               </Form.Item>
 
                               <Button

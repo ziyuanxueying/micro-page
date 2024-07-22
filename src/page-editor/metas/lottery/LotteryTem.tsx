@@ -1,12 +1,11 @@
-// import useStore from '@/store'
+import useStore from '@/store'
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 
 const Index = (props: TemProps) => {
   console.log('props: ', props)
-  // const { components } = useStore()
-  // const { data } = components.find(c => c.id === props.id) || {
-  //   data: { url: '', title: '', sub: '' },
-  // }
+  const { components } = useStore()
+  const { data = { img: '' } } = components.find(c => c.id === props.id) || {}
+  console.log('data: ', data)
   return (
     <>
       <img
@@ -14,12 +13,13 @@ const Index = (props: TemProps) => {
           width: '100%',
           height: 50,
           background: '#fff',
-          borderRadius: '50%',
+          // borderRadius: '50%',
         })}
-        src={new URL(`@/assets/red-env.svg`, import.meta.url).href}
+        // src={new URL(`@/assets/red-env.svg`, import.meta.url).href}
+        src={data.img}
         alt=""
       />
-      <div>请选择图片</div>
+      {/* <div>请选择图片</div> */}
     </>
   )
 }

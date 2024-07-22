@@ -14,7 +14,7 @@ const Index = () => {
   const setting = components.find(c => c.id === selectedComponentId)
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
-  const [tags, setTags] = useState<DataType[]>(setting?.data?.activity || {})
+  const [tags, setTags] = useState<DataType[]>([setting?.data?.activity] || [])
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
   const [isOpen, setIsOpen] = useState(false)
   const [imgData, setImgData] = useState<any>([])
@@ -84,11 +84,12 @@ const Index = () => {
     setIsOpen(false)
   }
   const handleDelete = () => {
-    console.log(1111111)
     setImgData([])
+    setting && updateComponentData(setting.id, { ...setting.data, img: '' })
   }
   const handleOk = (url?: string) => {
     setImgData([{ src: url || '', name: '抽奖图片' }])
+    setting && updateComponentData(setting.id, { ...setting.data, img: url })
     setIsOpen(false)
   }
   return (

@@ -70,7 +70,7 @@ const Index = () => {
       ...searchValue,
       payload: { style: 0, isCover: 1, aStatus: '4,5', actTitle: searchValue.actTitle },
     })
-    setList({ list: res.data, page: { total: res.totalSize } })
+    setList({ list: res.data, page: { total: res.totalCount } })
   }
   useEffect(() => {
     console.log('selectedRows: ', selectedRows[0])

@@ -69,7 +69,7 @@ const Index = () => {
       ...searchValue,
       payload: { style: 1, aStatus: '4,5', actTitle: searchValue.actTitle },
     })
-    setList({ list: res.data, page: { total: res.totalSize } })
+    setList({ list: res.data, page: { total: res.totalCount } })
   }
   useEffect(() => {
     setting && updateComponentData(setting.id, { ...setting.data, activity: selectedRows[0] })

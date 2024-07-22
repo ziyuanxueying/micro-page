@@ -1,7 +1,8 @@
 import useStore from '@/store'
-import { Divider, Form, Input, Radio, Typography, Switch, InputNumber } from 'antd'
-import { WdUploadPicture } from '@wd/component-ui'
+import { Divider, Form, Radio, Typography, Switch, InputNumber } from 'antd'
+import { WdAllocation } from '@wd/component-ui'
 import { toComponentUrl } from '@/utils'
+import MaterialBtn from '@/page-editor/components/MaterialBtn'
 
 const { Title } = Typography
 
@@ -11,10 +12,10 @@ const FloatBtnSet = () => {
 
   const [form] = Form.useForm()
 
-  const { buttonImgUrl, modalImgUrl } = selectedComponent?.data || {}
+  // const { buttonImgUrl, modalImgUrl } = selectedComponent?.data || {}
 
-  const buttonImgList = buttonImgUrl ? [{ url: buttonImgUrl }] : []
-  const modalImgList = modalImgUrl ? [{ url: modalImgUrl }] : []
+  // const buttonImgList = buttonImgUrl ? [{ url: buttonImgUrl }] : []
+  // const modalImgList = modalImgUrl ? [{ url: modalImgUrl }] : []
 
   const onClickTypeChange = () => {
     const { clickType, ...values } = form.getFieldsValue()
@@ -55,19 +56,7 @@ const FloatBtnSet = () => {
         }}
       >
         <Form.Item label="按钮图片" name="buttonImgUrl" required>
-          <WdUploadPicture
-            url="/xapi-pc-web/file/tmpSecret"
-            cosType="QD"
-            fileList={buttonImgList}
-            path="wxxcx/img"
-            multiple={false}
-            maxCount={1}
-            theme="drag"
-            noValidate={true}
-            defaultTip="更换图片"
-            width={100}
-            height={100}
-          />
+          <MaterialBtn />
         </Form.Item>
         <Form.Item label="按钮位置" name="top">
           <InputNumber />
@@ -85,18 +74,7 @@ const FloatBtnSet = () => {
               return (
                 <>
                   <Form.Item label="弹窗图片" name="modalImgUrl">
-                    <WdUploadPicture
-                      url="/xapi-pc-web/file/tmpSecret"
-                      cosType="QD"
-                      fileList={modalImgList}
-                      path="wxxcx/img"
-                      multiple={false}
-                      maxCount={1}
-                      theme="drag"
-                      defaultTip="更换图片"
-                      width={100}
-                      height={100}
-                    />
+                    <MaterialBtn />
                   </Form.Item>
                   <Form.Item label="弹窗预览" name="preview">
                     <Switch />
@@ -107,7 +85,7 @@ const FloatBtnSet = () => {
 
             return (
               <Form.Item label="跳转链接" name="link">
-                <Input />
+                <WdAllocation status={['none', 'mini', 'external']} />
               </Form.Item>
             )
           }}

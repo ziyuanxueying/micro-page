@@ -16,6 +16,7 @@ const Index = (props: TemProps) => {
         (coupons.length ? coupons : [0]).map((v: any, index: number) => {
           return (
             <div
+              key={index}
               style={{
                 margin: '0 12px',
                 paddingBottom: index === current?.data?.coupons.length - 1 ? 10 : 0,

@@ -1,6 +1,6 @@
 import useStore from '@/store'
-import { Form, Input, Radio, Typography, Divider, Card, Button } from 'antd'
-import { WdUploadPicture } from '@wd/component-ui'
+import { Form, Radio, Typography, Divider, Card, Button } from 'antd'
+import { WdMaterial, ImagePreview, WdAllocation } from '@wd/component-ui'
 import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
 import { toComponentPictures } from '@/utils'
 
@@ -8,23 +8,44 @@ const { Title } = Typography
 
 const ImageSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()
-
-  const selectedComponent = components.find(c => c.id === selectedComponentId)
-
+  const setting = components.find(c => c.id === selectedComponentId)
+  const [isOpen, setIsOpen] = useState(false)
+  const [pictures, setPictures] = useState<any>(
+    setting?.data?.pictures.length ? setting.data.pictures : [{}],
+  )
+  // const [imgData, setImgData] = useState<any>([{ src: setting?.data?.img, name: '图片' }])
+  // const [pathVal, setPathVal] = React.useState('')
   const [form] = Form.useForm()
 
   const handleModuleTypeChange = () => {
     const { moduleType, pictures } = form.getFieldsValue()
-
     const nextPictures = moduleType === 'image' ? pictures.slice(0, 1) : pictures
-
     form.setFieldValue('pictures', nextPictures)
     updateComponentData(selectedComponentId, {
       moduleType,
       pictures: toComponentPictures(nextPictures),
     })
   }
-
+  const handleCancel = () => {
+    setIsOpen(false)
+  }
+  const handleDelete = () => {
+    // setImgData([])
+    setting && updateComponentData(setting.id, { ...setting.data, img: '' })
+  }
+  const handleOk = (url: string, key: any) => {
+    const pics = [...pictures]
+    pics[key] = { url, ...pics[key] }
+    setPictures(pics)
+    setting && updateComponentData(setting.id, { ...setting.data, pictures })
+    setIsOpen(false)
+  }
+  const onPathClick = (link: string, key: any) => {
+    const pics = [...pictures]
+    pics[key] = { link, ...pics[key] }
+    setPictures(pics)
+    setting && updateComponentData(setting.id, { ...setting.data, pictures })
+  }
   return (
     <>
       <Title level={5} style={{ fontWeight: 500, marginBottom: 0 }} css={css({ textIndent: 10 })}>
@@ -35,16 +56,17 @@ const ImageSet = () => {
         form={form}
         labelCol={{ span: 5 }}
         initialValues={{
-          ...selectedComponent?.data,
-          pictures: selectedComponent?.data?.pictures.length
-            ? selectedComponent.data.pictures
-            : Array(selectedComponent?.data?.moduleType).fill(undefined),
+          ...setting?.data,
+          pictures: setting?.data?.pictures.length
+            ? setting.data.pictures
+            : Array(setting?.data?.moduleType).fill(undefined),
         }}
         onValuesChange={(_, allValues) => {
-          updateComponentData(selectedComponentId, {
-            ...allValues,
-            pictures: toComponentPictures(allValues.pictures),
-          })
+          console.log('allValues: ', allValues)
+          // updateComponentData(selectedComponentId, {
+          //   ...allValues,
+          //   // pictures: toComponentPictures(allValues.pictures),
+          // })
         }}
       >
         <Form.Item label="模版" name="moduleType" required>
@@ -58,12 +80,12 @@ const ImageSet = () => {
         <Form.List name="pictures">
           {(fields, { add, remove }, { errors }) => {
             return (
-              <>
+              <div>
                 <div css={css({ display: 'flex', flexDirection: 'column', gap: 20 })}>
                   {fields.map(({ key, name, ...restField }) => {
-                    const url = selectedComponent?.data?.pictures?.[key]?.url
-                    const fileList = url ? [{ url }] : []
-
+                    console.log('key, name, ...restField: ', restField)
+                    const url = setting?.data?.pictures?.[key]?.url
+                    const link = setting?.data?.pictures?.[key]?.link
                     return (
                       <Card
                         key={key}
@@ -72,22 +94,38 @@ const ImageSet = () => {
                         css={css({ position: 'relative' })}
                       >
                         <Form.Item {...restField} label="图片" name={[name, 'url']}>
-                          <WdUploadPicture
-                            url="/xapi-pc-web/file/tmpSecret"
-                            cosType="QD"
-                            fileList={fileList}
-                            path="wxxcx/img"
-                            multiple={false}
-                            noValidate={true}
-                            maxCount={1}
-                            theme="drag"
-                            defaultTip="更换图片"
-                            width={100}
-                            height={100}
-                          />
+                          <div>
+                            <Button type="primary" onClick={() => setIsOpen(true)}>
+                              素材库
+                            </Button>
+                            <WdMaterial
+                              limit={1}
+                              maxCount={1}
+                              disabled={false}
+                              noValidate={false}
+                              open={isOpen}
+                              onCancel={handleCancel}
+                              onOk={url => handleOk(url, key)}
+                            />
+                            {url && (
+                              <ImagePreview
+                                data={[{ src: url }]}
+                                width={200}
+                                height={200}
+                                colNum={1}
+                                isDefault={false}
+                                isDelete={false}
+                                onDelete={handleDelete}
+                              />
+                            )}
+                          </div>
                         </Form.Item>
                         <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
-                          <Input />
+                          <WdAllocation
+                            status={['none', 'mini', 'external']}
+                            value={link}
+                            onChangeData={path => onPathClick(path, key)}
+                          />
                         </Form.Item>
 
                         {fields.length > 1 ? (
@@ -134,7 +172,7 @@ const ImageSet = () => {
                     )
                   }}
                 </Form.Item>
-              </>
+              </div>
             )
           }}
         </Form.List>

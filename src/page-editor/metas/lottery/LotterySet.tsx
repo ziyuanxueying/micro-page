@@ -17,12 +17,7 @@ const Index = () => {
   const [tags, setTags] = useState<DataType[]>([setting?.data?.activity] || [])
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
   const [isOpen, setIsOpen] = useState(false)
-  const [imgData, setImgData] = useState<any>([
-    {
-      src: setting?.data?.img,
-      name: '抽奖图片',
-    },
-  ])
+  const [imgData, setImgData] = useState<any>([{ src: setting?.data?.img, name: '抽奖图片' }])
   const propsTable: WdModalProps['modalProps'] = {
     // 传递给 Modal 组件的属性和方法
     title: '选择活动',

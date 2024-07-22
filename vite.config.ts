@@ -9,8 +9,8 @@ const srcDir = resolve(rootDir, 'src')
 const global = resolve(rootDir, 'src/styles/global.ts')
 
 const HOST = {
-  dev: 'http://gatewayp-dev.baopukeji-dev.cn',
-  coupons: 'http://coupon-dev.baopukeji-dev.cn',
+  // dev: 'http://gatewayp-dev.baopukeji-dev.cn',
+  // coupons: 'http://coupon-dev.baopukeji-dev.cn',
   api: 'http://center-dev.baopukeji-dev.cn',
 }
 
@@ -21,16 +21,16 @@ export default ({ mode }: { mode: string }) => {
       port: 8088,
       open: false,
       proxy: {
-        '/cos-api': {
-          target: HOST.dev,
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/cos-api/, ''),
-        },
-        '/coupons': {
-          target: HOST.coupons,
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/coupons/, ''),
-        },
+        // '/cos-api': {
+        //   target: HOST.dev,
+        //   changeOrigin: true,
+        //   rewrite: path => path.replace(/^\/cos-api/, ''),
+        // },
+        // '/coupons': {
+        //   target: HOST.coupons,
+        //   changeOrigin: true,
+        //   rewrite: path => path.replace(/^\/coupons/, ''),
+        // },
         '/api': {
           target: HOST.api,
           changeOrigin: true,

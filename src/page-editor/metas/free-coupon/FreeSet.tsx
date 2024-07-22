@@ -67,8 +67,6 @@ const Index = () => {
     {
       title: '发放主体',
       dataIndex: 'createOrgFullName',
-      // searchType: 'plaza',
-      // hideInTable: true,
     },
     { title: '发放时间', dataIndex: 'provideStartTime' },
     { title: '失效时间', dataIndex: 'provideEndTime' },
@@ -87,8 +85,10 @@ const Index = () => {
     setting &&
       updateComponent(setting.id, {
         ...setting,
+        isError: '',
         data: { ...setting.data, coupons: selectedRows },
       })
+    console.log('tags: ', tags)
   }, [tags])
   const rowSelection = {
     selectedRowKeys: selectedRows.map(item => item.no),

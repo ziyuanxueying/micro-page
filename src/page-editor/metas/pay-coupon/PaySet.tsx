@@ -75,6 +75,7 @@ const Index = () => {
     setting &&
       updateComponent(setting.id, {
         ...setting,
+        isError: '',
         data: { ...setting.data, coupons: selectedRows },
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,7 +101,6 @@ const Index = () => {
     <div>
       <SetTitle>付费优惠券</SetTitle>
       <Form
-        name="basic"
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 16 }}
         initialValues={initialValues}
@@ -112,7 +112,7 @@ const Index = () => {
           })
         }}
       >
-        <Form.Item label="选择样式">
+        <Form.Item label="选择样式" name="moduleType">
           <Segmented
             value={moduleType}
             onChange={onChange}

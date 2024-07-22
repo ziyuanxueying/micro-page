@@ -14,7 +14,9 @@ const Index = () => {
   const setting = components.find(c => c.id === selectedComponentId)
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
-  const [tags, setTags] = useState<DataType[]>([setting?.data?.activity] || [])
+  const [tags, setTags] = useState<DataType[]>(
+    setting?.data?.activity?.actId ? [setting?.data?.activity] : [],
+  )
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
 
   const propsTable: WdModalProps['modalProps'] = {
@@ -71,7 +73,9 @@ const Index = () => {
     setList({ list: res.data, page: { total: res.totalSize } })
   }
   useEffect(() => {
+    console.log('selectedRows: ', selectedRows[0])
     setting && updateComponentData(setting.id, { ...setting.data, activity: selectedRows[0] })
+    console.log('tags: ', tags)
   }, [tags])
 
   const handleClose = (removedTag: DataType) => {

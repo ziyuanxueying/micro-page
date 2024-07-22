@@ -84,37 +84,41 @@ const Index = () => {
           <ColorPicker showText />
         </Form.Item>
         <Form.Item label="添加背景图" name="bgImage">
-          <Button onClick={() => openWDMaterialHandler('bgImage')}>选择图片+</Button>
-          {pageConfig.bgImage && (
-            <ImagePreview
-              data={[{ src: pageConfig.bgImage, name: '分享按钮' }]}
-              width={100}
-              height={100}
-              colNum={1}
-              isDefault={false}
-            />
-          )}
+          <div>
+            <Button onClick={() => openWDMaterialHandler('bgImage')}>选择图片+</Button>
+            {pageConfig.bgImage && (
+              <ImagePreview
+                data={[{ src: pageConfig.bgImage, name: '分享按钮' }]}
+                width={100}
+                height={100}
+                colNum={1}
+                isDefault={false}
+              />
+            )}
+          </div>
         </Form.Item>
         <Form.Item label="分享设置" name="isShare">
           <Switch />
         </Form.Item>
         {pageConfig.isShare && (
-          <>
+          <div>
             <Form.Item
               label="分享按钮图片"
               name="shareBtnImg"
               extra="支持png、jpg、jpeg、gif格式，最大500k, 100x100像素"
             >
-              <Button onClick={() => openWDMaterialHandler('shareBtnImg')}>选择图片+</Button>
-              {pageConfig.shareBtnImg && (
-                <ImagePreview
-                  data={[{ src: pageConfig.shareBtnImg, name: '分享按钮' }]}
-                  width={100}
-                  height={100}
-                  colNum={1}
-                  isDefault={false}
-                />
-              )}
+              <div>
+                <Button onClick={() => openWDMaterialHandler('shareBtnImg')}>选择图片+</Button>
+                {pageConfig.shareBtnImg && (
+                  <ImagePreview
+                    data={[{ src: pageConfig.shareBtnImg, name: '分享按钮' }]}
+                    width={100}
+                    height={100}
+                    colNum={1}
+                    isDefault={false}
+                  />
+                )}
+              </div>
             </Form.Item>
             <Form.Item label="分享标题" name="shareTitle" required>
               <Input placeholder="最多15字" />
@@ -125,38 +129,42 @@ const Index = () => {
               extra="支持png、jpg、jpeg，分辨率750*600，不超过1M"
               required
             >
-              <Button onClick={() => openWDMaterialHandler('shareImg')}>选择图片+</Button>
-              {pageConfig.shareImg && (
-                <ImagePreview
-                  data={[{ src: pageConfig.shareImg, name: '分享图片' }]}
-                  width={100}
-                  height={100}
-                  colNum={1}
-                  isDefault={false}
-                />
-              )}
+              <div>
+                <Button onClick={() => openWDMaterialHandler('shareImg')}>选择图片+</Button>
+                {pageConfig.shareImg && (
+                  <ImagePreview
+                    data={[{ src: pageConfig.shareImg, name: '分享图片' }]}
+                    width={100}
+                    height={100}
+                    colNum={1}
+                    isDefault={false}
+                  />
+                )}
+              </div>
             </Form.Item>
             <Form.Item
               label="分享海报"
               name="posterImage"
               extra="支持png、jpg、jpeg，分辨率750*1100，不超过1M"
             >
-              <Button onClick={() => openWDMaterialHandler('posterImage')}>选择图片+</Button>
-              {pageConfig.posterImage && (
-                <ImagePreview
-                  data={[{ src: pageConfig.posterImage, name: '分享海报' }]}
-                  width={100}
-                  height={100}
-                  colNum={1}
-                  isDefault={false}
-                />
-              )}
+              <div>
+                <Button onClick={() => openWDMaterialHandler('posterImage')}>选择图片+</Button>
+                {pageConfig.posterImage && (
+                  <ImagePreview
+                    data={[{ src: pageConfig.posterImage, name: '分享海报' }]}
+                    width={100}
+                    height={100}
+                    colNum={1}
+                    isDefault={false}
+                  />
+                )}
+              </div>
             </Form.Item>
 
             <Form.Item label="分享预览" name="showShareModal">
               <Switch />
             </Form.Item>
-          </>
+          </div>
         )}
       </Form>
     </>

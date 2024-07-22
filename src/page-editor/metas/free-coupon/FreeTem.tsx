@@ -8,7 +8,6 @@ const Index = (props: TemProps) => {
   const moduleType = current?.moduleType || 'biz-free-once'
   const btnColor = current?.data?.btnColor || '#f24724'
   const coupons = current?.data?.coupons || []
-  console.log('btnColor: ', btnColor)
 
   useEffect(() => {}, [current?.data])
   return (

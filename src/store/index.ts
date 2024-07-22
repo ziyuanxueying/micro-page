@@ -13,6 +13,7 @@ export type Component = {
   moduleType?: string
   temModule: string
   setModule: string
+  isError?: string // 校验必填项
   data?: Record<string, any> // 这里的 any 可以替换为具体的数据类型
 }
 

@@ -8,6 +8,7 @@ import { Button, Space } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
 import { findByIdForB, updateJson } from '@/api'
 import useStore, { ActionEnums, Component, pageType } from '@/store'
+import { checkSaveInfo } from '@/utils/index.ts'
 type dataType = {
   components: Component[]
   pageConfig: pageType
@@ -16,14 +17,29 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = () => {
-  const { components, pageConfig, action, updateComponents, updatePageConfig } = useStore()
-  console.log('components: ', components)
+  const {
+    components,
+    pageConfig,
+    action,
+    updateComponents,
+    updateSelectedComponentId,
+    updatePageConfig,
+  } = useStore()
   const handleSave = async () => {
     // const data = await createJson({
     //   content: { components, pageConfig },
     //   title: pageConfig.title,
     //   channel: 'MICRO',
     // })
+    const { msg, list } = checkSaveInfo({ components, pageConfig })
+    console.log('list: ', list)
+    if (msg) {
+      updateSelectedComponentId(undefined)
+      alert(msg)
+    }
+    if (list.length > 0) {
+      updateComponents(list)
+    }
     const data = await updateJson({
       content: { components, pageConfig },
       id: 'CP0811283496616108032',

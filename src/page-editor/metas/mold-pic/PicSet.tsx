@@ -25,7 +25,10 @@ const Index = () => {
         labelCol={{ span: 4 }}
         initialValues={{ ...setting?.data }}
         onValuesChange={(_, allValues) => {
-          updateComponentData(selectedComponentId, { ...allValues })
+          updateComponentData(selectedComponentId, {
+            ...allValues,
+            url: 'http://xcx02-dev-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/53aa87b270ae4e6da1d06c9b2e4ce990.jpeg',
+          })
         }}
       >
         <Form.Item label="选择模版" name="moduleType">
@@ -37,7 +40,7 @@ const Index = () => {
             ))}
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="标题" name="title">
+        <Form.Item label="标题" name="title" required>
           <Input />
         </Form.Item>
         <Form.Item label="副标题" name="sub">

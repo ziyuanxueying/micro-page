@@ -112,9 +112,9 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
         {
           boxSizing: 'content-box',
           cursor: 'move',
-          // border: '4px dashed',
-          border: data.id === selectedComponentId ? '4px dashed' : '',
-          borderColor: data.id === selectedComponentId ? '#20a0ff' : 'transparent',
+          border: data.id === selectedComponentId ? '2px dashed' : data.isError ? '2px solid' : '',
+          borderColor:
+            data.id === selectedComponentId ? '#20a0ff' : data.isError ? 'red' : 'transparent',
           // borderColor: data.id === selectedComponentId ? '#20a0ff' : 'transparent',
           opacity: isDragging ? 0 : 1,
           position: 'relative',

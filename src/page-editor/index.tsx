@@ -7,7 +7,7 @@ import { flexrc } from '@global'
 import { Button, Space } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
 import { findByIdForB, updateJson } from '@/api'
-import useStore, { Component, pageType } from '@/store'
+import useStore, { ActionEnums, Component, pageType } from '@/store'
 type dataType = {
   components: Component[]
   pageConfig: pageType
@@ -16,7 +16,7 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = () => {
-  const { components, pageConfig, updateComponents, updatePageConfig } = useStore()
+  const { components, pageConfig, action, updateComponents, updatePageConfig } = useStore()
   const handleSave = async () => {
     // const data = await createJson({
     //   content: { components, pageConfig },
@@ -59,9 +59,9 @@ const TemplateEngine = () => {
             minHeight: '700px',
           })}
         >
-          <MetasBar />
+          {action !== ActionEnums.preview && <MetasBar />}
           <Content />
-          <Setting />
+          {action !== ActionEnums.preview && <Setting />}
         </main>
       </DndProvider>
       <Space css={css([flexrc, { padding: '10px' }])}>

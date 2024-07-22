@@ -1,8 +1,9 @@
-import { pageType } from '@/store'
-import { WdUploadPicture } from '@wd/component-ui'
-import { ColorPicker, Form, FormProps, Input, Switch } from 'antd'
+import React from 'react'
 import useStore from '@/store'
-import { toComponentUrl, toHexString } from '@/utils'
+import { pageType } from '@/store'
+import { ImagePreview, WdMaterial } from '@wd/component-ui'
+import { ColorPicker, Form, FormProps, Input, Switch, Button } from 'antd'
+import { toHexString } from '@/utils'
 
 const onFinish: FormProps<pageType>['onFinish'] = values => {
   console.log('Success:', values)
@@ -14,21 +15,44 @@ const onFinishFailed: FormProps<pageType>['onFinishFailed'] = errorInfo => {
 
 const Index = () => {
   const { pageConfig, updatePageConfig } = useStore()
-  const [, setShowShareModal] = useState(pageConfig.showShareModal)
-  const [isShare, setIsShare] = useState(pageConfig.isShare)
-  const shareBtnImgList = pageConfig?.shareBtnImg ? [{ url: pageConfig.shareBtnImg }] : []
-  const bgImageList = pageConfig?.bgImage ? [{ url: pageConfig.bgImage }] : []
-  const posterImageList = pageConfig?.posterImage ? [{ url: pageConfig.posterImage }] : []
-  const shareImgList = pageConfig?.shareImg ? [{ url: pageConfig.shareImg }] : []
-  const onShareChange = (checked: boolean) => {
-    setIsShare(checked)
+
+  const [form] = Form.useForm()
+  // 是否打开素材库
+  const [openWDMaterial, setOpenWDMaterial] = useState(false)
+  // 素材库作用于哪张图片
+  const [editImageKey, setEditImageKey] = useState('')
+
+  /** 打开素材库 */
+  const openWDMaterialHandler = React.useCallback((key: string) => {
+    setOpenWDMaterial(true)
+    setEditImageKey(key)
+  }, [])
+
+  /** 关闭素材库 */
+  const closeWDMaterial = React.useCallback(() => {
+    setOpenWDMaterial(false)
+  }, [])
+
+  /** 素材库选择资源 */
+  const resourceSelected = (url: string) => {
+    closeWDMaterial()
+    updatePageConfig({ ...pageConfig, [editImageKey]: url })
   }
-  const onShowShareModalChange = setShowShareModal
 
   return (
     <>
+      <WdMaterial
+        limit={1}
+        maxCount={1}
+        disabled={false}
+        noValidate={false}
+        open={openWDMaterial}
+        onCancel={closeWDMaterial}
+        onOk={resourceSelected}
+      />
       <Form
         name="basic"
+        form={form}
         labelCol={{ span: 7 }}
         wrapperCol={{ span: 16 }}
         initialValues={pageConfig}
@@ -37,12 +61,13 @@ const Index = () => {
         onValuesChange={(_, allValues) => {
           console.log('allValues: ', allValues)
           updatePageConfig({
+            ...pageConfig,
             ...allValues,
             bgColor: toHexString(allValues.bgColor),
-            shareBtnImg: toComponentUrl(allValues.shareBtnImg),
-            bgImage: toComponentUrl(allValues.bgImage),
-            shareImg: toComponentUrl(allValues.shareImg),
-            posterImage: toComponentUrl(allValues.posterImage),
+            // shareBtnImg: toComponentUrl(allValues.shareBtnImg),
+            // bgImage: toComponentUrl(allValues.bgImage),
+            // shareImg: toComponentUrl(allValues.shareImg),
+            // posterImage: toComponentUrl(allValues.posterImage),
             tab: '2',
           })
         }}
@@ -59,43 +84,37 @@ const Index = () => {
           <ColorPicker showText />
         </Form.Item>
         <Form.Item label="添加背景图" name="bgImage">
-          <WdUploadPicture
-            url="/xapi-pc-web/file/tmpSecret"
-            cosType="QD"
-            fileList={bgImageList}
-            path="wxxcx/img"
-            multiple={false}
-            maxCount={1}
-            theme="drag"
-            defaultTip="更换图片"
-            noValidate={true}
-            width={100}
-            height={100}
-          />
+          <Button onClick={() => openWDMaterialHandler('bgImage')}>选择图片+</Button>
+          {pageConfig.bgImage && (
+            <ImagePreview
+              data={[{ src: pageConfig.bgImage, name: '分享按钮' }]}
+              width={100}
+              height={100}
+              colNum={1}
+              isDefault={false}
+            />
+          )}
         </Form.Item>
         <Form.Item label="分享设置" name="isShare">
-          <Switch onChange={onShareChange} />
+          <Switch />
         </Form.Item>
-        {isShare && (
+        {pageConfig.isShare && (
           <>
             <Form.Item
               label="分享按钮图片"
               name="shareBtnImg"
-              extra="支持png/jpg/jpeg/gif格式，最大500k, 100x100像素"
+              extra="支持png、jpg、jpeg、gif格式，最大500k, 100x100像素"
             >
-              <WdUploadPicture
-                url="/xapi-pc-web/file/tmpSecret"
-                cosType="QD"
-                fileList={shareBtnImgList}
-                path="wxxcx/img"
-                multiple={false}
-                maxCount={1}
-                theme="drag"
-                defaultTip="更换图片"
-                noValidate={true}
-                width={100}
-                height={100}
-              />
+              <Button onClick={() => openWDMaterialHandler('shareBtnImg')}>选择图片+</Button>
+              {pageConfig.shareBtnImg && (
+                <ImagePreview
+                  data={[{ src: pageConfig.shareBtnImg, name: '分享按钮' }]}
+                  width={100}
+                  height={100}
+                  colNum={1}
+                  isDefault={false}
+                />
+              )}
             </Form.Item>
             <Form.Item label="分享标题" name="shareTitle" required>
               <Input placeholder="最多15字" />
@@ -103,45 +122,39 @@ const Index = () => {
             <Form.Item
               label="分享图片"
               name="shareImg"
-              extra="支持png/jpg/jpeg，分辨率750*600，不超过1M"
+              extra="支持png、jpg、jpeg，分辨率750*600，不超过1M"
               required
             >
-              <WdUploadPicture
-                url="/xapi-pc-web/file/tmpSecret"
-                cosType="QD"
-                fileList={shareImgList}
-                path="wxxcx/img"
-                multiple={false}
-                maxCount={1}
-                theme="drag"
-                defaultTip="更换图片"
-                noValidate={true}
-                width={100}
-                height={100}
-              />
+              <Button onClick={() => openWDMaterialHandler('shareImg')}>选择图片+</Button>
+              {pageConfig.shareImg && (
+                <ImagePreview
+                  data={[{ src: pageConfig.shareImg, name: '分享图片' }]}
+                  width={100}
+                  height={100}
+                  colNum={1}
+                  isDefault={false}
+                />
+              )}
             </Form.Item>
             <Form.Item
               label="分享海报"
               name="posterImage"
-              extra="支持png/jpg/jpeg，分辨率750*1100，不超过1M"
+              extra="支持png、jpg、jpeg，分辨率750*1100，不超过1M"
             >
-              <WdUploadPicture
-                url="/xapi-pc-web/file/tmpSecret"
-                cosType="QD"
-                fileList={posterImageList}
-                path="wxxcx/img"
-                multiple={false}
-                maxCount={1}
-                theme="drag"
-                defaultTip="更换图片"
-                noValidate={true}
-                width={100}
-                height={100}
-              />
+              <Button onClick={() => openWDMaterialHandler('posterImage')}>选择图片+</Button>
+              {pageConfig.posterImage && (
+                <ImagePreview
+                  data={[{ src: pageConfig.posterImage, name: '分享海报' }]}
+                  width={100}
+                  height={100}
+                  colNum={1}
+                  isDefault={false}
+                />
+              )}
             </Form.Item>
 
             <Form.Item label="分享预览" name="showShareModal">
-              <Switch onChange={onShowShareModalChange} />
+              <Switch />
             </Form.Item>
           </>
         )}

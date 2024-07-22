@@ -30,6 +30,13 @@ export type pageType = {
   posterImage: string
   tab?: string
 }
+export enum ActionEnums {
+  preview = 'preview',
+  edit = 'edit',
+  create = 'create',
+}
+
+export type Action = keyof typeof ActionEnums
 export type Store = {
   components: Component[]
   selectedComponentId: Component['id'] | undefined
@@ -40,6 +47,7 @@ export type Store = {
   removeComponent: (id: Component['id']) => void
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
   pageConfig: pageType
+  action: Action
   updatePageConfig: (pageData: pageType) => void
 }
 
@@ -83,6 +91,7 @@ export const useStore = create<Store>()(
       bgColor: '',
     },
     updatePageConfig: pageConfig => set({ pageConfig }),
+    action: 'edit', // preview edit create
   })),
 )
 

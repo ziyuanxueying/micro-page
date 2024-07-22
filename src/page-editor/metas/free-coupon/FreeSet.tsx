@@ -5,6 +5,7 @@ import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import useStore from '@/store'
 import { getCoupons } from '@/api'
+import { toHexString } from '@/utils'
 type dataType = {
   id: number
   couponName: string
@@ -12,7 +13,7 @@ type dataType = {
   no: number
 }
 const Index = () => {
-  const { selectedComponentId, components, updateComponent } = useStore()
+  const { selectedComponentId, components, updateComponent, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId)
 
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
@@ -112,6 +113,13 @@ const Index = () => {
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 16 }}
         initialValues={initialValues}
+        onValuesChange={(_, allValues) => {
+          updateComponentData(selectedComponentId, {
+            ...allValues,
+            coupons: selectedRows,
+            btnColor: toHexString(allValues.btnColor),
+          })
+        }}
       >
         <Form.Item label="选择样式">
           <Segmented
@@ -174,7 +182,7 @@ const Index = () => {
           </Space>
         )}
 
-        <Form.Item label="按钮颜色" name="titleColor">
+        <Form.Item label="按钮颜色" name="btnColor">
           <ColorPicker showText disabledAlpha />
         </Form.Item>
       </Form>

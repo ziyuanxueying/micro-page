@@ -1,10 +1,10 @@
-import useStore from '@/store'
+import useStore, { ActionEnums } from '@/store'
 import { useDrop } from 'react-dnd'
 import ContentItem from './Item'
 import { ShareModal } from './share'
 
 const Content = () => {
-  const { components, pageConfig, updateComponents } = useStore()
+  const { components, pageConfig, action, updateComponents } = useStore()
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
@@ -54,28 +54,34 @@ const Content = () => {
         })}
       >
         <div
-          css={css({
-            width: '100%',
-            height: '44px',
-            padding: '6px 12px',
-            backgroundColor: '#fff',
-            boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
-            marginBottom: 10,
-            textAlign: 'center',
-            lineHeight: '32px',
-            position: 'sticky',
-            top: 0,
-            zIndex: 99,
-          })}
+          css={css`
+            pointer-events: ${action !== ActionEnums.preview ? 'all' : 'none'};
+          `}
         >
-          {pageConfig.title}
-        </div>
-        {components.map((item, index) => (
-          // <div>{index}</div>
-          <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
-        ))}
+          <div
+            css={css({
+              width: '100%',
+              height: '44px',
+              padding: '6px 12px',
+              backgroundColor: '#fff',
+              boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
+              marginBottom: 10,
+              textAlign: 'center',
+              lineHeight: '32px',
+              position: 'sticky',
+              top: 0,
+              zIndex: 99,
+            })}
+          >
+            {pageConfig.title}
+          </div>
+          {components.map((item, index) => (
+            // <div>{index}</div>
+            <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
+          ))}
 
-        {pageConfig.isShare && <ShareModal />}
+          {pageConfig.isShare && <ShareModal />}
+        </div>
       </div>
     </div>
   )

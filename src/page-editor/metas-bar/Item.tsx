@@ -55,12 +55,12 @@ const Item = ({ data }: ItemProps) => {
       `}
     >
       {contextHolder}
-      <img
+      {/* <img
         src={new URL(`@/assets/${data.icon}.svg`, import.meta.url).href}
         css={css`
           height: 25px;
         `}
-      />
+      /> */}
       <Text
         css={css({
           fontSize: 12,

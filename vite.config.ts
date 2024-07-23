@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 import { resolve, join } from 'path'
 import dts from 'vite-plugin-dts'
 
+// const nodePolyfills = require('@rsbuild/plugin-node-polyfill')
+
 const rootDir = resolve(__dirname)
 const srcDir = resolve(rootDir, 'src')
 const global = resolve(rootDir, 'src/styles/global.ts')
@@ -46,6 +48,7 @@ export default ({ mode }: { mode: string }) => {
     },
     plugins: [
       dts({ tsconfigPath: './tsconfig.json' }),
+      // nodePolyfills(),
       AutoImport({
         include: [/\.[tj]sx?$/],
         imports: [

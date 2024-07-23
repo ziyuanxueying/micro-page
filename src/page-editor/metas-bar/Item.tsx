@@ -56,7 +56,7 @@ const Item = ({ data }: ItemProps) => {
     >
       {contextHolder}
       <img
-        src={new URL(`../../assets/${data.icon}.svg`, import.meta.url).href}
+        src={new URL(`@/assets/${data.icon}.svg`, import.meta.url).href}
         css={css`
           height: 25px;
         `}

@@ -50,6 +50,26 @@ export function checkSaveInfo(data: any) {
         item.isError = '请选择一个活动配置的图片'
       }
     }
+    if (item.metaType === 'bas-img') {
+      if (!item.data?.pictures || !item.data?.pictures[0].url) {
+        item.isError = '请在图片组件中至少添加一张图片'
+      }
+    }
+    if (item.metaType === 'bas-hot') {
+      if (!item.data?.url) {
+        item.isError = '请在热区组件中选择一个图片'
+      }
+    }
+    if (item.metaType === 'bas-title') {
+      if (!item.data?.title) {
+        item.isError = '请在标题文本组件中添加标题'
+      }
+    }
+    if (item.metaType === 'bas-floatBtn') {
+      if (!item.data?.buttonImgUrl) {
+        item.isError = '请在浮标组件中添加按钮图片'
+      }
+    }
     console.log('item: ', item)
     return item
   })

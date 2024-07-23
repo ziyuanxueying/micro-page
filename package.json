@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.3",
+  "version": "0.0.5",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -20,8 +20,7 @@
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
     "prepublish": "pnpm run lib ",
-    "release": "bumpp --no-tag && npm publish",
-    "postpublish": "pnpm version patch"
+    "release": "bumpp --no-tag && npm publish"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",

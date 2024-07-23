@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.14",
+  "version": "0.0.5-beta.15",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -19,6 +19,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
+    "prepublishOnly": "pnpm run build",
     "prepublish": "pnpm run lib ",
     "release": "bumpp --no-tag && npm publish"
   },

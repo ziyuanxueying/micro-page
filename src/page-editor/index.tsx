@@ -61,7 +61,7 @@ const TemplateEngine = () => {
       if (value.length <= 3) return
       const svgQRCode = QRCode({
         msg: `${
-          (globalThis as any).Web_Env === 'prod'
+          (globalThis as any).WEB_ENV === 'prod'
             ? 'https://api.wandacm.com.cn/qr'
             : 'https://api.wandacm.com.cn/qre'
         }?key=MicroPageIndex&plazaId=${value[3]}&templateId=${preview.id}`,

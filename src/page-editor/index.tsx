@@ -9,7 +9,6 @@ import { Button, Space } from 'antd'
 import { findByIdForB, updateJson } from '@/api'
 import useStore, { ActionEnums, Component, pageType } from '@/store'
 import { WdModal, WdPlazaSelect } from '@wd/component-ui'
-import { getWebEnv } from '@wd/mini-program-kit/runtime'
 import QRCode from '../utils/qrcode.js'
 import './index.less'
 
@@ -62,7 +61,7 @@ const TemplateEngine = () => {
       if (value.length <= 3) return
       const svgQRCode = QRCode({
         msg: `${
-          getWebEnv() === 'prod'
+          (globalThis as any).Web_Env === 'prod'
             ? 'https://api.wandacm.com.cn/qr'
             : 'https://api.wandacm.com.cn/qre'
         }?key=MicroPageIndex&plazaId=${value[3]}&templateId=${preview.id}`,

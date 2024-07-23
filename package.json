@@ -33,7 +33,6 @@
   "dependencies": {
     "@emotion/styled": "^11.11.5",
     "@wd/component-ui": "0.0.16-beta.4",
-    "@wd/mini-program-kit": "^0.3.4",
     "dayjs": "^1.11.11",
     "dnd-core": "^16.0.1",
     "immer": "^10.1.1",

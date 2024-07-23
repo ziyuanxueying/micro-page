@@ -1,4 +1,4 @@
-/// <reference types="vite/client" />
+/// <reference types="vite/dist/node/runtime" />
 
 interface QRCodeOptions {
   msg: string

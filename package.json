@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.1",
+  "version": "0.0.5-beta.2",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "app": "tsc && vite build --outDir dist/app",
-    "build": "tsc && vite build --mode lib",
+    "build": "vite build --mode lib",
     "dev": "vite",
     "lib": "tsc && vite build --mode lib",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

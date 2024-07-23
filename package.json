@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.4",
+  "version": "0.0.5-beta.1",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -13,13 +13,14 @@
   ],
   "scripts": {
     "app": "tsc && vite build --outDir dist/app",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode lib",
     "dev": "vite",
     "lib": "tsc && vite build --mode lib",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
     "prepublish": "pnpm run lib ",
+    "release": "bumpp --no-tag && npm publish",
     "postpublish": "pnpm version patch"
   },
   "simple-git-hooks": {
@@ -33,6 +34,7 @@
   "dependencies": {
     "@emotion/styled": "^11.11.5",
     "@wd/component-ui": "0.0.16-beta.10",
+    "bumpp": "^9.4.1",
     "dayjs": "^1.11.11",
     "dnd-core": "^16.0.1",
     "immer": "^10.1.1",

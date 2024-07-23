@@ -7,6 +7,7 @@ import dts from 'vite-plugin-dts'
 const rootDir = resolve(__dirname)
 const srcDir = resolve(rootDir, 'src')
 const global = resolve(rootDir, 'src/styles/global.ts')
+const pub = resolve(rootDir, 'public/assets')
 
 const HOST = {
   // dev: 'http://gatewayp-dev.baopukeji-dev.cn',
@@ -41,6 +42,7 @@ export default ({ mode }: { mode: string }) => {
       alias: {
         '@': srcDir,
         '@global': global,
+        '@assets': pub,
       },
       extensions: ['.js', '.ts', '.tsx', '.json'],
     },

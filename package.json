@@ -20,8 +20,7 @@
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
     "prepublish": "pnpm run lib ",
-    "release": "bumpp --no-tag && npm publish",
-    "postpublish": "pnpm version patch"
+    "release": "bumpp --no-tag && npm publish"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged",
@@ -52,6 +51,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/react": "^11.11.4",
+    "@rsbuild/plugin-node-polyfill": "^1.0.3",
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",

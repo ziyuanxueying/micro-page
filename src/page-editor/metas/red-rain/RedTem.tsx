@@ -1,6 +1,5 @@
 // import useStore from '@/store'
 // import { TemProps } from '@/page-editor/components/ItemTemplate'
-
 // const Index = (_props: TemProps) => {
 const Index = () => {
   // const { components } = useStore()
@@ -16,7 +15,7 @@ const Index = () => {
           background: '#fff',
           borderRadius: '50%',
         })}
-        src={new URL(`@/assets/red-env.svg`, import.meta.url).href}
+        src="/public/assets/red-env.svg"
         alt=""
       />
     </>

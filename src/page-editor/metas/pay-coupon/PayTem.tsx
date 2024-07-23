@@ -62,7 +62,7 @@ const Index = (props: TemProps) => {
           )
         })}
       {moduleType === 'biz-pay-twice' && (
-        <div style={{ margin: '0 12px' }}>
+        <div style={{ margin: '0 10px' }}>
           <div css={css([flexb, { flexWrap: 'wrap', paddingBottom: 10 }])}>
             {(coupons.length ? coupons : [0, 1]).map((v: any, index: number) => (
               <div
@@ -81,8 +81,8 @@ const Index = (props: TemProps) => {
               >
                 <img
                   css={css({
-                    width: 155,
-                    height: 155,
+                    width: 150,
+                    height: 150,
                     objectFit: 'cover',
                     marginRight: 10,
                     borderRadius: 4,

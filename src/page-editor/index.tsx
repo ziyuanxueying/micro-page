@@ -9,6 +9,7 @@ import { Button, Space } from 'antd'
 import { findByIdForB, updateJson } from '@/api'
 import useStore, { ActionEnums, Component, pageType } from '@/store'
 import { WdModal, WdPlazaSelect } from '@wd/component-ui'
+import { getWebEnv } from '@wd/mini-program-kit/runtime'
 import QRCode from '../utils/qrcode.js'
 import './index.less'
 
@@ -60,7 +61,11 @@ const TemplateEngine = () => {
     (value: any) => {
       if (value.length <= 3) return
       const svgQRCode = QRCode({
-        msg: `https://api.wandacm.com.cn/qre?key=MicroPageIndex&plazaId=${value[3]}&templateId=${preview.id}`,
+        msg: `${
+          getWebEnv() === 'prod'
+            ? 'https://api.wandacm.com.cn/qr'
+            : 'https://api.wandacm.com.cn/qre'
+        }?key=MicroPageIndex&plazaId=${value[3]}&templateId=${preview.id}`,
         dim: 762,
         pad: 7,
         mtx: 7,

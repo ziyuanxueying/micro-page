@@ -56,6 +56,7 @@ const Content = () => {
         <div
           css={css`
             pointer-events: ${action !== ActionEnums.preview ? 'all' : 'none'};
+            overflow-x: hidden;
           `}
         >
           <div

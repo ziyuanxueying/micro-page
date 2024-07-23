@@ -4,9 +4,9 @@ import MetasBar from './metas-bar/index.tsx'
 import Content from './content/index.tsx'
 import Setting from './setting/index.tsx'
 import { flexrc } from '@global'
-import { Button, Space } from 'antd'
+import { Button, Space, message } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
-import { findByIdForB, updateJson } from '@/api'
+import { createJson, findByIdForB, updateJson } from '@/api'
 import useStore, { ActionEnums, Component, pageType } from '@/store'
 import { checkSaveInfo } from '@/utils/index.ts'
 type dataType = {
@@ -16,7 +16,10 @@ type dataType = {
 //CP0795244269648879616,三端联调
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
-const TemplateEngine = () => {
+const TemplateEngine = (props: any) => {
+  const { id, type } = props
+  console.log('id, type: ', id, type)
+  const [messageApi, contextHolder] = message.useMessage()
   const {
     components,
     pageConfig,
@@ -26,11 +29,6 @@ const TemplateEngine = () => {
     updatePageConfig,
   } = useStore()
   const handleSave = async () => {
-    // const data = await createJson({
-    //   content: { components, pageConfig },
-    //   title: pageConfig.title,
-    //   channel: 'MICRO',
-    // })
     const { msg, list } = checkSaveInfo({ components, pageConfig })
     console.log('list: ', list)
     if (msg) {
@@ -40,16 +38,26 @@ const TemplateEngine = () => {
     if (list.length > 0) {
       updateComponents(list)
     }
-    const data = await updateJson({
-      content: { components, pageConfig },
-      id: 'CP0811283496616108032',
-      title: pageConfig.title,
-    })
-    console.log(data)
+    if ([undefined, 'copy'].includes(type)) {
+      await createJson({
+        content: { components, pageConfig },
+        title: pageConfig.title,
+        channel: 'MICRO',
+      })
+      messageApi.open({ type: 'success', content: '页面创建成功' })
+    }
+    if (['edit'].includes(type)) {
+      await updateJson({
+        content: { components, pageConfig },
+        id: 'CP0811283496616108032',
+        title: pageConfig.title,
+      })
+      messageApi.open({ type: 'success', content: '页面修改成功' })
+    }
   }
   const findById = async () => {
     // const data = await getCoupons('CP0795244269648879616')
-    const data = (await findByIdForB('CP0811283496616108032')) as { content: dataType }
+    const data = (await findByIdForB(id)) as { content: dataType }
     setTimeout(() => {
       // 防止数据渲染不出来
       updateComponents(data.content.components)
@@ -57,7 +65,7 @@ const TemplateEngine = () => {
     }, 1000)
   }
   useEffect(() => {
-    findById()
+    if (id) findById()
   }, [])
   return (
     <div
@@ -66,6 +74,7 @@ const TemplateEngine = () => {
         minHeight: '800px',
       })}
     >
+      {contextHolder}
       <DndProvider backend={HTML5Backend}>
         <main
           css={css({

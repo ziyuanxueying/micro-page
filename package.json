@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.5",
+  "version": "0.0.5-beta.6",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -51,6 +51,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "^11.11.0",
     "@emotion/react": "^11.11.4",
+    "@rsbuild/plugin-node-polyfill": "^1.0.3",
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",

@@ -129,7 +129,7 @@ const Index = (props: TemProps) => {
       {moduleType === 'biz-free-three' && (
         <div style={{ margin: '0 6px' }}>
           <div css={css([{ display: 'flex', flexWrap: 'wrap', paddingBottom: 10 }])}>
-            {(coupons.length ? coupons : [0, 1, 2]).map((v: any, index: number) => (
+            {(coupons.length ? coupons : [0, 1, 2]).map((_v: any, index: number) => (
               <div
                 key={index}
                 css={css([
@@ -139,7 +139,7 @@ const Index = (props: TemProps) => {
                     backgroundColor: '#fff',
                     padding: 6,
                     borderRadius: 4,
-                    width: 110,
+                    width: '28%',
                     marginTop: 10,
                     marginRight: (index + 1) % 3 === 0 ? 0 : 6,
                   },
@@ -147,7 +147,7 @@ const Index = (props: TemProps) => {
               >
                 <img
                   css={css({
-                    width: 100,
+                    width: '98%',
                     height: 100,
                     objectFit: 'cover',
                     marginRight: 10,

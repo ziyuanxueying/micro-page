@@ -74,14 +74,14 @@ const Index = (props: TemProps) => {
                     backgroundColor: '#fff',
                     padding: 6,
                     borderRadius: 4,
-                    width: 160,
+                    width: '46%',
                     marginTop: 10,
                   },
                 ])}
               >
                 <img
                   css={css({
-                    width: 150,
+                    width: '98%',
                     height: 150,
                     objectFit: 'cover',
                     marginRight: 10,

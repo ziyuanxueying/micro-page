@@ -49,8 +49,16 @@ const TemplateEngine = (props: any) => {
         channel: 'MICRO',
       })
       setCurrData(data)
-      messageApi.open({ type: 'success', content: '页面创建成功' })
-      goBack()
+      if (status !== 'submit') {
+        messageApi.open({ type: 'success', content: '页面创建成功' })
+        goBack()
+      } else {
+        const curId = currData.id || id
+        const aaa = await updateStatus({ id: curId, status: '3' })
+        console.log('aaa: ', aaa)
+        messageApi.open({ type: 'success', content: '页面提交成功' })
+        goBack()
+      }
     }
     if (['edit'].includes(type)) {
       await updateJson({
@@ -61,14 +69,12 @@ const TemplateEngine = (props: any) => {
       if (status !== 'submit') {
         messageApi.open({ type: 'success', content: '页面修改成功' })
         goBack()
+      } else {
+        const aaa = await updateStatus({ id, status: '3' })
+        console.log('aaa: ', aaa)
+        messageApi.open({ type: 'success', content: '页面提交成功' })
+        goBack()
       }
-    }
-    if (status === 'submit') {
-      const curId = currData.id || id
-      const aaa = await updateStatus({ id: curId, status: '3' })
-      console.log('aaa: ', aaa)
-      messageApi.open({ type: 'success', content: '页面提交成功' })
-      goBack()
     }
   }
   const changeStatus = async (status: string) => {

@@ -30,7 +30,6 @@ function HotItem({ data, updateHot }: HotItemProps) {
         ref={ref => {
           // @ts-expect-error
           nodeRef.current = ref?.resizable
-          return ref
         }}
         size={{ width, height }}
         onResizeStart={e => e.stopPropagation()}

@@ -6,8 +6,8 @@ import Setting from './setting/index.tsx'
 import { flexrc } from '@global'
 import { Button, Space, message } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
-import { createJson, findByIdForB, updateJson } from '@/api'
-import useStore, { ActionEnums, Component, pageType } from '@/store'
+import { createJson, findByIdForB, updateJson, updateStatus } from '@/api'
+import useStore, { Component, pageType } from '@/store'
 import { checkSaveInfo } from '@/utils/index.ts'
 type dataType = {
   components: Component[]
@@ -17,27 +17,27 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
-  const { id, type } = props
+  // const { id, type } = props
+  const { id = '', type = 'copy' } = props
+  const navigate = useNavigate()
   console.log('id, type: ', id, type)
+  // const [currData, setCurrData] = useState<any>({})
   const [messageApi, contextHolder] = message.useMessage()
-  const {
-    components,
-    pageConfig,
-    action,
-    updateComponents,
-    updateSelectedComponentId,
-    updatePageConfig,
-  } = useStore()
-  const handleSave = async () => {
+  const { components, pageConfig, updateComponents, updateSelectedComponentId, updatePageConfig } =
+    useStore()
+
+  const handleSave = async (status = '') => {
     const { msg, list } = checkSaveInfo({ components, pageConfig })
     console.log('list: ', list)
     if (msg) {
       updateSelectedComponentId(undefined)
+      if (list.length > 0) {
+        updateComponents(list)
+      }
       alert(msg)
+      return msg
     }
-    if (list.length > 0) {
-      updateComponents(list)
-    }
+
     if ([undefined, 'copy'].includes(type)) {
       await createJson({
         content: { components, pageConfig },
@@ -45,33 +45,70 @@ const TemplateEngine = (props: any) => {
         channel: 'MICRO',
       })
       messageApi.open({ type: 'success', content: '页面创建成功' })
+      goBack()
     }
     if (['edit'].includes(type)) {
       await updateJson({
         content: { components, pageConfig },
-        id: 'CP0811283496616108032',
+        id,
         title: pageConfig.title,
       })
-      messageApi.open({ type: 'success', content: '页面修改成功' })
+      if (status !== 'submit') {
+        messageApi.open({ type: 'success', content: '页面修改成功' })
+        goBack()
+      }
+    }
+    if (status === 'submit') {
+      const aaa = await updateStatus({ id, status: '3' })
+      console.log('aaa: ', aaa)
+      messageApi.open({ type: 'success', content: '页面提交成功' })
+      goBack()
     }
   }
+  const changeStatus = async (status: string) => {
+    const aaa = await updateStatus({ id, status })
+    messageApi.open({ type: 'success', content: '操作成功' })
+    goBack()
+    console.log('changeStatus: ', aaa)
+  }
+
   const findById = async () => {
     // const data = await getCoupons('CP0795244269648879616')
     const data = (await findByIdForB(id)) as { content: dataType }
+    // setCurrData(data)
     setTimeout(() => {
       // 防止数据渲染不出来
       updateComponents(data.content.components)
       updatePageConfig(data.content.pageConfig)
     }, 1000)
   }
+  const goBack = () => {
+    setTimeout(() => {
+      navigate('/micro-page-list', { replace: true })
+    }, 1500)
+  }
   useEffect(() => {
-    if (id) findById()
+    if (id) {
+      findById()
+    } else {
+      console.log(11111111)
+      updateComponents([])
+      updatePageConfig({
+        title: '默认标题',
+        shareBtnImg: '',
+        bgImage: '',
+        shareImg: '',
+        posterImage: '',
+        bgColor: '#F5F5F5',
+        showShareModal: false,
+      })
+    }
   }, [])
   return (
     <div
       css={css({
         height: '100%',
-        minHeight: '800px',
+        maxHeight: '800px',
       })}
     >
       {contextHolder}
@@ -84,17 +121,35 @@ const TemplateEngine = (props: any) => {
             minHeight: '700px',
           })}
         >
-          {action !== ActionEnums.preview && <MetasBar />}
+          {!['check'].includes(type) && <MetasBar />}
           <Content />
-          {action !== ActionEnums.preview && <Setting />}
+          {!['check'].includes(type) && <Setting />}
         </main>
       </DndProvider>
       <Space css={css([flexrc, { padding: '10px' }])}>
-        <Button type="primary" onClick={handleSave}>
-          保存
+        <Button
+          onClick={() => {
+            navigate('/micro-page-list', { replace: true })
+          }}
+        >
+          取消
         </Button>
-        <Button onClick={findById}>查询</Button>
-        <Button>取消</Button>
+        {['review'].includes(type) && (
+          <>
+            <Button onClick={() => changeStatus('2')}>驳回</Button>
+            <Button type="primary" onClick={() => changeStatus('1')}>
+              通过
+            </Button>
+          </>
+        )}
+        {[undefined, '', 'edit', 'copy'].includes(type) && (
+          <>
+            <Button onClick={() => handleSave()}>存为草稿</Button>
+            <Button type="primary" onClick={() => handleSave('submit')}>
+              提交
+            </Button>
+          </>
+        )}
       </Space>
     </div>
   )

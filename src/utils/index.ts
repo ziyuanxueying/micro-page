@@ -70,7 +70,6 @@ export function checkSaveInfo(data: any) {
         item.isError = '请在浮标组件中添加按钮图片'
       }
     }
-    console.log('item: ', item)
     return item
   })
   const err = list.find((item: any) => item.isError)

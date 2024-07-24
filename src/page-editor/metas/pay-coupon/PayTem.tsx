@@ -18,7 +18,7 @@ const Index = (props: TemProps) => {
             <div
               key={index}
               style={{
-                margin: '0 12px',
+                margin: '0 6px',
                 paddingBottom: index === current?.data?.coupons.length - 1 ? 10 : 0,
               }}
             >
@@ -62,7 +62,7 @@ const Index = (props: TemProps) => {
           )
         })}
       {moduleType === 'biz-pay-twice' && (
-        <div style={{ margin: '0 10px' }}>
+        <div style={{ margin: '0 6px' }}>
           <div css={css([flexb, { flexWrap: 'wrap', paddingBottom: 10 }])}>
             {(coupons.length ? coupons : [0, 1]).map((v: any, index: number) => (
               <div
@@ -74,7 +74,7 @@ const Index = (props: TemProps) => {
                     backgroundColor: '#fff',
                     padding: 6,
                     borderRadius: 4,
-                    width: 170,
+                    width: 160,
                     marginTop: 10,
                   },
                 ])}
@@ -128,7 +128,7 @@ const Index = (props: TemProps) => {
         </div>
       )}
       {moduleType === 'biz-pay-three' && (
-        <div style={{ margin: '0 12px' }}>
+        <div style={{ margin: '0 6px' }}>
           <div css={css([{ display: 'flex', flexWrap: 'wrap', paddingBottom: 10 }])}>
             {(coupons.length ? coupons : [0, 1, 2]).map((v: any, index: number) => (
               <div
@@ -140,7 +140,7 @@ const Index = (props: TemProps) => {
                     backgroundColor: '#fff',
                     padding: 6,
                     borderRadius: 4,
-                    width: 110,
+                    width: 100,
                     marginTop: 10,
                     marginRight: (index + 1) % 3 === 0 ? 0 : 6,
                   },

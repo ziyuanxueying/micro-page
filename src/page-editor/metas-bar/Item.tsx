@@ -62,11 +62,9 @@ const Item = ({ data }: ItemProps) => {
         `}
       /> */}
       {/* <img
-        src={`/public/assets/${data.icon}.svg`}
-        // src={new URL(`@assets/${data.icon}.svg`, import.meta.url).href}
-        css={css`
-          height: 25px;
-        `}
+        // src={`/public/assets/${data.icon}.svg`}
+        src={new URL(`@assets/${data.icon}.svg`, import.meta.url).href}
+        css={css({ height: 25 })}
       /> */}
       <Text
         css={css({

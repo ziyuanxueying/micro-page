@@ -22,10 +22,10 @@ type dataType = {
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
   // const { id, type } = props
-  const { id = '', type = 'copy' } = props
+  const { id = undefined, type = undefined } = props
   const navigate = useNavigate()
   console.log('id, type: ', id, type)
-  // const [currData, setCurrData] = useState<any>({})
+  const [currData, setCurrData] = useState<any>({})
   const [messageApi, contextHolder] = message.useMessage()
   const { components, pageConfig, updateComponents, updateSelectedComponentId, updatePageConfig } =
     useStore()
@@ -42,12 +42,13 @@ const TemplateEngine = (props: any) => {
       return msg
     }
 
-    if ([undefined, 'copy'].includes(type)) {
-      await createJson({
+    if ([undefined, '', 'copy'].includes(type)) {
+      const data = await createJson({
         content: { components, pageConfig },
         title: pageConfig.title,
         channel: 'MICRO',
       })
+      setCurrData(data)
       messageApi.open({ type: 'success', content: '页面创建成功' })
       goBack()
     }
@@ -63,7 +64,8 @@ const TemplateEngine = (props: any) => {
       }
     }
     if (status === 'submit') {
-      const aaa = await updateStatus({ id, status: '3' })
+      const curId = currData.id || id
+      const aaa = await updateStatus({ id: curId, status: '3' })
       console.log('aaa: ', aaa)
       messageApi.open({ type: 'success', content: '页面提交成功' })
       goBack()
@@ -158,9 +160,9 @@ const TemplateEngine = (props: any) => {
             minHeight: '700px',
           })}
         >
-          {!['check'].includes(type) && <MetasBar />}
+          {!['check', 'review'].includes(type) && <MetasBar />}
           <Content />
-          {!['check'].includes(type) && <Setting />}
+          {!['check', 'review'].includes(type) && <Setting />}
         </main>
       </DndProvider>
       <Space css={css([flexrc, { padding: '10px' }])}>

@@ -87,15 +87,13 @@ const TemplateEngine = (props: any) => {
     }, 1000)
   }
 
-  // const showPreviewCode = useCallback((item: any) => {
-  //   // https://api.wandacm.com.cn/qre  体验版
-  //   // https://api.wandacm.com.cn/qr 正式版
-  //   setPreview({
-  //     show: true,
-  //     id: item.id,
-  //     onCancel: () => setPreview({}),
-  //   })
-  // }, [])
+  const showPreviewCode = useCallback((item: any) => {
+    setPreview({
+      show: true,
+      id: item.id,
+      onCancel: () => setPreview({}),
+    })
+  }, [])
 
   const changePlaza = useCallback(
     (value: any) => {
@@ -172,6 +170,9 @@ const TemplateEngine = (props: any) => {
           }}
         >
           取消
+        </Button>
+        <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
+          预览
         </Button>
         {['review'].includes(type) && (
           <>

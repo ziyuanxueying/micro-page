@@ -27,6 +27,11 @@ function HotItem({ data, updateHot }: HotItemProps) {
       nodeRef={nodeRef}
     >
       <Resizable
+        ref={ref => {
+          // @ts-expect-error
+          nodeRef.current = ref?.resizable
+          return ref
+        }}
         size={{ width, height }}
         onResizeStart={e => e.stopPropagation()}
         onResizeStop={(_e, _direction, _ref, d) => {

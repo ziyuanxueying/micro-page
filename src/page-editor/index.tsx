@@ -47,8 +47,6 @@ const TemplateEngine = () => {
   }
 
   const showPreviewCode = useCallback((item: any) => {
-    // https://api.wandacm.com.cn/qre  体验版
-    // https://api.wandacm.com.cn/qr 正式版
     setPreview({
       show: true,
       id: item.id,
@@ -105,7 +103,7 @@ const TemplateEngine = () => {
         </main>
       </DndProvider>
       <Space css={css([flexrc, { padding: '10px' }])}>
-        <Button type="primary" onClick={() => showPreviewCode({ id: 1 })}>
+        <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
           预览
         </Button>
         <Button type="primary" onClick={handleSave}>

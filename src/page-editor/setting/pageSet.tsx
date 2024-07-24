@@ -4,6 +4,7 @@ import { pageType } from '@/store'
 import { ImagePreview, WdMaterial } from '@wd/component-ui'
 import { ColorPicker, Form, FormProps, Input, Switch, Button } from 'antd'
 import { toHexString } from '@/utils'
+import MaterialBtn from '@/page-editor/components/MaterialBtn'
 
 const onFinish: FormProps<pageType>['onFinish'] = values => {
   console.log('Success:', values)
@@ -129,7 +130,8 @@ const Index = () => {
               extra="支持png、jpg、jpeg，分辨率750*600，不超过1M"
               required
             >
-              <div>
+              <MaterialBtn />
+              {/* <div>
                 <Button onClick={() => openWDMaterialHandler('shareImg')}>选择图片+</Button>
                 {pageConfig.shareImg && (
                   <ImagePreview
@@ -140,14 +142,15 @@ const Index = () => {
                     isDefault={false}
                   />
                 )}
-              </div>
+              </div> */}
             </Form.Item>
             <Form.Item
               label="分享海报"
               name="posterImage"
               extra="支持png、jpg、jpeg，分辨率750*1100，不超过1M"
             >
-              <div>
+              <MaterialBtn />
+              {/* <div>
                 <Button onClick={() => openWDMaterialHandler('posterImage')}>选择图片+</Button>
                 {pageConfig.posterImage && (
                   <ImagePreview
@@ -158,7 +161,7 @@ const Index = () => {
                     isDefault={false}
                   />
                 )}
-              </div>
+              </div> */}
             </Form.Item>
 
             <Form.Item label="分享预览" name="showShareModal">

@@ -1,9 +1,10 @@
 import useStore from '@/store'
 import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
-import { WdMaterial, ImagePreview, WdAllocation } from '@wd/component-ui'
+import { WdAllocation } from '@wd/component-ui'
 import { Button, Card, Divider, Form, Image, Input, Modal, Typography } from 'antd'
 import HotItem from './HotItem'
 import { v4 as uuidv4 } from 'uuid'
+import MaterialBtn from '@/page-editor/components/MaterialBtn'
 
 const { Title } = Typography
 
@@ -26,7 +27,7 @@ const HotSet = () => {
   const setting = components.find(c => c.id === selectedComponentId)
 
   const [modalVisible, setModalVisible] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
   const [url, setUrl] = useState<any>(setting?.data?.url || '')
 
   const [form] = Form.useForm()
@@ -51,18 +52,17 @@ const HotSet = () => {
     })
   }
 
-  const handleCancel = () => {
-    setIsOpen(false)
-  }
-  const handleDelete = () => {
-    // setImgData([])
-    setting && updateComponentData(setting.id, { ...setting.data, img: '' })
-  }
+  // const handleCancel = () => {
+  //   setIsOpen(false)
+  // }
+  // const handleDelete = () => {
+  //   // setImgData([])
+  //   setting && updateComponentData(setting.id, { ...setting.data, img: '' })
+  // }
   const handleOk = (url?: string) => {
-    // setImgData([{ src: url || '', name: '图片' }])
     setUrl(url)
     setting && updateComponentData(setting.id, { ...setting.data, url })
-    setIsOpen(false)
+    // setIsOpen(false)
   }
 
   return (
@@ -84,31 +84,7 @@ const HotSet = () => {
         }}
       >
         <Form.Item label="添加图片" name="url">
-          <div>
-            <Button type="primary" onClick={() => setIsOpen(true)}>
-              素材库
-            </Button>
-            <WdMaterial
-              limit={1}
-              maxCount={1}
-              disabled={false}
-              noValidate={false}
-              open={isOpen}
-              onCancel={handleCancel}
-              onOk={handleOk}
-            />
-            {url && (
-              <ImagePreview
-                data={[{ src: url, name: '图片' }]}
-                width={200}
-                height={200}
-                colNum={1}
-                isDefault={false}
-                isDelete={false}
-                onDelete={handleDelete}
-              />
-            )}
-          </div>
+          <MaterialBtn onChange={handleOk} />
         </Form.Item>
         {url && (
           <Button

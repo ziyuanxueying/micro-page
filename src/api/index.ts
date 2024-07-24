@@ -32,6 +32,10 @@ export const createJson = (params?: any) => {
 export const updateJson = (params?: any) => {
   return post(`/api/base-configurable/v1/configurablePage/update`, params)
 }
+export const updateStatus = (params?: any) => {
+  return post(`/api/base-configurable/v1/configurablePage/updateStatus`, params)
+}
+
 export const findByIdForB = (id: string) => {
   return $get(`/api/base-configurable/v1/configurablePage/findByIdForB/${id}`)
 }

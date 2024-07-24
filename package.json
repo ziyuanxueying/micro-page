@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.27",
+  "version": "0.0.5-beta.28",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -72,7 +72,8 @@
     "typescript": "^5.4.5",
     "unplugin-auto-import": "^0.17.6",
     "vite": "^5.2.11",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^3.9.1",
+    "vite-plugin-libcss": "^1.1.1"
   },
   "peerDependencies": {
     "@ant-design/icons": ">=5.4.0",

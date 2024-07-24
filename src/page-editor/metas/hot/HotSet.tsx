@@ -45,12 +45,10 @@ const HotSet = () => {
     )
 
     const { url, ...values } = form.getFieldsValue()
-    console.log('form.getFieldsValue(): ', form.getFieldsValue())
-    startTransition(() => {
-      updateComponentData(selectedComponentId, {
-        ...values,
-        url,
-      })
+    // console.log('form.getFieldsValue(): ', form.getFieldsValue())
+    updateComponentData(selectedComponentId, {
+      ...values,
+      url,
     })
   }
 
@@ -79,11 +77,9 @@ const HotSet = () => {
         initialValues={setting?.data}
         onValuesChange={(_, allValues) => {
           console.log('allValues: ', allValues)
-          startTransition(() => {
-            updateComponentData(selectedComponentId, {
-              ...allValues,
-              // url: toComponentUrl(allValues.url),
-            })
+          updateComponentData(selectedComponentId, {
+            ...allValues,
+            // url: toComponentUrl(allValues.url),
           })
         }}
       >

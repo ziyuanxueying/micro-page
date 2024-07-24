@@ -12,6 +12,7 @@ type HotItemProps = {
 
 function HotItem({ data, updateHot }: HotItemProps) {
   const { id, name, top, left, width, height } = data
+  const nodeRef = useRef(null)
 
   return (
     <Draggable
@@ -23,6 +24,7 @@ function HotItem({ data, updateHot }: HotItemProps) {
           top: data.y,
         })
       }}
+      nodeRef={nodeRef}
     >
       <Resizable
         size={{ width, height }}

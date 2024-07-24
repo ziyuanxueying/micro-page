@@ -2,3 +2,4 @@ src/auto-imports.d.ts
 node_modules
 dist
 scripts
+src/utils/qrcode.js

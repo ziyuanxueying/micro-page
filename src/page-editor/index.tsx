@@ -25,7 +25,7 @@ const TemplateEngine = (props: any) => {
   const { id = undefined, type = undefined } = props
   const navigate = useNavigate()
   console.log('id, type: ', id, type)
-  const [currData, setCurrData] = useState<any>({})
+  // const [currData, setCurrData] = useState<any>({})
   const [messageApi, contextHolder] = message.useMessage()
   const { components, pageConfig, updateComponents, updateSelectedComponentId, updatePageConfig } =
     useStore()
@@ -43,17 +43,17 @@ const TemplateEngine = (props: any) => {
     }
 
     if ([undefined, '', 'copy'].includes(type)) {
-      const data = await createJson({
+      const res = await createJson({
         content: { components, pageConfig },
         title: pageConfig.title,
         channel: 'MICRO',
       })
-      setCurrData(data)
+      // setCurrData(res.data)
       if (status !== 'submit') {
         messageApi.open({ type: 'success', content: '页面创建成功' })
         goBack()
       } else {
-        const curId = currData.id || id
+        const curId = res.data.id || id
         const aaa = await updateStatus({ id: curId, status: '3' })
         console.log('aaa: ', aaa)
         messageApi.open({ type: 'success', content: '页面提交成功' })

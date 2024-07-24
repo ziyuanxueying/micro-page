@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react-swc'
 import AutoImport from 'unplugin-auto-import/vite'
 import { defineConfig } from 'vite'
-import { resolve, join } from 'path'
+import { resolve, join } from 'node:path'
 import dts from 'vite-plugin-dts'
 
 // const nodePolyfills = require('@rsbuild/plugin-node-polyfill')

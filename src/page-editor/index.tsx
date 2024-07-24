@@ -87,13 +87,13 @@ const TemplateEngine = (props: any) => {
     }, 1000)
   }
 
-  const showPreviewCode = useCallback((item: any) => {
-    setPreview({
-      show: true,
-      id: item.id,
-      onCancel: () => setPreview({}),
-    })
-  }, [])
+  // const showPreviewCode = useCallback((item: any) => {
+  //   setPreview({
+  //     show: true,
+  //     id: item.id,
+  //     onCancel: () => setPreview({}),
+  //   })
+  // }, [])
 
   const changePlaza = useCallback(
     (value: any) => {
@@ -171,9 +171,9 @@ const TemplateEngine = (props: any) => {
         >
           取消
         </Button>
-        <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
+        {/* <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
           预览
-        </Button>
+        </Button> */}
         {['review'].includes(type) && (
           <>
             <Button onClick={() => changeStatus('2')}>驳回</Button>

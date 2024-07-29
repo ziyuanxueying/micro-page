@@ -58,6 +58,10 @@ const Index = () => {
       dataIndex: 'status',
       render: text => <span>{text === 4 ? '待开始' : text === 5 ? '进行中' : ''}</span>,
     },
+    {
+      title: '创建时间',
+      dataIndex: 'createdAt',
+    },
   ]
   const rowSelection = React.useMemo<TableRowSelection<any>>(() => {
     return {

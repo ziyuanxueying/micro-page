@@ -5,6 +5,8 @@ import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import { Button, Space, Tag } from 'antd'
 import { getActivityList } from '@/api'
+import React from 'react'
+import { TableRowSelection } from 'antd/es/table/interface'
 type DataType = {
   actId: number
   actTitle: string
@@ -57,12 +59,15 @@ const Index = () => {
       render: text => <span>{text === 4 ? '待开始' : text === 5 ? '进行中' : ''}</span>,
     },
   ]
-  const rowSelection = {
-    selectedRowKeys: selectedRows.map(item => item?.actId),
-    onChange: (_selKeys: React.Key[], selectedRows: DataType[]) => {
-      setSelectedRows(selectedRows)
-    },
-  }
+  const rowSelection = React.useMemo<TableRowSelection<any>>(() => {
+    return {
+      selectedRowKeys: selectedRows.map(item => item?.actId),
+      onChange: (_selKeys: React.Key[], selectedRows: DataType[]) => {
+        setSelectedRows(selectedRows)
+      },
+      type: 'radio',
+    }
+  }, [selectedRows])
 
   const handleSearch = async (searchValue: any) => {
     const res = await getActivityList({
@@ -73,15 +78,21 @@ const Index = () => {
     setList({ list: res.data, page: { total: res.totalCount } })
   }
   useEffect(() => {
-    console.log('selectedRows: ', selectedRows[0])
     setting && updateComponentData(setting.id, { ...setting.data, activity: selectedRows[0] })
-    console.log('tags: ', tags)
-  }, [tags])
+  }, [selectedRows])
 
   const handleClose = (removedTag: DataType) => {
     const newTags = tags.filter(tag => tag !== removedTag)
     setTags(newTags)
     setSelectedRows(newTags)
+  }
+
+  /**
+   * 清空选项
+   */
+  const clearTags = () => {
+    setTags([])
+    setSelectedRows([])
   }
 
   return (
@@ -90,7 +101,7 @@ const Index = () => {
       <Line />
       <div css={css([flexb, { flexWrap: 'wrap', margin: '10px 0' }])}>
         <Button onClick={() => setShowTable(true)}>选择活动</Button>
-        <Button onClick={() => setTags([])}>清除</Button>
+        <Button onClick={clearTags}>清除</Button>
       </div>
       {tags.length > 0 && (
         <Space css={css({ flexWrap: 'wrap', fontSize: 13 })}>
@@ -114,7 +125,7 @@ const Index = () => {
           data={list}
           columns={columns}
           rowKey="actId"
-          rowSelection={{ ...rowSelection, type: 'radio' }}
+          rowSelection={rowSelection}
           onParamsChange={handleSearch}
         ></WdTable>
       </WdModal>

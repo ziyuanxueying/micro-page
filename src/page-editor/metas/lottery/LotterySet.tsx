@@ -5,6 +5,8 @@ import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import { Button, Form, Space, Tag } from 'antd'
 import { getActivityList } from '@/api'
+import React from 'react'
+import { TableRowSelection } from 'antd/es/table/interface'
 type DataType = {
   actId: number
   actTitle: string
@@ -56,12 +58,16 @@ const Index = () => {
       render: text => <span>{text === 4 ? '待开始' : text === 5 ? '进行中' : ''}</span>,
     },
   ]
-  const rowSelection = {
-    selectedRowKeys: selectedRows.map(item => item?.actId),
-    onChange: (_selKeys: React.Key[], selectedRows: DataType[]) => {
-      setSelectedRows(selectedRows)
-    },
-  }
+
+  const rowSelection = React.useMemo<TableRowSelection<any>>(() => {
+    return {
+      selectedRowKeys: selectedRows.map(item => item?.actId),
+      onChange: (_selKeys: React.Key[], selectedRows: DataType[]) => {
+        setSelectedRows(selectedRows)
+      },
+      type: 'radio',
+    }
+  }, [selectedRows])
 
   const handleSearch = async (searchValue: any) => {
     const res = await getActivityList({
@@ -92,6 +98,15 @@ const Index = () => {
     setting && updateComponentData(setting.id, { ...setting.data, img: url })
     setIsOpen(false)
   }
+
+  /**
+   * 清空选项
+   */
+  const clearTags = () => {
+    setTags([])
+    setSelectedRows([])
+  }
+
   return (
     <>
       <SetTitle>抽奖活动</SetTitle>
@@ -101,7 +116,7 @@ const Index = () => {
             <Button type="link" onClick={() => setShowTable(true)}>
               选择活动
             </Button>
-            <Button type="link" onClick={() => setTags([])}>
+            <Button type="link" onClick={clearTags}>
               清除
             </Button>
           </div>
@@ -156,7 +171,7 @@ const Index = () => {
           data={list}
           columns={columns}
           rowKey="actId"
-          rowSelection={{ ...rowSelection, type: 'radio' }}
+          rowSelection={rowSelection}
           onParamsChange={handleSearch}
         ></WdTable>
       </WdModal>

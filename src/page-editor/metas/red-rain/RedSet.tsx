@@ -37,7 +37,7 @@ const Index = () => {
     },
   }
   const columns: ProColumnsType = [
-    { title: '活动ID', dataIndex: 'actId', align: 'center' },
+    { title: '活动ID', dataIndex: 'actId', align: 'center', searchType: 'input' },
     { title: '活动名称', dataIndex: 'actTitle', searchType: 'input' },
     {
       title: '活动时间',
@@ -77,7 +77,13 @@ const Index = () => {
     const res = await getActivityList({
       pageIndex: searchValue.current,
       ...searchValue,
-      payload: { style: 0, isCover: 1, aStatus: '4,5', actTitle: searchValue.actTitle },
+      payload: {
+        style: 0,
+        isCover: 1,
+        aStatus: '4,5',
+        actTitle: searchValue.actTitle,
+        actId: searchValue.actId,
+      },
     })
     setList({ list: res.data, page: { total: res.totalCount } })
   }

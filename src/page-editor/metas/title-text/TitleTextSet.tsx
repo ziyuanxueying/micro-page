@@ -34,6 +34,13 @@ const TitleTextSet = () => {
         <Form.Item label="描述内容" name="desc">
           <TextArea showCount maxLength={500} />
         </Form.Item>
+
+        <Form.Item label="倒角" name="radius">
+          <Radio.Group>
+            <Radio value="rightAngle">直角</Radio>
+            <Radio value="fillet">圆角</Radio>
+          </Radio.Group>
+        </Form.Item>
         <Form.Item label="显示位置" name="textAlign">
           <Radio.Group>
             <Radio value="left">显示居左</Radio>
@@ -43,8 +50,20 @@ const TitleTextSet = () => {
         <Form.Item label="标题大小" name="titleSize">
           <InputNumber addonAfter="px" />
         </Form.Item>
+        <Form.Item label="标题样式" name="titleWeight">
+          <Radio.Group>
+            <Radio value="normal">常规</Radio>
+            <Radio value="bold">加粗</Radio>
+          </Radio.Group>
+        </Form.Item>
         <Form.Item label="描述大小" name="descSize">
           <InputNumber addonAfter="px" />
+        </Form.Item>
+        <Form.Item label="描述样式" name="descWeight">
+          <Radio.Group>
+            <Radio value="normal">常规</Radio>
+            <Radio value="bold">加粗</Radio>
+          </Radio.Group>
         </Form.Item>
         <Form.Item label="标题颜色" name="titleColor">
           <ColorPicker showText />

@@ -3,10 +3,10 @@ import { Button } from 'antd'
 
 type MyProps = {
   value?: string
+  isDelete?: boolean
   onChange?: (date: any) => void
 }
 const Index = (props: MyProps) => {
-  console.log('props: ', props)
   const [isOpen, setIsOpen] = useState(false)
   const [url, setUrl] = useState<any>(props?.value || '')
   const handleCancel = () => {
@@ -17,7 +17,12 @@ const Index = (props: MyProps) => {
     setUrl(url)
     setIsOpen(false)
   }
-  const handleDelete = () => {}
+  const handleDelete = () => {
+    props.onChange?.(null)
+    setUrl(null)
+    setIsOpen(false)
+  }
+
   return (
     <>
       <div>
@@ -40,7 +45,7 @@ const Index = (props: MyProps) => {
             height={200}
             colNum={1}
             isDefault={false}
-            isDelete={false}
+            isDelete={props.isDelete}
             onDelete={handleDelete}
           />
         )}

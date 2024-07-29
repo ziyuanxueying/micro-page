@@ -7,6 +7,7 @@ import { Button, Space, Tag } from 'antd'
 import { getActivityList } from '@/api'
 import React from 'react'
 import { TableRowSelection } from 'antd/es/table/interface'
+import FormItem from 'antd/es/form/FormItem'
 type DataType = {
   actId: number
   actTitle: string
@@ -110,8 +111,16 @@ const Index = () => {
       <div css={css({ fontSize: 16 })}>红包雨</div>
       <Line />
       <div css={css([flexb, { flexWrap: 'wrap', margin: '10px 0' }])}>
-        <Button onClick={() => setShowTable(true)}>选择活动</Button>
-        <Button onClick={clearTags}>清除</Button>
+        <FormItem label="活动配置" required>
+          <Button type="link" onClick={() => setShowTable(true)}>
+            选择活动
+          </Button>
+        </FormItem>
+        {!!tags.length && (
+          <Button type="link" onClick={clearTags}>
+            清除
+          </Button>
+        )}
       </div>
       {tags.length > 0 && (
         <Space css={css({ flexWrap: 'wrap', fontSize: 13 })}>

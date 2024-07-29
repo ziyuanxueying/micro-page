@@ -65,7 +65,10 @@ const ImageSet = () => {
                           <MaterialBtn />
                         </Form.Item>
                         <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
-                          <WdAllocation status={['none', 'mini', 'external']} />
+                          <WdAllocation
+                            status={['none', 'mini', 'external']}
+                            onChangeData={() => {}}
+                          />
                         </Form.Item>
 
                         {fields.length > 1 ? (

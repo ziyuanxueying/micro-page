@@ -1,5 +1,5 @@
 import useStore from '@/store'
-import { Divider, Form, Radio, Typography, Switch, InputNumber } from 'antd'
+import { Divider, Form, Radio, Typography, Switch } from 'antd'
 import { WdAllocation } from '@wd/component-ui'
 import { toComponentUrl } from '@/utils'
 import MaterialBtn from '@/page-editor/components/MaterialBtn'
@@ -58,9 +58,9 @@ const FloatBtnSet = () => {
         <Form.Item label="按钮图片" name="buttonImgUrl" required>
           <MaterialBtn />
         </Form.Item>
-        <Form.Item label="按钮位置" name="top">
+        {/* <Form.Item label="按钮位置" name="top">
           <InputNumber />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item label="点击效果" name="clickType" required>
           <Radio.Group onChange={onClickTypeChange}>
             <Radio value="modal">弹窗</Radio>
@@ -85,7 +85,12 @@ const FloatBtnSet = () => {
 
             return (
               <Form.Item label="跳转链接" name="link">
-                <WdAllocation status={['none', 'mini', 'external']} />
+                <WdAllocation
+                  status={['none', 'mini', 'external']}
+                  onChangeData={function (): void {
+                    // todo
+                  }}
+                />
               </Form.Item>
             )
           }}

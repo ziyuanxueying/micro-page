@@ -1,7 +1,7 @@
 import { type Component } from '@/store'
 
 export default {
-  name: '模板图片',
+  name: '头部模板',
   group: '基础组件',
   icon: 'icon-pic',
   metaType: 'biz-pic',

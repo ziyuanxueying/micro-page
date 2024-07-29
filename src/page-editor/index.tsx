@@ -22,7 +22,7 @@ type dataType = {
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
   // const { id, type } = props
-  const { id = undefined, type = undefined } = props
+  const { id = 'CP0795244269648879616', type = undefined } = props
   const navigate = useNavigate()
   console.log('id, type: ', id, type)
   // const [currData, setCurrData] = useState<any>({})
@@ -35,7 +35,7 @@ const TemplateEngine = (props: any) => {
     console.log('list: ', list)
     if (msg) {
       updateSelectedComponentId(undefined)
-      if (list.length > 0) {
+      if (list?.length > 0) {
         updateComponents(list)
       }
       alert(msg)

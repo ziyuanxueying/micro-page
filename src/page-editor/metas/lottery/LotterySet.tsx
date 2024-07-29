@@ -137,11 +137,17 @@ const Index = () => {
           </Space>
         )}
 
-        <Form.Item label="活动配置" name="activity" rules={[{ required: true }]}>
+        <Form.Item
+          label="活动配置"
+          name="activity"
+          rules={[{ required: true }]}
+          extra="支持PNG、JPG、JPEG，GIF格式，大小支持2M，建议宽度1200PX"
+        >
           <div css={css([flexb, { flexWrap: 'wrap' }])}>
             <Button type="primary" onClick={() => setIsOpen(true)}>
               素材库
             </Button>
+
             <WdMaterial
               limit={1}
               maxCount={1}

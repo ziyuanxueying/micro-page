@@ -20,7 +20,7 @@ export function checkSaveInfo(data: any) {
     return { msg: '请在页面设置中输入页面名称' }
   }
   if (data.pageConfig.isShare) {
-    if (!data.pageConfig.shareTitle || !data.pageConfig.shareDesc)
+    if (!data.pageConfig.shareTitle || !data.pageConfig.shareImg)
       return { msg: '请在页面设置中完善分享内容' }
   }
   if (data.components.length === 0) {

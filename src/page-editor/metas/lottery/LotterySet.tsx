@@ -14,9 +14,12 @@ type DataType = {
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId)
+  console.log(setting)
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
-  const [tags, setTags] = useState<DataType[]>([setting?.data?.activity] || [])
+  const [tags, setTags] = useState<DataType[]>(
+    (setting?.data?.activity?.actId && [setting?.data?.activity]) || [],
+  )
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
   const [isOpen, setIsOpen] = useState(false)
   const [imgData, setImgData] = useState<any>([{ src: setting?.data?.img, name: '抽奖图片' }])
@@ -111,34 +114,8 @@ const Index = () => {
     <>
       <SetTitle>抽奖活动</SetTitle>
       <Form name="basic" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-        <Form.Item label="添加图片" name="img" rules={[{ required: true }]}>
-          <div css={css([flexb, { flexWrap: 'wrap' }])}>
-            <Button type="link" onClick={() => setShowTable(true)}>
-              选择活动
-            </Button>
-            <Button type="link" onClick={clearTags}>
-              清除
-            </Button>
-          </div>
-        </Form.Item>
-        {tags.length > 0 && (
-          <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
-            {tags.map(tag => (
-              <Tag
-                css={css({ fontSize: 13 })}
-                key={tag.actId}
-                closable
-                color="blue"
-                onClose={() => handleClose(tag)}
-              >
-                {tag.actTitle}
-              </Tag>
-            ))}
-          </Space>
-        )}
-
         <Form.Item
-          label="活动配置"
+          label="添加图片"
           name="activity"
           rules={[{ required: true }]}
           extra="支持PNG、JPG、JPEG，GIF格式，大小支持2M，建议宽度1200PX"
@@ -169,6 +146,31 @@ const Index = () => {
             )}
           </div>
         </Form.Item>
+        <Form.Item label="活动配置" name="img" rules={[{ required: true }]}>
+          <div css={css([flexb, { flexWrap: 'wrap' }])}>
+            <Button type="link" onClick={() => setShowTable(true)}>
+              选择活动
+            </Button>
+            <Button type="link" onClick={clearTags}>
+              清除
+            </Button>
+          </div>
+        </Form.Item>
+        {tags.length > 0 && (
+          <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
+            {tags.map(tag => (
+              <Tag
+                css={css({ fontSize: 13 })}
+                key={tag.actId}
+                closable
+                color="blue"
+                onClose={() => handleClose(tag)}
+              >
+                {tag.actTitle}
+              </Tag>
+            ))}
+          </Space>
+        )}
       </Form>
 
       <WdModal open={showTable} modalProps={propsTable}>

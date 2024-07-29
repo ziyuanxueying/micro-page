@@ -93,6 +93,12 @@ const Index = () => {
                 width={100}
                 height={100}
                 colNum={1}
+                onDelete={() => {
+                  updatePageConfig({
+                    ...pageConfig,
+                    bgImage: '',
+                  })
+                }}
                 isDefault={false}
               />
             )}

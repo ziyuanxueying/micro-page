@@ -41,10 +41,10 @@ const Index = () => {
           </Radio.Group>
         </Form.Item>
         <Form.Item label="标题" name="title" required>
-          <Input />
+          <Input showCount maxLength={10} />
         </Form.Item>
         <Form.Item label="副标题" name="sub">
-          <Input />
+          <Input showCount maxLength={10} />
         </Form.Item>
       </Form>
     </>

@@ -45,7 +45,7 @@ const Index = (props: MyProps) => {
             height={200}
             colNum={1}
             isDefault={false}
-            isDelete={props.isDelete}
+            isDelete={props?.isDelete}
             onDelete={handleDelete}
           />
         )}

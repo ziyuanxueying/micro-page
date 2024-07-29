@@ -40,7 +40,7 @@ const ImageSet = () => {
           updateComponentData(selectedComponentId, { ...allValues })
         }}
       >
-        <Form.Item label="模版" name="moduleType" required>
+        <Form.Item label="模版" name="moduleType">
           <Radio.Group onChange={handleModuleTypeChange}>
             <Radio value="image">单张</Radio>
             <Radio value="carousel">轮播</Radio>
@@ -61,8 +61,8 @@ const ImageSet = () => {
                         styles={{ body: { paddingLeft: 0, paddingTop: 30 } }}
                         css={css({ position: 'relative' })}
                       >
-                        <Form.Item {...restField} label="图片" name={[name, 'url']}>
-                          <MaterialBtn />
+                        <Form.Item {...restField} label="图片" name={[name, 'url']} required>
+                          <MaterialBtn isDelete={true} />
                         </Form.Item>
                         <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
                           <WdAllocation

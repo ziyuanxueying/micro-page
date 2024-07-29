@@ -102,8 +102,15 @@ const HotSet = () => {
           onOk={() => setModalVisible(false)}
           onCancel={() => setModalVisible(false)}
           width={900}
+          title="添加热区"
           okText="确定"
           cancelText="取消"
+          styles={{
+            footer: {
+              display: 'flex',
+              justifyContent: 'center',
+            },
+          }}
         >
           <div
             css={css({
@@ -177,7 +184,7 @@ const HotSet = () => {
                                 <WdAllocation
                                   status={['none', 'mini', 'external']}
                                   // value={pathVal}
-                                  // onChangeData={onClick}
+                                  onChangeData={() => {}}
                                 />
                               </Form.Item>
 

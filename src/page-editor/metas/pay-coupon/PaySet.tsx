@@ -29,7 +29,7 @@ const Index = () => {
   }
   const propsTable: WdModalProps['modalProps'] = {
     // 传递给 Modal 组件的属性和方法
-    title: '表格弹框',
+    title: '选择券',
     okText: '确定',
     size: 'large',
     cancelText: '取消',
@@ -46,21 +46,24 @@ const Index = () => {
   const columns: ProColumnsType = [
     { title: '券ID', dataIndex: 'no', align: 'center', searchType: 'input' },
     { title: '券名称', dataIndex: 'title', searchType: 'input' },
-    {
-      title: '券图标',
-      dataIndex: 'pic',
-      render: (text: string) => (
-        <img
-          src={text}
-          alt=""
-          style={{ width: '90px', height: '60px', marginBottom: '-16px', objectFit: 'contain' }}
-        />
-      ),
-    },
-    { title: '发放主体', dataIndex: 'createOrgFullName' },
-    { title: '发放时间', dataIndex: 'provideStartTime' },
-    { title: '失效时间', dataIndex: 'provideEndTime' },
-    { title: '投放库存', dataIndex: 'totalNum' },
+    // {
+    //   title: '券图标',
+    //   dataIndex: 'pic',
+    //   render: (text: string) => (
+    //     <img
+    //       src={text}
+    //       alt=""
+    //       style={{ width: '90px', height: '60px', marginBottom: '-16px', objectFit: 'contain' }}
+    //     />
+    //   ),
+    // },
+    { title: '券面值', render: (text: string) => `${(parseInt(text) / 100).toFixed(2)}元` },
+    // {
+    //   title: '发放主体',
+    //   dataIndex: 'createOrgFullName',
+    // },
+    { title: '有效期', dataIndex: 'provideStartTime' },
+    { title: '可用库存/总库存', dataIndex: 'provideEndTime' },
   ]
 
   const handleSearch = async (searchValue: any) => {

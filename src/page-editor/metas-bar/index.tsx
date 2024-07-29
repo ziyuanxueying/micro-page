@@ -3,6 +3,7 @@ import { Component, Group } from '@/store'
 import Item from './Item'
 import { Typography } from 'antd'
 import { flexc } from '@/styles/global'
+import { DragOutlined } from '@ant-design/icons'
 
 const { Text } = Typography
 
@@ -63,6 +64,10 @@ const MetasBar = () => {
         },
       ])}
     >
+      <Text type="secondary">
+        <DragOutlined />
+        拖拽进行组件添加
+      </Text>
       {Object.entries(metas).map(([key, value]) => (
         <div
           key={key}

@@ -22,6 +22,7 @@ type dataType = {
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
   // const { id, type } = props
+  const saveLock = React.useRef<boolean>(false)
   const { id = 'CP0795244269648879616', type = undefined } = props
   const navigate = useNavigate()
   console.log('id, type: ', id, type)
@@ -31,50 +32,55 @@ const TemplateEngine = (props: any) => {
     useStore()
   const [preview, setPreview] = React.useState<any>({})
   const handleSave = async (status: string) => {
-    const { msg, list } = checkSaveInfo({ components, pageConfig })
-    console.log('list: ', list)
-    if (msg) {
-      updateSelectedComponentId(undefined)
-      if (list?.length > 0) {
-        updateComponents(list)
+    if (saveLock.value) return
+    saveLock.value = true
+    try {
+      const { msg, list } = checkSaveInfo({ components, pageConfig })
+      if (msg) {
+        updateSelectedComponentId(undefined)
+        if (list?.length > 0) {
+          updateComponents(list)
+        }
+        messageApi.warning(msg)
+        saveLock.value = false
+        return msg
       }
-      alert(msg)
-      return msg
-    }
 
-    if ([undefined, '', 'copy'].includes(type)) {
-      const res = await createJson({
-        content: { components, pageConfig },
-        title: pageConfig.title,
-        channel: 'MICRO',
-      })
-      // setCurrData(res.data)
-      if (status !== 'submit') {
-        messageApi.open({ type: 'success', content: '页面创建成功' })
-        goBack()
-      } else {
-        const curId = res.data.id || id
-        const aaa = await updateStatus({ id: curId, status: '3' })
-        console.log('aaa: ', aaa)
-        messageApi.open({ type: 'success', content: '页面提交成功' })
-        goBack()
+      if ([undefined, '', 'copy'].includes(type)) {
+        const res = await createJson({
+          content: { components, pageConfig },
+          title: pageConfig.title,
+          channel: 'MICRO',
+        })
+        // setCurrData(res.data)
+        if (status !== 'submit') {
+          messageApi.open({ type: 'success', content: '页面创建成功' })
+          goBack()
+        } else {
+          const curId = res.data.id || id
+          await updateStatus({ id: curId, status: '3' })
+          messageApi.open({ type: 'success', content: '页面提交成功' })
+          goBack()
+        }
       }
-    }
-    if (['edit'].includes(type)) {
-      await updateJson({
-        content: { components, pageConfig },
-        id,
-        title: pageConfig.title,
-      })
-      if (status !== 'submit') {
-        messageApi.open({ type: 'success', content: '页面修改成功' })
-        goBack()
-      } else {
-        const aaa = await updateStatus({ id, status: '3' })
-        console.log('aaa: ', aaa)
-        messageApi.open({ type: 'success', content: '页面提交成功' })
-        goBack()
+      if (['edit'].includes(type)) {
+        await updateJson({
+          content: { components, pageConfig },
+          id,
+          title: pageConfig.title,
+        })
+        if (status !== 'submit') {
+          messageApi.open({ type: 'success', content: '页面修改成功' })
+          goBack()
+        } else {
+          await updateStatus({ id, status: '3' })
+          messageApi.open({ type: 'success', content: '页面提交成功' })
+          goBack()
+        }
       }
+      saveLock.value = false
+    } catch (err) {
+      saveLock.value = false
     }
   }
   const changeStatus = async (status: string) => {
@@ -136,7 +142,6 @@ const TemplateEngine = (props: any) => {
     if (id) {
       findById()
     } else {
-      console.log(11111111)
       updateComponents([])
       updatePageConfig({
         title: '默认标题',

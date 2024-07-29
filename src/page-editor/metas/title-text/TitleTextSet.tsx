@@ -29,10 +29,10 @@ const TitleTextSet = () => {
         }}
       >
         <Form.Item label="标题内容" name="title" required>
-          <Input />
+          <Input showCount maxLength={10} />
         </Form.Item>
         <Form.Item label="描述内容" name="desc">
-          <TextArea />
+          <TextArea showCount maxLength={500} />
         </Form.Item>
         <Form.Item label="显示位置" name="textAlign">
           <Radio.Group>

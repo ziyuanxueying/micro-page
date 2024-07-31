@@ -31,13 +31,7 @@ export type pageType = {
   posterImage: string
   tab?: string
 }
-export enum ActionEnums {
-  preview = 'preview',
-  edit = 'edit',
-  create = 'create',
-}
 
-export type Action = keyof typeof ActionEnums
 export type Store = {
   components: Component[]
   selectedComponentId: Component['id'] | undefined
@@ -48,12 +42,13 @@ export type Store = {
   removeComponent: (id: Component['id']) => void
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
   pageConfig: pageType
-  action: Action
+  type: any
   updatePageConfig: (pageData: pageType) => void
 }
 
 export const useStore = create<Store>()(
   immer((set, get) => ({
+    type: undefined,
     components: [],
     selectedComponentId: undefined,
     pushComponent: component => {
@@ -93,7 +88,7 @@ export const useStore = create<Store>()(
       showShareModal: false,
     },
     updatePageConfig: pageConfig => set({ pageConfig }),
-    action: 'edit', // preview edit create
+    updateType: (type: any) => set({ type }),
   })),
 )
 

@@ -10,6 +10,7 @@ export default {
   setModule: 'PaySet',
   data: {
     coupons: [],
+    moduleType: 'biz-pay-once',
     btnColor: '#f24724',
   },
 } as Component

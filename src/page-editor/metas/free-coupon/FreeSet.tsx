@@ -26,7 +26,12 @@ const Index = () => {
 
   const onChange = (val: string) => {
     setModuleType(val)
-    setting && updateComponent(setting.id, { ...setting, moduleType: val })
+    setting &&
+      updateComponent(setting.id, {
+        ...setting,
+        data: { ...setting.data, moduleType: val },
+        moduleType: val,
+      })
   }
   // const channeChange = (value: string) => {
   //   setChannelId(value)
@@ -40,6 +45,12 @@ const Index = () => {
     okText: '确定',
     size: 'large',
     cancelText: '取消',
+    styles: {
+      footer: {
+        display: 'flex',
+        justifyContent: 'center',
+      },
+    },
     // destroyOnClose: true,
     onOk: () => {
       setShowTable(false)
@@ -64,17 +75,26 @@ const Index = () => {
     //     />
     //   ),
     // },
-    { title: '券面值', render: (text: string) => `${(parseInt(text) / 100).toFixed(2)}元` },
+    {
+      title: '券面值',
+      dataIndex: 'value',
+      render: (text: string) => `${(parseInt(text) / 100).toFixed(2)}元`,
+    },
     // {
     //   title: '发放主体',
     //   dataIndex: 'createOrgFullName',
     // },
     { title: '有效期', dataIndex: 'provideStartTime' },
-    { title: '可用库存/总库存', dataIndex: 'provideEndTime' },
+    {
+      title: '可用库存/总库存',
+      render: (_: any, values: any) => {
+        return `${values.stockNum}/${values.totalNum}`
+      },
+    },
   ]
 
   const handleSearch = async (searchValue: any) => {
-    const data = await getCoupons({ ...searchValue, saleType: 0 })
+    const data = await getCoupons({ ...searchValue, saleType: 0, pageIndex: searchValue.current })
     setList({ list: data.list, page: { total: data.totalSize } })
   }
 

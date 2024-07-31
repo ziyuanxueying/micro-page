@@ -10,6 +10,7 @@ export default {
   setModule: 'FreeSet',
   data: {
     coupons: [],
+    moduleType: 'biz-free-once',
     btnColor: '#f24724',
   },
 } as Component

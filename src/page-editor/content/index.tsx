@@ -1,10 +1,10 @@
-import useStore, { ActionEnums } from '@/store'
+import useStore from '@/store'
 import { useDrop } from 'react-dnd'
 import ContentItem from './Item'
 import { ShareModal } from './share'
 
 const Content = () => {
-  const { components, pageConfig, action, updateComponents } = useStore()
+  const { components, pageConfig, type, updateComponents } = useStore()
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',
@@ -41,8 +41,8 @@ const Content = () => {
         data-testid="dustbin"
         css={css({
           width: 375,
-          minHeight: 667,
-          maxHeight: 'calc(100% - 20px)',
+          minHeight: 'calc(100vh - 255px)',
+          maxHeight: 'calc(100vh - 255px)',
           // maxHeight: 780,
           overflowY: 'auto',
           boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
@@ -56,7 +56,7 @@ const Content = () => {
       >
         <div
           css={css`
-            pointer-events: ${action !== ActionEnums.preview ? 'all' : 'none'};
+            pointer-events: ${!['check', 'review'].includes(type) ? 'all' : 'none'};
             overflow-x: hidden;
           `}
         >

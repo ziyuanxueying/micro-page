@@ -1,8 +1,6 @@
-import React from 'react'
 import useStore from '@/store'
 import { pageType } from '@/store'
-import { ImagePreview, WdMaterial } from '@wd/component-ui'
-import { ColorPicker, Form, FormProps, Input, Switch, Button } from 'antd'
+import { ColorPicker, Form, FormProps, Input, Switch } from 'antd'
 import { toHexString } from '@/utils'
 import MaterialBtn from '@/page-editor/components/MaterialBtn'
 
@@ -19,38 +17,38 @@ const Index = () => {
 
   const [form] = Form.useForm()
   // 是否打开素材库
-  const [openWDMaterial, setOpenWDMaterial] = useState(false)
+  // const [openWDMaterial, setOpenWDMaterial] = useState(false)
   // 素材库作用于哪张图片
-  const [editImageKey, setEditImageKey] = useState('')
+  // const [editImageKey, setEditImageKey] = useState('')
 
   /** 打开素材库 */
-  const openWDMaterialHandler = React.useCallback((key: string) => {
-    setOpenWDMaterial(true)
-    setEditImageKey(key)
-  }, [])
+  // const openWDMaterialHandler = React.useCallback((key: string) => {
+  //   setOpenWDMaterial(true)
+  //   setEditImageKey(key)
+  // }, [])
 
   /** 关闭素材库 */
-  const closeWDMaterial = React.useCallback(() => {
-    setOpenWDMaterial(false)
-  }, [])
+  // const closeWDMaterial = React.useCallback(() => {
+  //   setOpenWDMaterial(false)
+  // }, [])
 
   /** 素材库选择资源 */
-  const resourceSelected = (url: string) => {
-    closeWDMaterial()
-    updatePageConfig({ ...pageConfig, [editImageKey]: url })
-  }
+  // const resourceSelected = (url: string) => {
+  //   closeWDMaterial()
+  //   updatePageConfig({ ...pageConfig, [editImageKey]: url })
+  // }
 
   return (
     <>
-      <WdMaterial
+      {/* <WdMaterial
         limit={1}
         maxCount={1}
         disabled={false}
         noValidate={false}
         open={openWDMaterial}
         onCancel={closeWDMaterial}
-        onOk={resourceSelected}
-      />
+        // onOk={resourceSelected}
+      /> */}
       <Form
         name="basic"
         form={form}
@@ -60,7 +58,16 @@ const Index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         onValuesChange={(_, allValues) => {
-          console.log('allValues: ', allValues)
+          console.log('allValues: ', allValues, {
+            ...pageConfig,
+            ...allValues,
+            bgColor: toHexString(allValues.bgColor),
+            // shareBtnImg: toComponentUrl(allValues.shareBtnImg),
+            // bgImage: toComponentUrl(allValues.bgImage),
+            // shareImg: toComponentUrl(allValues.shareImg),
+            // posterImage: toComponentUrl(allValues.posterImage),
+            tab: '2',
+          })
           updatePageConfig({
             ...pageConfig,
             ...allValues,
@@ -78,31 +85,14 @@ const Index = () => {
           name="title"
           rules={[{ required: true, message: '请输入页面名称' }]}
         >
-          <Input />
+          <Input showCount maxLength={10} />
         </Form.Item>
 
         <Form.Item<pageType> label="背景色" name="bgColor">
           <ColorPicker showText />
         </Form.Item>
         <Form.Item label="添加背景图" name="bgImage">
-          <div>
-            <Button onClick={() => openWDMaterialHandler('bgImage')}>选择图片+</Button>
-            {pageConfig.bgImage && (
-              <ImagePreview
-                data={[{ src: pageConfig.bgImage, name: '分享按钮' }]}
-                width={100}
-                height={100}
-                colNum={1}
-                onDelete={() => {
-                  updatePageConfig({
-                    ...pageConfig,
-                    bgImage: '',
-                  })
-                }}
-                isDefault={false}
-              />
-            )}
-          </div>
+          <MaterialBtn />
         </Form.Item>
         <Form.Item label="分享设置" name="isShare">
           <Switch />
@@ -114,18 +104,7 @@ const Index = () => {
               name="shareBtnImg"
               extra="支持png、jpg、jpeg、gif格式，最大500k, 100x100像素"
             >
-              <div>
-                <Button onClick={() => openWDMaterialHandler('shareBtnImg')}>选择图片+</Button>
-                {pageConfig.shareBtnImg && (
-                  <ImagePreview
-                    data={[{ src: pageConfig.shareBtnImg, name: '分享按钮' }]}
-                    width={100}
-                    height={100}
-                    colNum={1}
-                    isDefault={false}
-                  />
-                )}
-              </div>
+              <MaterialBtn />
             </Form.Item>
             <Form.Item label="分享标题" name="shareTitle" required>
               <Input placeholder="最多15字" />

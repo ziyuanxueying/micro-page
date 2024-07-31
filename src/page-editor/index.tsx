@@ -4,7 +4,7 @@ import MetasBar from './metas-bar/index.tsx'
 import Content from './content/index.tsx'
 import Setting from './setting/index.tsx'
 import { flexrc } from '@global'
-import { Button, Space, message } from 'antd'
+import { Button, Space, Spin, message } from 'antd'
 // import { updateJson, findByIdForB, getCoupons } from '@/api'
 import { createJson, findByIdForB, updateJson, updateStatus } from '@/api'
 import useStore, { Component, pageType } from '@/store'
@@ -12,6 +12,7 @@ import { checkSaveInfo } from '@/utils/index.ts'
 import { WdModal, WdPlazaSelect } from '@wd/component-ui'
 import QRCode from '@/utils/qrcode.js'
 import './index.less'
+import { getTemp } from '@/temps.ts'
 
 type dataType = {
   components: Component[]
@@ -21,15 +22,22 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
-  // const { id, type } = props
+  const { id, type, temp } = props
   const saveLock = React.useRef<boolean>(false)
-  const { id = 'CP0795244269648879616', type = undefined } = props
+  // const { id = undefined, type = undefined, temp = undefined } = props
+
   const navigate = useNavigate()
-  console.log('id, type: ', id, type)
   // const [currData, setCurrData] = useState<any>({})
   const [messageApi, contextHolder] = message.useMessage()
-  const { components, pageConfig, updateComponents, updateSelectedComponentId, updatePageConfig } =
-    useStore()
+  const {
+    components,
+    pageConfig,
+    updateComponents,
+    updateSelectedComponentId,
+    updatePageConfig,
+    updateType,
+  } = useStore()
+  const [spinning, setSpinning] = React.useState(true)
   const [preview, setPreview] = React.useState<any>({})
   const handleSave = async (status: string) => {
     if (saveLock.value) return
@@ -78,7 +86,6 @@ const TemplateEngine = (props: any) => {
           goBack()
         }
       }
-      saveLock.value = false
     } catch (err) {
       saveLock.value = false
     }
@@ -98,6 +105,7 @@ const TemplateEngine = (props: any) => {
       // 防止数据渲染不出来
       updateComponents(data.content.components)
       updatePageConfig(data.content.pageConfig)
+      setSpinning(false)
     }, 1000)
   }
 
@@ -139,9 +147,20 @@ const TemplateEngine = (props: any) => {
     }, 1500)
   }
   useEffect(() => {
+    updateType(type)
     if (id) {
       findById()
-    } else {
+    } else if (temp) {
+      const tempData = getTemp(temp)
+      if (tempData) {
+        setTimeout(() => {
+          updateComponents(tempData?.components)
+          updatePageConfig(tempData?.pageConfig)
+          setSpinning(false)
+        }, 1000)
+      }
+    } else setSpinning(false)
+    return () => {
       updateComponents([])
       updatePageConfig({
         title: '默认标题',
@@ -162,48 +181,51 @@ const TemplateEngine = (props: any) => {
       })}
     >
       {contextHolder}
-      <DndProvider backend={HTML5Backend}>
-        <main
-          css={css({
-            display: 'flex',
-            height: ' calc(100% - 60px)',
-            gap: 12,
-            minHeight: '700px',
-          })}
-        >
-          {!['check', 'review'].includes(type) && <MetasBar />}
-          <Content />
-          {!['check', 'review'].includes(type) && <Setting />}
-        </main>
-      </DndProvider>
-      <Space css={css([flexrc, { padding: '10px' }])}>
-        <Button
-          onClick={() => {
-            navigate('/micro-page-list', { replace: true })
-          }}
-        >
-          取消
-        </Button>
-        {/* <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
+
+      <Spin spinning={spinning} tip="加载中" size="large">
+        <DndProvider backend={HTML5Backend}>
+          <main
+            css={css({
+              display: 'flex',
+              height: 'calc(100vh - 240px)',
+              gap: 12,
+              minHeight: 'calc(100vh - 240px)',
+            })}
+          >
+            {!['check', 'review'].includes(type) && <MetasBar />}
+            <Content />
+            {!['check', 'review'].includes(type) && <Setting />}
+          </main>
+        </DndProvider>
+        <Space css={css([flexrc, { padding: '10px' }])}>
+          <Button
+            onClick={() => {
+              navigate('/micro-page-list', { replace: true })
+            }}
+          >
+            取消
+          </Button>
+          {/* <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
           预览
         </Button> */}
-        {['review'].includes(type) && (
-          <>
-            <Button onClick={() => changeStatus('2')}>驳回</Button>
-            <Button type="primary" onClick={() => changeStatus('1')}>
-              通过
-            </Button>
-          </>
-        )}
-        {[undefined, '', 'edit', 'copy'].includes(type) && (
-          <>
-            <Button onClick={() => handleSave('')}>存为草稿</Button>
-            <Button type="primary" onClick={() => handleSave('submit')}>
-              提交
-            </Button>
-          </>
-        )}
-      </Space>
+          {['review'].includes(type) && (
+            <>
+              <Button onClick={() => changeStatus('2')}>驳回</Button>
+              <Button type="primary" onClick={() => changeStatus('1')}>
+                通过
+              </Button>
+            </>
+          )}
+          {[undefined, '', 'edit', 'copy'].includes(type) && (
+            <>
+              <Button onClick={() => handleSave('')}>存为草稿</Button>
+              <Button type="primary" onClick={() => handleSave('submit')}>
+                提交
+              </Button>
+            </>
+          )}
+        </Space>
+      </Spin>
 
       <WdModal
         className="preview-modal"

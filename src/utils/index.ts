@@ -35,7 +35,7 @@ export function checkSaveInfo(data: any) {
     }
     if (['biz-pic'].includes(item.metaType)) {
       if (!item.data?.title) {
-        item.isError = '请输入模板图片的标题'
+        item.isError = '请输入头部模板的标题'
       }
     }
     if (item.metaType === 'biz-red') {

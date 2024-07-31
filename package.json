@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.52",
+  "version": "0.0.5-beta.53",
   "private": false,
   "sideEffects": [
     "*.css"

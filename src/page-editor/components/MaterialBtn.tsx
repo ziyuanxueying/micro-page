@@ -1,3 +1,4 @@
+import { PlusOutlined } from '@ant-design/icons'
 import { WdMaterial, ImagePreview } from '@wd/component-ui'
 import { Button } from 'antd'
 
@@ -26,8 +27,8 @@ const Index = (props: MyProps) => {
   return (
     <>
       <div>
-        <Button type="primary" onClick={() => setIsOpen(true)}>
-          素材库
+        <Button type="primary" icon={<PlusOutlined />} ghost onClick={() => setIsOpen(true)}>
+          添加图片
         </Button>
         <WdMaterial
           limit={1}

@@ -11,7 +11,9 @@ const TitleTextTem = (props: TemProps) => {
   return (
     <div
       css={css({
+        width: '100%',
         padding: 10,
+        boxSizing: 'border-box',
         backgroundColor,
         textAlign,
       })}

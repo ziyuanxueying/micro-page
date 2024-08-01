@@ -85,7 +85,7 @@ export const useStore = create<Store>()(
       bgImage: '',
       shareImg: '',
       posterImage: '',
-      bgColor: '#F5F5F5',
+      bgColor: '#f5f5f5',
       showShareModal: false,
     },
     updatePageConfig: pageConfig => set({ pageConfig }),

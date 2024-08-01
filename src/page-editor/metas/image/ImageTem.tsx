@@ -1,9 +1,6 @@
 import { TemProps } from '@/page-editor/components/ItemTemplate'
 import useStore from '@/store'
-import { Image } from 'antd'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import { Carousel, Image } from 'antd'
 import { defaultImage } from '@/utils'
 
 const ImageTem = (props: TemProps) => {
@@ -29,26 +26,19 @@ const ImageTem = (props: TemProps) => {
   return (
     <div
       css={css({
-        padding: 10,
-        background: '#fff',
+        display: 'block',
+        width: '100%',
       })}
     >
       {moduleType === 'image' || pictures.length < 2 ? (
         renderImage(pictures[0])
       ) : (
-        <Slider
-          dots
-          infinite
-          speed={500}
-          slidesToShow={1}
-          slidesToScroll={1}
-          autoplay
-          autoplaySpeed={2000}
-        >
-          {pictures.map((pic: any, i: number) => (
-            <div key={i}>{renderImage(pic)}</div>
-          ))}
-        </Slider>
+        <Carousel autoplay>
+          {pictures.map((pic: any, i: number) => {
+            console.log(pic)
+            return <div key={i}>{renderImage(pic || defaultImage)}</div>
+          })}
+        </Carousel>
       )}
     </div>
   )

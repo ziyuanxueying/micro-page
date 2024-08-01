@@ -204,8 +204,8 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
         {content(
           css({
             position: 'absolute',
-            left: 0,
-            top: 100,
+            right: 0,
+            top: 200,
             zIndex: 10,
           }),
         )}

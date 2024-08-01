@@ -112,7 +112,12 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
         {
           boxSizing: 'content-box',
           cursor: 'move',
-          border: data.id === selectedComponentId ? '2px dashed' : data.isError ? '2px solid' : '',
+          border:
+            data.id === selectedComponentId
+              ? '2px dashed'
+              : data.isError
+              ? '2px solid'
+              : '2px solid',
           borderColor:
             data.id === selectedComponentId ? '#20a0ff' : data.isError ? 'red' : 'transparent',
           // borderColor: data.id === selectedComponentId ? '#20a0ff' : 'transparent',
@@ -121,6 +126,9 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
           zIndex: 1,
           // width: 'calc(100% + 8px)',
           // left: -4,
+          display: 'flex',
+          justifyContent: 'center',
+          margin: '10px 0',
         },
         style,
       )}

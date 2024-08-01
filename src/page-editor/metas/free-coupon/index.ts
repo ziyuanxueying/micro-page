@@ -11,6 +11,6 @@ export default {
   data: {
     coupons: [],
     moduleType: 'biz-free-once',
-    btnColor: '#f24724',
+    btnColor: '#7791C3',
   },
 } as Component

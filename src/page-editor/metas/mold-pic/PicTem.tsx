@@ -7,6 +7,7 @@ const Index = (props: TemProps) => {
   const { data } = components.find(c => c.id === props.id) || {
     data: { url: '', title: '', sub: '' },
   }
+  console.log('~~~~~~~', data)
 
   return (
     <>

@@ -28,13 +28,19 @@ const Index = () => {
     okText: '确定',
     size: 'large',
     cancelText: '取消',
+    styles: {
+      footer: {
+        display: 'flex',
+        justifyContent: 'center',
+      },
+    },
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)
     },
     onCancel: () => {
       setShowTable(false)
-      setTags(tags)
+      // setTags(tags)
     },
   }
   const columns: ProColumnsType = [
@@ -89,8 +95,8 @@ const Index = () => {
     setList({ list: res.data, page: { total: res.totalCount } })
   }
   useEffect(() => {
-    setting && updateComponentData(setting.id, { ...setting.data, activity: selectedRows[0] })
-  }, [selectedRows])
+    setting && updateComponentData(setting.id, { ...setting.data, activity: tags[0] })
+  }, [tags])
 
   const handleClose = (removedTag: DataType) => {
     const newTags = tags.filter(tag => tag !== removedTag)

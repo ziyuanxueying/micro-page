@@ -67,12 +67,12 @@ const Content = () => {
               padding: '6px 12px',
               backgroundColor: '#fff',
               boxShadow: '0 2px 12px 0 rgba(0,0,0,.1)',
-              marginBottom: 10,
               textAlign: 'center',
               lineHeight: '32px',
               position: 'sticky',
               top: 0,
               zIndex: 99,
+              marginBottom: -10,
             })}
           >
             {pageConfig.title}

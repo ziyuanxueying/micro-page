@@ -6,6 +6,7 @@ import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import useStore from '@/store'
 import { getCoupons } from '@/api'
 import { toHexString } from '@/utils'
+import React from 'react'
 type dataType = {
   id: number
   couponName: string
@@ -120,6 +121,10 @@ const Index = () => {
     setTags(newTags)
     setSelectedRows(newTags)
   }
+  const clearSelection = () => {
+    setTags([])
+    setSelectedRows([])
+  }
   return (
     <div>
       <SetTitle>付费优惠券</SetTitle>
@@ -143,7 +148,7 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
+                    <Avatar shape="square" src="./assets/sel-one.png" />
                     <div>样式一</div>
                   </div>
                 ),
@@ -152,7 +157,7 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                    <Avatar shape="square" src="./assets/sel-two.png" />
                     <div>样式二</div>
                   </div>
                 ),
@@ -161,7 +166,7 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar style={{ backgroundColor: '#87d068' }} />
+                    <Avatar shape="square" src="./assets/sel-three.png" />
                     <div>样式三</div>
                   </div>
                 ),
@@ -175,7 +180,7 @@ const Index = () => {
             <Button type="link" onClick={() => setShowTable(true)}>
               选择券
             </Button>
-            <Button type="link" onClick={() => setTags([])}>
+            <Button type="link" onClick={() => clearSelection()}>
               清除
             </Button>
           </div>

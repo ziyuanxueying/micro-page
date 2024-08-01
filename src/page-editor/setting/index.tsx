@@ -8,7 +8,6 @@ const Setting = () => {
   const { components, selectedComponentId, pageConfig, updatePageConfig } = useStore()
 
   const selectedComponent = components.find(c => c.id === selectedComponentId)
-  console.log(selectedComponent)
   const items: TabsProps['items'] = [
     {
       key: '1',

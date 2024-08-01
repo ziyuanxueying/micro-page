@@ -1,21 +1,10 @@
 import useStore from '@/store'
 import { Line } from '@/styles/global'
-import { Form, Input, Radio, RadioChangeEvent } from 'antd'
+import { Form, Input, Radio } from 'antd'
 const Index = () => {
-  const { selectedComponentId, components, updateComponent, updateComponentData } = useStore()
+  const { selectedComponentId, components, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId)
   const [form] = Form.useForm()
-
-  const onChange = (e: RadioChangeEvent) => {
-    console.log(e)
-    const sel = pics.filter(x => x.value === e.target.value)[0]
-    setting &&
-      updateComponent(setting.id, {
-        ...setting,
-        data: { ...setting.data, url: sel.src, moduleType: e.target.value },
-        moduleType: e.target.value,
-      })
-  }
 
   const pics = [
     {
@@ -38,14 +27,17 @@ const Index = () => {
         labelCol={{ span: 4 }}
         initialValues={{ ...setting?.data }}
         onValuesChange={(_, allValues) => {
+          const sel = pics.filter(x => x.value === allValues.moduleType)[0]
+          console.log(allValues.moduleType, sel)
           updateComponentData(selectedComponentId, {
             ...allValues,
-            url: 'http://xcx02-dev-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/53aa87b270ae4e6da1d06c9b2e4ce990.jpeg',
+            url: sel.src,
+            data: { ...allValues.data, url: sel.src, moduleType: allValues.moduleType },
           })
         }}
       >
         <Form.Item label="选择模版" name="moduleType">
-          <Radio.Group onChange={onChange} style={{ display: 'flex' }}>
+          <Radio.Group style={{ display: 'flex' }}>
             {pics.map(option => (
               <div
                 css={css({

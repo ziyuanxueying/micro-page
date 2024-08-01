@@ -9,8 +9,9 @@ const Index = (props: TemProps) => {
       {data.img ? (
         <img
           css={css({
-            width: '100%',
-            height: 50,
+            width: 345,
+            height: 109,
+            marginLeft: 15,
             background: '#fff',
             // borderRadius: '50%',
           })}
@@ -22,9 +23,11 @@ const Index = (props: TemProps) => {
         <div
           css={css({
             width: '100%',
-            height: 50,
+            height: 109,
+            lineHeight: '109px',
+            textAlign: 'center',
+            color: '#666666',
             background: '#fff',
-            // borderRadius: '50%',
           })}
         >
           请选择图片

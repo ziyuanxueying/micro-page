@@ -23,6 +23,7 @@ type dataType = {
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
   const { id, type, temp } = props
+  console.log(id, type, temp)
   const saveLock = React.useRef<boolean>(false)
   // const { id = undefined, type = undefined, temp = undefined } = props
 
@@ -43,9 +44,9 @@ const TemplateEngine = (props: any) => {
     if (saveLock.value) return
     saveLock.value = true
     try {
-      const { msg, list } = checkSaveInfo({ components, pageConfig })
+      const { msg, list, item } = checkSaveInfo({ components, pageConfig })
       if (msg) {
-        updateSelectedComponentId(undefined)
+        updateSelectedComponentId(item.id)
         if (list?.length > 0) {
           updateComponents(list)
         }
@@ -66,7 +67,7 @@ const TemplateEngine = (props: any) => {
           goBack()
         } else {
           const curId = res.data.id || id
-          await updateStatus({ id: curId, status: '3' })
+          await updateStatus({ id: curId, status: '4' })
           messageApi.open({ type: 'success', content: '页面提交成功' })
           goBack()
         }
@@ -81,7 +82,7 @@ const TemplateEngine = (props: any) => {
           messageApi.open({ type: 'success', content: '页面修改成功' })
           goBack()
         } else {
-          await updateStatus({ id, status: '3' })
+          await updateStatus({ id, status: '4' })
           messageApi.open({ type: 'success', content: '页面提交成功' })
           goBack()
         }

@@ -43,6 +43,7 @@ export type Store = {
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
   pageConfig: pageType
   type: any
+  updateType: (type: any) => void
   updatePageConfig: (pageData: pageType) => void
 }
 

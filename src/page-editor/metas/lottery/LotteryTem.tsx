@@ -9,9 +9,8 @@ const Index = (props: TemProps) => {
       {data.img ? (
         <img
           css={css({
-            width: 345,
+            width: 350,
             height: 109,
-            marginLeft: 15,
             background: '#fff',
             // borderRadius: '50%',
           })}

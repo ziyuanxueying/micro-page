@@ -63,10 +63,19 @@ const Index = () => {
             ))}
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="标题" name="title" required>
+        <Form.Item
+          label="标题"
+          name="title"
+          required
+          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+        >
           <Input showCount maxLength={10} />
         </Form.Item>
-        <Form.Item label="副标题" name="sub">
+        <Form.Item
+          label="副标题"
+          name="sub"
+          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+        >
           <Input showCount maxLength={10} />
         </Form.Item>
       </Form>

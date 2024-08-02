@@ -36,10 +36,20 @@ const ImageTextSet = () => {
             <Radio value={2}>上图下文</Radio>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="标题" name="title" required>
+        <Form.Item
+          label="标题"
+          name="title"
+          required
+          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+        >
           <Input required />
         </Form.Item>
-        <Form.Item label="描述" name="desc" required>
+        <Form.Item
+          label="描述"
+          name="desc"
+          required
+          getValueFromEvent={(e: any) => e.target.value.trim()}
+        >
           <TextArea />
         </Form.Item>
         <Form.Item label="图片" name="url" required>

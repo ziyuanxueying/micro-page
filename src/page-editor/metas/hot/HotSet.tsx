@@ -171,6 +171,7 @@ const HotSet = () => {
                                 label="热区名称"
                                 name={[name, 'name']}
                                 required
+                                getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
                               >
                                 <Input />
                               </Form.Item>

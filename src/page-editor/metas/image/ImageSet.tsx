@@ -7,7 +7,7 @@ import MaterialBtn from '@/page-editor/components/MaterialBtn'
 const { Title } = Typography
 
 const ImageSet = () => {
-  const { components, selectedComponentId, updateComponentData } = useStore()
+  const { components, selectedComponentId, updateComponent } = useStore()
   const setting = components.find(c => c.id === selectedComponentId)
   const [form] = Form.useForm()
 
@@ -15,11 +15,17 @@ const ImageSet = () => {
     const { moduleType, pictures } = form.getFieldsValue()
     const nextPictures = moduleType === 'image' ? pictures.slice(0, 1) : pictures
     form.setFieldValue('pictures', nextPictures)
-    updateComponentData(selectedComponentId, {
-      moduleType,
-      pictures: nextPictures,
-      // pictures: toComponentPictures(nextPictures),
-    })
+
+    setting &&
+      updateComponent(selectedComponentId, {
+        ...setting,
+        moduleType,
+        data: {
+          moduleType,
+          pictures: nextPictures,
+          // pictures: toComponentPictures(nextPictures),
+        },
+      })
   }
   return (
     <>
@@ -36,8 +42,13 @@ const ImageSet = () => {
             ? setting.data.pictures
             : Array(setting?.data?.moduleType).fill(undefined),
         }}
-        onValuesChange={(_, allValues) => {
-          updateComponentData(selectedComponentId, { ...allValues })
+        onValuesChange={(_, allValues: any) => {
+          setting &&
+            updateComponent(selectedComponentId, {
+              ...setting,
+              moduleType: allValues.moduleType,
+              data: allValues,
+            })
         }}
       >
         <Form.Item label="模版" name="moduleType">

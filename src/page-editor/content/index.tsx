@@ -31,6 +31,7 @@ const Content = () => {
       css={css`
         flex: 1;
         border-radius: 4px;
+        max-width: 375px;
         box-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
         padding: 10px;
         position: relative;
@@ -56,6 +57,7 @@ const Content = () => {
       >
         <div
           css={css`
+            width: 375px;
             pointer-events: ${!['check', 'review'].includes(type) ? 'all' : 'none'};
             overflow-x: hidden;
           `}

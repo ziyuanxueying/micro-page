@@ -46,7 +46,7 @@ const TemplateEngine = (props: any) => {
     try {
       const { msg, list, item } = checkSaveInfo({ components, pageConfig })
       if (msg) {
-        updateSelectedComponentId(item.id)
+        updateSelectedComponentId(item?.id || undefined)
         if (list?.length > 0) {
           updateComponents(list)
         }
@@ -67,7 +67,7 @@ const TemplateEngine = (props: any) => {
           goBack()
         } else {
           const curId = res.data.id || id
-          await updateStatus({ id: curId, status: '4' })
+          await updateStatus({ id: curId, status: '1' })
           messageApi.open({ type: 'success', content: '页面提交成功' })
           goBack()
         }
@@ -82,12 +82,13 @@ const TemplateEngine = (props: any) => {
           messageApi.open({ type: 'success', content: '页面修改成功' })
           goBack()
         } else {
-          await updateStatus({ id, status: '4' })
+          await updateStatus({ id, status: '1' })
           messageApi.open({ type: 'success', content: '页面提交成功' })
           goBack()
         }
       }
     } catch (err) {
+      console.log(err)
       saveLock.value = false
     }
   }
@@ -188,6 +189,7 @@ const TemplateEngine = (props: any) => {
           <main
             css={css({
               display: 'flex',
+              justifyContent: 'center',
               height: 'calc(100vh - 240px)',
               gap: 12,
               minHeight: 'calc(100vh - 240px)',

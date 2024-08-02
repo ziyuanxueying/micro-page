@@ -36,7 +36,12 @@ const NotificationSet = () => {
         <div>
           <Text>未订阅：</Text>
           <div css={css({ marginTop: 10, marginLeft: 20 })}>
-            <Form.Item label="按钮文字" name="title" required>
+            <Form.Item
+              label="按钮文字"
+              name="title"
+              required
+              getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+            >
               <Input />
             </Form.Item>
             <Form.Item label="文字颜色" name="titleColor" required>
@@ -50,7 +55,12 @@ const NotificationSet = () => {
         <div>
           <Text>已订阅：</Text>
           <div css={css({ marginTop: 10, marginLeft: 20 })}>
-            <Form.Item label="按钮文字" name="subscribedTitle" required>
+            <Form.Item
+              label="按钮文字"
+              name="subscribedTitle"
+              required
+              getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+            >
               <Input />
             </Form.Item>
           </div>

@@ -5,6 +5,7 @@ export default {
   group: '基础组件',
   icon: 'icon-image',
   metaType: 'bas-img',
+  moduleType: 'image',
   temModule: 'ImageTem',
   setModule: 'ImageSet',
   order: 2,

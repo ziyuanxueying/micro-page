@@ -55,7 +55,12 @@ const FloatBtnSet = () => {
           })
         }}
       >
-        <Form.Item label="按钮图片" name="buttonImgUrl" required>
+        <Form.Item
+          label="按钮图片"
+          extra="支持PNG、JPG、JPEG，GIF格式，大小支持500k，尺寸100X100像素"
+          name="buttonImgUrl"
+          required
+        >
           <MaterialBtn />
         </Form.Item>
         {/* <Form.Item label="按钮位置" name="top">
@@ -73,7 +78,11 @@ const FloatBtnSet = () => {
             if (clickType === 'modal') {
               return (
                 <>
-                  <Form.Item label="弹窗图片" name="modalImgUrl">
+                  <Form.Item
+                    label="弹窗图片"
+                    name="modalImgUrl"
+                    extra="支持PNG、JPG、JPEG，GIF格式，大小支持1M，建议比例 1:1"
+                  >
                     <MaterialBtn />
                   </Form.Item>
                   <Form.Item label="弹窗预览" name="preview">

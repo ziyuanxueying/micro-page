@@ -28,10 +28,19 @@ const TitleTextSet = () => {
           })
         }}
       >
-        <Form.Item label="标题内容" name="title" required>
+        <Form.Item
+          label="标题内容"
+          name="title"
+          required
+          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+        >
           <Input showCount maxLength={10} />
         </Form.Item>
-        <Form.Item label="描述内容" name="desc">
+        <Form.Item
+          label="描述内容"
+          name="desc"
+          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+        >
           <TextArea showCount maxLength={500} />
         </Form.Item>
 

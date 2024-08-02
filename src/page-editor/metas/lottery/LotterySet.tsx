@@ -29,6 +29,12 @@ const Index = () => {
     okText: '确定',
     size: 'large',
     cancelText: '取消',
+    styles: {
+      footer: {
+        display: 'flex',
+        justifyContent: 'center',
+      },
+    },
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)

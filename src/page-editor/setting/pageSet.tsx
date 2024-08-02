@@ -84,6 +84,7 @@ const Index = () => {
           label="页面名称"
           name="title"
           rules={[{ required: true, message: '请输入页面名称' }]}
+          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
         >
           <Input showCount maxLength={10} />
         </Form.Item>
@@ -106,8 +107,13 @@ const Index = () => {
             >
               <MaterialBtn />
             </Form.Item>
-            <Form.Item label="分享标题" name="shareTitle" required>
-              <Input placeholder="最多15字" />
+            <Form.Item
+              label="分享标题"
+              name="shareTitle"
+              required
+              getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+            >
+              <Input placeholder="最多15字" showCount maxLength={15} />
             </Form.Item>
             <Form.Item
               label="分享图片"

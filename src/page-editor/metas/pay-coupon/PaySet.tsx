@@ -1,5 +1,5 @@
 import { SetTitle, flexb } from '@/styles/global'
-import { Avatar, Button, ColorPicker, Form, Segmented, Space, Tag } from 'antd'
+import { Avatar, Button, ColorPicker, Form, Segmented } from 'antd'
 import { WdModal, WdTable } from '@wd/component-ui'
 import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
@@ -58,27 +58,16 @@ const Index = () => {
   const columns: ProColumnsType = [
     { title: '券ID', dataIndex: 'no', align: 'center', searchType: 'input' },
     { title: '券名称', dataIndex: 'title', searchType: 'input' },
-    // {
-    //   title: '券图标',
-    //   dataIndex: 'pic',
-    //   render: (text: string) => (
-    //     <img
-    //       src={text}
-    //       alt=""
-    //       style={{ width: '90px', height: '60px', marginBottom: '-16px', objectFit: 'contain' }}
-    //     />
-    //   ),
-    // },
     {
       title: '券面值',
       dataIndex: 'value',
       render: (text: string) => `${(parseInt(text) / 100).toFixed(2)}元`,
     },
-    // {
-    //   title: '发放主体',
-    //   dataIndex: 'createOrgFullName',
-    // },
-    { title: '有效期', dataIndex: 'provideStartTime' },
+    {
+      title: '核销有效期',
+      dataIndex: 'provideStartTime',
+      render: (text, record) => <span>{`${record.useStartTime} 至 ${record.useEndTime}`}</span>,
+    },
     {
       title: '可用库存/总库存',
       render: (_: any, values: any) => {
@@ -87,8 +76,32 @@ const Index = () => {
     },
   ]
 
+  const tagColumns = [
+    ...columns.map((v: any) => {
+      v = { ...v }
+      v.searchType = undefined
+      return v
+    }),
+    {
+      title: '操作',
+      render: (_: any, tag: any) => {
+        return (
+          <Button type="link" onClick={() => handleClose(tag)}>
+            删除
+          </Button>
+        )
+      },
+    },
+  ]
+  console.log(tagColumns)
+
   const handleSearch = async (searchValue: any) => {
-    const data = await getCoupons({ ...searchValue, saleType: 1, pageIndex: searchValue.current })
+    const data = await getCoupons({
+      ...searchValue,
+      saleType: 1,
+      pageIndex: searchValue.current,
+      statuses: '1,2',
+    })
     setList({ list: data.list, page: { total: data.totalSize } })
   }
 
@@ -107,17 +120,11 @@ const Index = () => {
   const rowSelection = {
     selectedRowKeys: selectedRows.map(item => item.no),
     onChange: (_selectedRowKeys: React.Key[], selectedRows: dataType[]) => {
-      console.log('selectedRows: ', selectedRows)
-      console.log('_selectedRowKeys: ', _selectedRowKeys)
-      const coupons = selectedRows.map(item => {
-        return { no: item.no, couponName: item.title }
-      }) as dataType[]
-      setSelectedRows(coupons)
+      setSelectedRows(selectedRows as dataType[])
     },
   }
   const handleClose = (removedTag: dataType) => {
-    const newTags = tags.filter(tag => tag !== removedTag)
-    console.log('newTags: ', newTags)
+    const newTags = tags.filter(tag => tag.no !== removedTag.no)
     setTags(newTags)
     setSelectedRows(newTags)
   }
@@ -148,7 +155,10 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar shape="square" src="./assets/sel-one.png" />
+                    <Avatar
+                      shape="square"
+                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-one.png"
+                    />
                     <div>样式一</div>
                   </div>
                 ),
@@ -157,7 +167,10 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar shape="square" src="./assets/sel-two.png" />
+                    <Avatar
+                      shape="square"
+                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-two.png"
+                    />
                     <div>样式二</div>
                   </div>
                 ),
@@ -166,7 +179,10 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar shape="square" src="./assets/sel-three.png" />
+                    <Avatar
+                      shape="square"
+                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-three.png"
+                    />
                     <div>样式三</div>
                   </div>
                 ),
@@ -185,8 +201,18 @@ const Index = () => {
             </Button>
           </div>
         </Form.Item>
-
-        {tags.length > 0 && (
+        {!!tags.length && (
+          <div className="setting-table">
+            <WdTable
+              loading={false}
+              data={{ list: tags, page: { total: 0 } }}
+              columns={tagColumns}
+              rowKey="no"
+              pagination={false}
+            ></WdTable>
+          </div>
+        )}
+        {/* {tags.length > 0 && (
           <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
             {tags.map(tag => (
               <Tag
@@ -200,7 +226,7 @@ const Index = () => {
               </Tag>
             ))}
           </Space>
-        )}
+        )} */}
 
         <Form.Item label="按钮颜色" name="btnColor">
           <ColorPicker showText disabledAlpha />
@@ -213,6 +239,7 @@ const Index = () => {
           data={list}
           columns={columns}
           rowKey="no"
+          style={{ minHeight: '0' }}
           rowSelection={{ ...rowSelection }}
           onParamsChange={handleSearch}
         ></WdTable>

@@ -12,7 +12,7 @@ export const ShareModal: React.FC = function () {
             width: '50px',
             height: '50px',
             position: 'absolute',
-            right: '10px',
+            right: 30,
             zIndex: 100,
             bottom: '120px',
             borderRadius: '50%',

@@ -51,7 +51,7 @@ export function checkSaveInfo(data: any) {
       }
     }
     if (item.metaType === 'bas-img') {
-      if (!item.data?.pictures || !item.data?.pictures[0].url) {
+      if (!item.data?.pictures || !item.data?.pictures[0]?.url) {
         item.isError = '请在图片组件中至少添加一张图片'
       }
     }

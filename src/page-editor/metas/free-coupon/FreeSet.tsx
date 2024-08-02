@@ -85,7 +85,11 @@ const Index = () => {
     //   title: '发放主体',
     //   dataIndex: 'createOrgFullName',
     // },
-    { title: '有效期', dataIndex: 'provideStartTime' },
+    {
+      title: '核销有效期',
+      dataIndex: 'provideStartTime',
+      render: (text, record) => <span>{`${record.useStartTime} 至 ${record.useEndTime}`}</span>,
+    },
     {
       title: '可用库存/总库存',
       render: (_: any, values: any) => {
@@ -95,7 +99,12 @@ const Index = () => {
   ]
 
   const handleSearch = async (searchValue: any) => {
-    const data = await getCoupons({ ...searchValue, saleType: 0, pageIndex: searchValue.current })
+    const data = await getCoupons({
+      ...searchValue,
+      saleType: 0,
+      pageIndex: searchValue.current,
+      statuses: '1,2',
+    })
     setList({ list: data.list, page: { total: data.totalSize } })
   }
 
@@ -155,7 +164,10 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar shape="square" src="./assets/sel-one.png" />
+                    <Avatar
+                      shape="square"
+                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-one.png"
+                    />
                     <div>样式一</div>
                   </div>
                 ),
@@ -164,7 +176,10 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar shape="square" src="./assets/sel-two.png"></Avatar>
+                    <Avatar
+                      shape="square"
+                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-two.png"
+                    />
                     <div>样式二</div>
                   </div>
                 ),
@@ -173,7 +188,10 @@ const Index = () => {
               {
                 label: (
                   <div style={{ padding: 4 }}>
-                    <Avatar shape="square" src="./assets/sel-three.png"></Avatar>
+                    <Avatar
+                      shape="square"
+                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-three.png"
+                    />
                     <div>样式三</div>
                   </div>
                 ),

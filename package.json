@@ -1,6 +1,6 @@
 {
   "name": "@wd/micro-page",
-  "version": "0.0.5-beta.97",
+  "version": "0.0.5-beta.98",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",
-    "@wd/component-ui": "0.0.17-beta.39",
+    "@wd/component-ui": "0.0.17-beta.51",
     "bumpp": "^9.4.1",
     "dayjs": "^1.11.11",
     "dnd-core": "^16.0.1",

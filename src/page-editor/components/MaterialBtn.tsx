@@ -14,7 +14,7 @@ type MyProps = {
 const Index = (props: MyProps) => {
   const [isOpen, setIsOpen] = useState(false)
   // const [url, setUrl] = useState<any>(props?.value || '')
-  console.log(props)
+  // console.log(props)
   const handleCancel = () => {
     setIsOpen(false)
   }

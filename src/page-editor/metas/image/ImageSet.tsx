@@ -62,11 +62,11 @@ const ImageSet = () => {
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                     >
                       <title>单张</title>
-                      <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="页面-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                         <g
                           id="营销推广-创建微页面图片6-1"
                           transform="translate(-1168, -196)"
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g id="单张" transform="translate(1168, 196)">
                             <rect
@@ -104,11 +104,11 @@ const ImageSet = () => {
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                     >
                       <title>图片轮播</title>
-                      <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="页面-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                         <g
                           id="营销推广-创建微页面图片6-1"
                           transform="translate(-1210, -195)"
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g id="图片轮播" transform="translate(1210, 195)">
                             <rect
@@ -146,14 +146,14 @@ const ImageSet = () => {
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                     >
                       <title>全屏备份</title>
-                      <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="页面-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                         <g
                           id="营销推广-创建微页面图片6-1"
                           transform="translate(-1253, -196)"
                           fill={
                             setting?.moduleType === 'carousel-fullscreen' ? '#006EFF' : '#D8D8D8'
                           }
-                          fill-rule="nonzero"
+                          fillRule="nonzero"
                         >
                           <g id="全屏备份" transform="translate(1253, 196)">
                             <path

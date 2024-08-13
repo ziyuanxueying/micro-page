@@ -33,7 +33,7 @@ const Index = () => {
         justifyContent: 'center',
       },
     },
-    width: 658,
+    width: 815,
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)
@@ -123,7 +123,7 @@ const Index = () => {
   ]
 
   return (
-    <>
+    <div css={css({ marginTop: 15 })}>
       <SetTitle>抽奖活动</SetTitle>
       <Form
         name="basic"
@@ -131,7 +131,7 @@ const Index = () => {
         wrapperCol={{ span: 16 }}
         initialValues={setting?.data}
         onValuesChange={(_, allValues: any) => {
-          console.log(allValues)
+          // console.log(allValues)
           setting && updateComponentData(setting.id, { ...setting.data, img: allValues.img })
         }}
       >
@@ -185,7 +185,7 @@ const Index = () => {
           onParamsChange={handleSearch}
         ></WdTable>
       </WdModal>
-    </>
+    </div>
   )
 }
 

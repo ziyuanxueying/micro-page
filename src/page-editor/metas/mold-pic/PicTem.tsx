@@ -7,21 +7,18 @@ const Index = (props: TemProps) => {
   const { data } = components.find(c => c.id === props.id) || {
     data: { url: '', title: '', sub: '' },
   }
-  console.log('~~~~~~~', data)
-
   return (
     <>
       <div
         css={css([
           flexcc,
           {
-            width: '100%',
+            width: 375,
             height: 280,
             backgroundImage: `url(${data?.url})`,
             backgroundSize: '100% ',
             backgroundRepeat: 'no-repeat',
             textAlign: 'center',
-            margin: 'auto',
           },
         ])}
       >

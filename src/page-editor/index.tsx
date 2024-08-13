@@ -19,8 +19,8 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
+  // const { id = "CP0820997531914072064" , type = "review", temp } = props
   const { id, type, temp } = props
-  console.log(id, type, temp)
   const saveLock = React.useRef<boolean>(false)
   // const { id = undefined, type = undefined, temp = undefined } = props
 
@@ -45,6 +45,7 @@ const TemplateEngine = (props: any) => {
       const { msg, list, item } = checkSaveInfo({ components, pageConfig })
       if (msg) {
         updateSelectedComponentId(item?.id || undefined)
+        updatePageConfig({ ...pageConfig, tab: '1' })
         if (list?.length > 0) {
           updateComponents(list)
         }
@@ -53,13 +54,12 @@ const TemplateEngine = (props: any) => {
         return msg
       }
       const parseComponents = components.map(v => {
-        v.isError = ''
-        return v
+        return { ...v, isError: '' }
       })
 
       if ([undefined, '', 'copy'].includes(type)) {
         const res = await createJson({
-          content: { parseComponents, pageConfig },
+          content: { components: parseComponents, pageConfig },
           title: pageConfig.title,
           actKey: 'micro_page',
           channel: 'MICRO',
@@ -77,7 +77,7 @@ const TemplateEngine = (props: any) => {
       }
       if (['edit'].includes(type)) {
         await updateJson({
-          content: { parseComponents, pageConfig, actKey: 'micro_page' },
+          content: { components: parseComponents, pageConfig, actKey: 'micro_page' },
           id,
           title: pageConfig.title,
         })
@@ -91,7 +91,7 @@ const TemplateEngine = (props: any) => {
         }
       }
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       saveLock.value = false
     }
   }
@@ -156,7 +156,7 @@ const TemplateEngine = (props: any) => {
             })}
           >
             {(!['check', 'review'].includes(type) && <MetasBar />) || (
-              <div css={css({ width: 235 })}> </div>
+              <div css={css({ width: 220 })}></div>
             )}
             <Content preview={['check', 'review'].includes(type)} />
             {(!['check', 'review'].includes(type) && <Setting />) || (
@@ -165,34 +165,48 @@ const TemplateEngine = (props: any) => {
           </main>
         </DndProvider>
         <Space css={css([flexrc, { padding: '10px', justifyContent: 'space-between' }])}>
-          <div css={css({ width: 235 })}> </div>
-
-          <Space
-            css={css([
-              flexrc,
-              { padding: '10px', boxSizing: 'border-box', justifyContent: 'center', width: 400 },
-            ])}
-          >
+          <div css={css({ width: 220, height: 10 })}></div>
+          <div css={css([flexrc, { flex: 1, boxSizing: 'border-box', justifyContent: 'center' }])}>
             <Button
               onClick={() => {
                 navigate('/micro-page-list', { replace: true })
               }}
+              css={css({ width: 90, height: 32, fontSize: 13, borderRadius: 4, margin: '0 10px' })}
             >
-              取消
+              {!['check', 'review'].includes(type) ? '取消' : '返回'}
             </Button>
             {['edit'].includes(type) && (
-              <Button type="primary" onClick={() => handleSave('submit')}>
+              <Button
+                type="primary"
+                onClick={() => handleSave('submit')}
+                css={css({
+                  width: 90,
+                  height: 32,
+                  fontSize: 13,
+                  borderRadius: 4,
+                  margin: '0 10px',
+                })}
+              >
                 提交
               </Button>
             )}
             {[undefined, '', 'edit', 'copy'].includes(type) && (
-              <Button type="primary" onClick={() => handleSave('')}>
+              <Button
+                type="primary"
+                onClick={() => handleSave('')}
+                css={css({
+                  width: 90,
+                  height: 32,
+                  fontSize: 13,
+                  borderRadius: 4,
+                  margin: '0 10px',
+                })}
+              >
                 {status === '1' ? '保存并发布' : '保存为草稿'}
               </Button>
             )}
-          </Space>
-
-          <div css={css({ width: 408 })}></div>
+          </div>
+          <div css={css({ width: 408, height: 10 })}></div>
         </Space>
       </Spin>
     </div>

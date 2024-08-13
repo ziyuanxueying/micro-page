@@ -143,7 +143,6 @@ const Index = () => {
       },
     },
   ]
-  console.log(tagColumns)
 
   const handleSearch = async (searchValue: any) => {
     try {

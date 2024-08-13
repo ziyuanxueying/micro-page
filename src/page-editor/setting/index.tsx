@@ -32,6 +32,8 @@ const Setting = () => {
         flexDirection: 'column',
         flexShrink: 0,
         overflowY: 'scroll',
+        minHeight: 'calc(-210px + 100vh)',
+        maxHeight: 'calc(-210px + 100vh)',
         borderLeft: '1px solid #F3F5F7',
       })}
     >
@@ -43,7 +45,7 @@ const Setting = () => {
             top: 0,
             position: 'sticky',
             background: 'rgba(255, 255, 255)',
-            zIndex: 101,
+            zIndex: 9,
             marginBottom: 0,
             paddingLeft: 28,
             borderBottom: '1px solid rgba(0,0,0,0.06)',
@@ -56,7 +58,6 @@ const Setting = () => {
           },
         })}
         onChange={key => {
-          console.log('key: ', key)
           updatePageConfig({ ...pageConfig, tab: key })
         }}
       />

@@ -15,16 +15,18 @@ export function toComponentPictures(formPictures: any) {
   }))
 }
 
-export function checkSaveInfo(data: any) {
-  if (!data.pageConfig.title) {
-    return { msg: '请在页面设置中输入页面名称' }
-  }
-  if (data.pageConfig.isShare) {
-    if (!data.pageConfig.shareTitle || !data.pageConfig.shareImg)
-      return { msg: '请在页面设置中完善分享内容' }
-  }
-  if (data.components.length === 0) {
-    return { msg: '请至少选择一个组件' }
+export function checkSaveInfo(data: any, jumpPageConfig = false) {
+  if (!jumpPageConfig) {
+    if (!data.pageConfig.title) {
+      return { msg: '请在页面设置中输入页面名称' }
+    }
+    if (data.pageConfig.isShare) {
+      if (!data.pageConfig.shareTitle || !data.pageConfig.shareImg)
+        return { msg: '请在页面设置中完善分享内容' }
+    }
+    if (data.components.length === 0) {
+      return { msg: '请至少选择一个组件' }
+    }
   }
   const list = data.components.map((item: any) => {
     item = { ...item, isError: '' }
@@ -73,7 +75,7 @@ export function checkSaveInfo(data: any) {
     return item
   })
   const err = list.find((item: any) => item.isError)
-  console.log('err: ', err)
+  // console.log('err: ', err)
   const msg = err ? err.isError : ''
   return { msg, list, item: err }
 }

@@ -27,7 +27,7 @@ const Index = () => {
         initialValues={{ ...setting?.data }}
         onValuesChange={(_, allValues) => {
           const sel = pics.filter(x => x.value === allValues.moduleType)[0]
-          console.log(allValues.moduleType, sel)
+          // console.log(allValues.moduleType, sel)
           updateComponentData(selectedComponentId, {
             ...allValues,
             url: sel.src,
@@ -39,6 +39,7 @@ const Index = () => {
           <Radio.Group style={{ display: 'flex' }}>
             {pics.map(option => (
               <div
+                key={option.value}
                 css={css({
                   display: 'flex',
                   flexDirection: 'column',

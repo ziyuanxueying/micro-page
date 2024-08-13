@@ -27,6 +27,7 @@ const TitleTextTem = (props: TemProps) => {
         boxSizing: 'border-box',
         backgroundColor,
         textAlign,
+        marginTop: 15,
         borderRadius: radius === 'rightAngle' ? 0 : 8,
       })}
     >

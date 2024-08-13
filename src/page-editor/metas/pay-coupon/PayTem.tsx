@@ -11,7 +11,7 @@ const Index = (props: TemProps) => {
 
   useEffect(() => {}, [current?.data])
   return (
-    <>
+    <div css={css({ marginTop: 15 })}>
       {moduleType === 'biz-pay-once' && (
         <div>
           {(coupons.length ? coupons : [0]).map((v: any, index: number) => {
@@ -215,7 +215,7 @@ const Index = (props: TemProps) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
+import { checkSaveInfo } from '@/utils'
 
 export type Group = '业务组件' | '基础组件'
 
@@ -63,6 +64,8 @@ export const useStore = create<Store>()(
       }
       set(state => {
         state.components.push(component)
+        const { list } = checkSaveInfo(state, true)
+        state.components = list || []
       })
     },
     updateStatus: (status: string) => set({ status }),
@@ -71,16 +74,22 @@ export const useStore = create<Store>()(
       set(state => {
         const index = state.components.findIndex(item => item.id === id)
         state.components[index] = component
+        const { list } = checkSaveInfo(state, true)
+        state.components = list || []
       })
     },
     updateComponentData: (id, data) =>
       set(state => {
         const index = state.components.findIndex(item => item.id === id)
         state.components[index].data = data
+        const { list } = checkSaveInfo(state, true)
+        state.components = list || []
       }),
     removeComponent: id =>
       set(state => {
         state.components = state.components.filter(item => item.id !== id)
+        const { list } = checkSaveInfo(state, true)
+        state.components = list || []
       }),
     updateSelectedComponentId: id => set({ selectedComponentId: id }),
     pageConfig: {

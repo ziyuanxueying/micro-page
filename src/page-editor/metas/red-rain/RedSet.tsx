@@ -37,7 +37,8 @@ const Index = () => {
         justifyContent: 'center',
       },
     },
-    width: 658,
+    centered: true,
+    width: 815,
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)

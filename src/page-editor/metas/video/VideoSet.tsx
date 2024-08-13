@@ -14,8 +14,6 @@ const VideoSet = () => {
   const videoList = videoUrl ? [{ url: videoUrl }] : []
   const posterList = posterUrl ? [{ url: posterUrl }] : []
 
-  console.log({ videoList, posterList })
-
   return (
     <>
       <Title level={5} style={{ fontWeight: 500, marginBottom: 0 }} css={css({ textIndent: 10 })}>

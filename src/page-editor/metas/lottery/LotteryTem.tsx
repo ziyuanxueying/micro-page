@@ -12,6 +12,7 @@ const Index = (props: TemProps) => {
             width: 350,
             height: 109,
             background: '#fff',
+            marginTop: 15,
             // borderRadius: '50%',
           })}
           // src={new URL(`@/assets/red-env.svg`, import.meta.url).href}
@@ -27,6 +28,7 @@ const Index = (props: TemProps) => {
             textAlign: 'center',
             color: '#666666',
             background: '#fff',
+            marginTop: 15,
           })}
         >
           请选择图片

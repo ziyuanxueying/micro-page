@@ -10,31 +10,41 @@ type ItemProps = {
 }
 
 const Item = ({ data }: ItemProps) => {
-  const { pushComponent, updateSelectedComponentId, updatePageConfig, pageConfig } = useStore()
+  const {
+    pushComponent,
+    updateSelectedComponentId,
+    updatePageConfig,
+    updateComponents,
+    pageConfig,
+    components,
+  } = useStore()
   const [messageApi, contextHolder] = message.useMessage()
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'box',
-    item: data,
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult<{ name: string }>()
-      if (item && dropResult) {
-        const id = uuidv4()
-        if (pushComponent({ ...item, id })) {
-          messageApi.open({
-            type: 'error',
-            content: '该组件只能添加一个',
-          })
-        } else {
-          updatePageConfig({ ...pageConfig, tab: '1' })
-          updateSelectedComponentId(id)
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: 'box',
+      item: data,
+      end: (item, monitor) => {
+        const dropResult = monitor.getDropResult<{ name: string }>()
+        if (item && dropResult) {
+          const id = uuidv4()
+          if (pushComponent({ ...item, id })) {
+            messageApi.open({
+              type: 'error',
+              content: '该组件只能添加一个',
+            })
+          } else {
+            updatePageConfig({ ...pageConfig, tab: '1' })
+            updateSelectedComponentId(id)
+          }
         }
-      }
-    },
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
-      handlerId: monitor.getHandlerId(),
+      },
+      collect: monitor => ({
+        isDragging: monitor.isDragging(),
+        handlerId: monitor.getHandlerId(),
+      }),
     }),
-  }))
+    [pageConfig, updatePageConfig, components, updateComponents],
+  )
 
   return (
     <div

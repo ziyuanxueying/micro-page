@@ -56,7 +56,7 @@ const FloatBtnSet = () => {
             accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
             limit={0.5}
             proportion={1}
-            extra="支持PNG、JPG、JPEG、GIF格式，最大500K，尺寸100X00像素"
+            extra="支持PNG、JPG、JPEG、GIF格式，最大500K，尺寸100X100像素"
           />
         </Form.Item>
         <Form.Item label="跳转链接" name="link">

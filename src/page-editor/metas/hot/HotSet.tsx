@@ -72,14 +72,14 @@ const HotSet = () => {
         labelCol={{ span: 5 }}
         initialValues={setting?.data}
         onValuesChange={(_, allValues) => {
-          console.log('allValues: ', allValues)
+          // console.log('allValues: ', allValues)
           updateComponentData(selectedComponentId, {
             ...allValues,
             // url: toComponentUrl(allValues.url),
           })
         }}
       >
-        <Form.Item label="添加图片" name="url">
+        <Form.Item label="添加图片" name="url" required>
           <MaterialBtn
             accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
             limit={2}

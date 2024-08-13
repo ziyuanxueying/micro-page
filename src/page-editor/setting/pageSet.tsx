@@ -16,41 +16,13 @@ const Index = () => {
   const { pageConfig, updatePageConfig } = useStore()
 
   const [form] = Form.useForm()
-  // 是否打开素材库
-  // const [openWDMaterial, setOpenWDMaterial] = useState(false)
-  // 素材库作用于哪张图片
-  // const [editImageKey, setEditImageKey] = useState('')
 
-  /** 打开素材库 */
-  // const openWDMaterialHandler = React.useCallback((key: string) => {
-  //   setOpenWDMaterial(true)
-  //   setEditImageKey(key)
-  // }, [])
-
-  /** 关闭素材库 */
-  // const closeWDMaterial = React.useCallback(() => {
-  //   setOpenWDMaterial(false)
-  // }, [])
-
-  /** 素材库选择资源 */
-  // const resourceSelected = (url: string) => {
-  //   closeWDMaterial()
-  //   updatePageConfig({ ...pageConfig, [editImageKey]: url })
-  // }
   useEffect(() => {
     form.setFieldsValue(pageConfig)
-  }, [pageConfig])
+  }, [pageConfig, form])
+
   return (
     <>
-      {/* <WdMaterial
-        limit={1}
-        maxCount={1}
-        disabled={false}
-        noValidate={false}
-        open={openWDMaterial}
-        onCancel={closeWDMaterial}
-        // onOk={resourceSelected}
-      /> */}
       <div css={css({ height: 28 })}></div>
       <Form
         name="basic"
@@ -61,24 +33,10 @@ const Index = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         onValuesChange={(_, allValues) => {
-          console.log('allValues: ', allValues, {
-            ...pageConfig,
-            ...allValues,
-            bgColor: toHexString(allValues.bgColor),
-            // shareBtnImg: toComponentUrl(allValues.shareBtnImg),
-            // bgImage: toComponentUrl(allValues.bgImage),
-            // shareImg: toComponentUrl(allValues.shareImg),
-            // posterImage: toComponentUrl(allValues.posterImage),
-            tab: '2',
-          })
           updatePageConfig({
             ...pageConfig,
             ...allValues,
             bgColor: toHexString(allValues.bgColor),
-            // shareBtnImg: toComponentUrl(allValues.shareBtnImg),
-            // bgImage: toComponentUrl(allValues.bgImage),
-            // shareImg: toComponentUrl(allValues.shareImg),
-            // posterImage: toComponentUrl(allValues.posterImage),
             tab: '2',
           })
         }}
@@ -125,18 +83,6 @@ const Index = () => {
                 proportion={1.25}
                 extra="支持png/jpg/jpeg,分辨率750*600，不超过1M"
               />
-              {/* <div>
-                <Button onClick={() => openWDMaterialHandler('shareImg')}>选择图片+</Button>
-                {pageConfig.shareImg && (
-                  <ImagePreview
-                    data={[{ src: pageConfig.shareImg, name: '分享图片' }]}
-                    width={100}
-                    height={100}
-                    colNum={1}
-                    isDefault={false}
-                  />
-                )}
-              </div> */}
             </Form.Item>
             <Form.Item label="分享海报" name="posterImage">
               <MaterialBtn
@@ -145,22 +91,7 @@ const Index = () => {
                 proportion={750 / 1100}
                 extra="支持 png/jpg/jpeg，分辨率750x1100，不超过1M"
               />
-              {/* <div>
-                <Button onClick={() => openWDMaterialHandler('posterImage')}>选择图片+</Button>
-                {pageConfig.posterImage && (
-                  <ImagePreview
-                    data={[{ src: pageConfig.posterImage, name: '分享海报' }]}
-                    width={100}
-                    height={100}
-                    colNum={1}
-                    isDefault={false}
-                  />
-                )}
-              </div> */}
             </Form.Item>
-            {/* <Form.Item label="分享海报文案" name="posterDesc">
-            <Input placeholder="请输入分享海报文案" showCount maxLength={15} />
-            </Form.Item> */}
 
             <Form.Item label="分享预览" name="showShareModal">
               <Switch />

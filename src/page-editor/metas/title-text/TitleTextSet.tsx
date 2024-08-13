@@ -11,7 +11,7 @@ const TitleTextSet = () => {
   const selectedComponent = components.find(c => c.id === selectedComponentId)
 
   return (
-    <>
+    <div>
       <SetTitle>标题文本</SetTitle>
       <Form
         labelCol={{ span: 5 }}
@@ -271,7 +271,7 @@ const TitleTextSet = () => {
           <ColorPicker showText />
         </Form.Item>
       </Form>
-    </>
+    </div>
   )
 }
 

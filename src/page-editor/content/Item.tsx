@@ -4,7 +4,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier, XYCoord } from 'dnd-core'
 import { Image } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
-import { defaultImage } from '@/utils'
+import { checkSaveInfo, defaultImage } from '@/utils'
 
 type ContentItemProps = {
   data: Component
@@ -27,6 +27,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
     removeComponent,
     pageConfig,
     updatePageConfig,
+    updateComponents,
   } = useStore()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -99,8 +100,10 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
   drag(drop(ref))
 
   const handleClick = (item: Component) => {
-    selectedComponentId !== item.id && updatePageConfig({ ...pageConfig, tab: '1' })
     updateSelectedComponentId(selectedComponentId === item.id ? undefined : item.id)
+    selectedComponentId !== item.id && updatePageConfig({ ...pageConfig, tab: '1' })
+    const { list } = checkSaveInfo({ components, pageConfig })
+    updateComponents(list)
   }
 
   const content = (style?: ReturnType<typeof css>) => (
@@ -113,51 +116,58 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
         {
           boxSizing: 'content-box',
           cursor: 'move',
-          border:
-            data.id === selectedComponentId
-              ? '2px dashed'
-              : data.isError
-              ? '2px solid'
-              : '2px solid',
-          borderColor:
-            data.id === selectedComponentId ? '#000000' : data.isError ? 'red' : 'transparent',
+          border: '2px dashed',
+          borderColor: data.isError
+            ? 'red'
+            : data.id === selectedComponentId
+            ? '#000000'
+            : 'transparent',
           opacity: isDragging ? 0 : 1,
           position: 'relative',
           zIndex: 1,
           display: 'flex',
+          marginTop: -2,
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '4px 0',
-          margin: '8px 0',
+          ':hover': {
+            borderColor: data.isError ? 'red' : '#000000',
+            div: {
+              opacity: 1,
+              pointerEvents: 'all',
+            },
+          },
         },
         style,
       )}
     >
-      {selectedComponentId === data.id && (
-        <div
-          css={{
-            width: 15,
-            height: 15,
-            borderRadius: '50%',
-            position: 'absolute',
-            top: -8,
-            right: -8,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 100,
-            background: 'rgba(0,0,0,0.85)',
-            color: '#ffffff',
-            cursor: 'pointer',
-            ':hover': {
-              opacity: 0.75,
-            },
-          }}
-          onClick={() => removeComponent(data.id)}
-        >
-          <CloseOutlined style={{ fontSize: 8, width: 8, height: 8 }} />
-        </div>
-      )}
+      <div
+        css={{
+          opacity: selectedComponentId === data.id ? 1 : 0,
+          pointerEvents: selectedComponentId === data.id ? 'all' : 'none',
+          width: 24,
+          height: 24,
+          borderRadius: '50%',
+          position: 'absolute',
+          top: -12,
+          right: -12,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 100,
+          background: 'rgba(0,0,0,0.85)',
+          color: '#ffffff',
+          cursor: 'pointer',
+          ':hover': {
+            opacity: 0.75,
+          },
+        }}
+        onClick={e => {
+          e.stopPropagation()
+          removeComponent(data.id)
+        }}
+      >
+        <CloseOutlined style={{ width: 12, height: 12 }} />
+      </div>
       <ItemTemplate key={id} type={data.temModule} id={id} />
     </div>
   )

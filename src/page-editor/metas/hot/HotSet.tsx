@@ -1,12 +1,11 @@
 import useStore from '@/store'
-import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
+import { PlusCircleOutlined } from '@ant-design/icons'
 import { WdAllocation } from '@wd/component-ui'
-import { Button, Card, Divider, Form, Image, Input, Modal, Typography } from 'antd'
+import { Button, Form, Image, Modal, Typography } from 'antd'
 import HotItem from './HotItem'
 import { v4 as uuidv4 } from 'uuid'
 import MaterialBtn from '@/page-editor/components/MaterialBtn'
-
-const { Title } = Typography
+import { SetTitle } from '@/styles/global'
 
 const DEFAULT_HOT = {
   top: 0,
@@ -67,10 +66,7 @@ const HotSet = () => {
 
   return (
     <>
-      <Title level={5} style={{ fontWeight: 500, marginBottom: 0 }} css={css({ textIndent: 10 })}>
-        热区图片
-      </Title>
-      <Divider css={css({ margin: '16px 0' })} />
+      <SetTitle>热区图片</SetTitle>
       <Form
         form={form}
         labelCol={{ span: 5 }}
@@ -84,7 +80,12 @@ const HotSet = () => {
         }}
       >
         <Form.Item label="添加图片" name="url">
-          <MaterialBtn onChange={handleOk} />
+          <MaterialBtn
+            accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
+            limit={2}
+            extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议宽度1200PX"
+            onChange={handleOk}
+          />
         </Form.Item>
         {url && (
           <Button
@@ -101,11 +102,14 @@ const HotSet = () => {
           open={modalVisible}
           onOk={() => setModalVisible(false)}
           onCancel={() => setModalVisible(false)}
-          width={900}
+          width={776}
           title="添加热区"
           okText="确定"
           cancelText="取消"
           styles={{
+            header: {
+              lineHeight: 1,
+            },
             footer: {
               display: 'flex',
               justifyContent: 'center',
@@ -157,25 +161,48 @@ const HotSet = () => {
                 {(fields, { add, remove }, { errors }) => {
                   return (
                     <>
-                      <div css={css({ display: 'flex', flexDirection: 'column', gap: 20 })}>
+                      <div css={css({ display: 'flex', flexDirection: 'column' })}>
+                        <Button
+                          type="primary"
+                          ghost
+                          icon={<PlusCircleOutlined />}
+                          css={css({
+                            width: 184,
+                            height: 32,
+                            position: 'absolute',
+                            right: 23,
+                          })}
+                          disabled={fields.length >= 10}
+                          onClick={() => {
+                            add({
+                              id: uuidv4(),
+                              name: `热区${fields.length + 1}`,
+                              link: '',
+                              ...DEFAULT_HOT,
+                            })
+                          }}
+                        >
+                          添加热区（最多10个）
+                        </Button>
+                        <div css={css({ height: 32 })}></div>
                         {fields.map(({ key, name, ...restField }) => {
                           return (
-                            <Card
-                              key={key}
-                              size="small"
-                              styles={{ body: { padding: '20px 40px 0 20px' } }}
-                              css={css({ position: 'relative' })}
+                            <div
+                              css={css({
+                                width: 438,
+                                background: 'rgba(0,0,0,0.02)',
+                                borderRadius: 8,
+                                paddingTop: 11,
+                                paddingLeft: 11,
+                                marginTop: 20,
+                                position: 'relative',
+                              })}
                             >
-                              <Form.Item
-                                {...restField}
-                                label="热区名称"
-                                name={[name, 'name']}
-                                required
-                                getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+                              <Typography.Text
+                                style={{ marginLeft: 15, fontSize: 14, color: '#636363' }}
                               >
-                                <Input />
-                              </Form.Item>
-
+                                {hots[key]?.name}
+                              </Typography.Text>
                               <Form.Item
                                 {...restField}
                                 label="跳转链接"
@@ -190,17 +217,18 @@ const HotSet = () => {
                               </Form.Item>
 
                               <Button
-                                type="text"
+                                type="link"
                                 css={{
                                   position: 'absolute',
                                   top: 0,
                                   right: 0,
                                   zIndex: 100,
                                 }}
-                                icon={<DeleteOutlined />}
                                 onClick={() => remove(name)}
-                              />
-                            </Card>
+                              >
+                                删除
+                              </Button>
+                            </div>
                           )
                         })}
                       </div>
@@ -209,7 +237,7 @@ const HotSet = () => {
                         css={css({ marginTop: 20 })}
                       >
                         <>
-                          <Button
+                          {/* <Button
                             type="primary"
                             icon={<PlusCircleOutlined />}
                             css={css({
@@ -227,7 +255,7 @@ const HotSet = () => {
                             }}
                           >
                             添加热区（最多 10 个）
-                          </Button>
+                          </Button> */}
                           <Form.ErrorList errors={errors} />
                         </>
                       </Form.Item>

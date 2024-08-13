@@ -3,11 +3,12 @@ import { type Component } from '@/store'
 export default {
   name: '标题文本',
   group: '基础组件',
-  icon: 'icon-title-text',
+  icon: 'title-text',
   metaType: 'bas-title',
   temModule: 'TitleTextTem',
   setModule: 'TitleTextSet',
   order: 4,
+  sort: 7,
   data: {
     title: '标题文本',
     desc: '我是一段描述',

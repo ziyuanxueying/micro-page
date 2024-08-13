@@ -43,6 +43,8 @@ export type Store = {
   updateSelectedComponentId: (id: Store['selectedComponentId']) => void
   pageConfig: pageType
   type: any
+  status: string
+  updateStatus: (status: string) => void
   updateType: (type: any) => void
   updatePageConfig: (pageData: pageType) => void
 }
@@ -51,6 +53,7 @@ export const useStore = create<Store>()(
   immer((set, get) => ({
     type: undefined,
     components: [],
+    status: '0',
     selectedComponentId: undefined,
     pushComponent: component => {
       const singleTypes = ['biz-red', 'biz-lottery', 'bas-floatBtn']
@@ -62,6 +65,7 @@ export const useStore = create<Store>()(
         state.components.push(component)
       })
     },
+    updateStatus: (status: string) => set({ status }),
     updateComponents: components => set({ components }),
     updateComponent(id, component) {
       set(state => {

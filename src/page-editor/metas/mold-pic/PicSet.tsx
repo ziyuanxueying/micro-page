@@ -1,5 +1,5 @@
 import useStore from '@/store'
-import { Line } from '@/styles/global'
+import { SetTitle } from '@/styles/global'
 import { Form, Input, Radio } from 'antd'
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
@@ -20,8 +20,7 @@ const Index = () => {
   ]
   return (
     <>
-      <div css={css({ fontSize: 16 })}>头部模板</div>
-      <Line />
+      <SetTitle>头部模板</SetTitle>
       <Form
         form={form}
         labelCol={{ span: 4 }}
@@ -36,7 +35,7 @@ const Index = () => {
           })
         }}
       >
-        <Form.Item label="选择模版" name="moduleType">
+        <Form.Item label="模板" name="moduleType" required>
           <Radio.Group style={{ display: 'flex' }}>
             {pics.map(option => (
               <div
@@ -44,11 +43,12 @@ const Index = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  marginRight: 30,
+                  marginRight: 12,
+                  marginLeft: 8,
                 })}
               >
                 <img
-                  css={css({ width: 108, height: 70, borderRadius: 10 })}
+                  css={css({ width: 107, height: 69, borderRadius: 5 })}
                   src={option.src}
                   alt={option.value}
                 />
@@ -66,7 +66,6 @@ const Index = () => {
         <Form.Item
           label="标题"
           name="title"
-          required
           getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
         >
           <Input showCount maxLength={10} />

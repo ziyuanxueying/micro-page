@@ -3,11 +3,12 @@ import { type Component } from '@/store'
 export default {
   name: '免费优惠券',
   group: '业务组件',
-  icon: 'icon-free',
+  icon: 'free-coupon',
   metaType: 'biz-freeCoupon',
   moduleType: 'biz-free-once',
   temModule: 'FreeTem',
   setModule: 'FreeSet',
+  sort: 1,
   data: {
     coupons: [],
     moduleType: 'biz-free-once',

@@ -1,18 +1,15 @@
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import MetasBar from './metas-bar/index.tsx'
 import Content from './content/index.tsx'
 import Setting from './setting/index.tsx'
+import useStore, { Component, pageType } from '@/store'
 import { flexrc } from '@global'
 import { Button, Space, Spin, message } from 'antd'
-// import { updateJson, findByIdForB, getCoupons } from '@/api'
 import { createJson, findByIdForB, updateJson, updateStatus } from '@/api'
-import useStore, { Component, pageType } from '@/store'
 import { checkSaveInfo } from '@/utils/index.ts'
-import { WdModal, WdPlazaSelect } from '@wd/component-ui'
-import QRCode from '@/utils/qrcode.js'
-import './index.less'
 import { getTemp } from '@/temps.ts'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import './index.less'
 
 type dataType = {
   components: Component[]
@@ -32,14 +29,15 @@ const TemplateEngine = (props: any) => {
   const [messageApi, contextHolder] = message.useMessage()
   const {
     components,
+    status,
     pageConfig,
+    updateStatus: storeUpdateStatus,
     updateComponents,
     updateSelectedComponentId,
     updatePageConfig,
     updateType,
   } = useStore()
   const [spinning, setSpinning] = React.useState(true)
-  const [preview, setPreview] = React.useState<any>({})
   const handleSave = async (status: string) => {
     if (saveLock.value) return
     saveLock.value = true
@@ -50,15 +48,20 @@ const TemplateEngine = (props: any) => {
         if (list?.length > 0) {
           updateComponents(list)
         }
-        messageApi.warning(msg)
+        messageApi.error(msg)
         saveLock.value = false
         return msg
       }
+      const parseComponents = components.map(v => {
+        v.isError = ''
+        return v
+      })
 
       if ([undefined, '', 'copy'].includes(type)) {
         const res = await createJson({
-          content: { components, pageConfig },
+          content: { parseComponents, pageConfig },
           title: pageConfig.title,
+          actKey: 'micro_page',
           channel: 'MICRO',
         })
         // setCurrData(res.data)
@@ -74,7 +77,7 @@ const TemplateEngine = (props: any) => {
       }
       if (['edit'].includes(type)) {
         await updateJson({
-          content: { components, pageConfig },
+          content: { parseComponents, pageConfig, actKey: 'micro_page' },
           id,
           title: pageConfig.title,
         })
@@ -92,56 +95,17 @@ const TemplateEngine = (props: any) => {
       saveLock.value = false
     }
   }
-  const changeStatus = async (status: string) => {
-    const aaa = await updateStatus({ id, status })
-    messageApi.open({ type: 'success', content: '操作成功' })
-    goBack()
-    console.log('changeStatus: ', aaa)
-  }
 
   const findById = async () => {
-    // const data = await getCoupons('CP0795244269648879616')
-    const data = (await findByIdForB(id)) as { content: dataType }
-    // setCurrData(data)
+    const data = (await findByIdForB(id)) as { content: dataType; status: string }
     setTimeout(() => {
       // 防止数据渲染不出来
       updateComponents(data.content.components)
       updatePageConfig(data.content.pageConfig)
+      storeUpdateStatus(data.status)
       setSpinning(false)
     }, 1000)
   }
-
-  // const showPreviewCode = useCallback((item: any) => {
-  //   setPreview({
-  //     show: true,
-  //     id: item.id,
-  //     onCancel: () => setPreview({}),
-  //   })
-  // }, [])
-
-  const changePlaza = useCallback(
-    (value: any) => {
-      if (value.length <= 3) return
-      const svgQRCode = QRCode({
-        msg: `${
-          (globalThis as any).WEB_ENV === 'prod'
-            ? 'https://api.wandacm.com.cn/qr'
-            : 'https://api.wandacm.com.cn/qre'
-        }?key=MicroPageIndex&plazaId=${value[3]}&templateId=${preview.id}`,
-        dim: 762,
-        pad: 7,
-        mtx: 7,
-        ecl: 'H',
-        pal: ['#000000', '#ffffff'],
-      })
-      setPreview({
-        qrCode: svgQRCode.outerHTML,
-        show: true,
-        onCancel: () => setPreview({}),
-      })
-    },
-    [preview],
-  )
 
   const goBack = () => {
     setTimeout(() => {
@@ -179,7 +143,6 @@ const TemplateEngine = (props: any) => {
     <div
       css={css({
         height: '100%',
-        maxHeight: '800px',
       })}
     >
       {contextHolder}
@@ -189,82 +152,49 @@ const TemplateEngine = (props: any) => {
           <main
             css={css({
               display: 'flex',
-              justifyContent: 'center',
-              height: 'calc(100vh - 240px)',
-              gap: 12,
-              minHeight: 'calc(100vh - 240px)',
+              justifyContent: 'space-between',
             })}
           >
-            {!['check', 'review'].includes(type) && <MetasBar />}
-            <Content />
-            {!['check', 'review'].includes(type) && <Setting />}
+            {(!['check', 'review'].includes(type) && <MetasBar />) || (
+              <div css={css({ width: 235 })}> </div>
+            )}
+            <Content preview={['check', 'review'].includes(type)} />
+            {(!['check', 'review'].includes(type) && <Setting />) || (
+              <div css={css({ width: 408 })}></div>
+            )}
           </main>
         </DndProvider>
-        <Space css={css([flexrc, { padding: '10px' }])}>
-          <Button
-            onClick={() => {
-              navigate('/micro-page-list', { replace: true })
-            }}
+        <Space css={css([flexrc, { padding: '10px', justifyContent: 'space-between' }])}>
+          <div css={css({ width: 235 })}> </div>
+
+          <Space
+            css={css([
+              flexrc,
+              { padding: '10px', boxSizing: 'border-box', justifyContent: 'center', width: 400 },
+            ])}
           >
-            取消
-          </Button>
-          {/* <Button type="primary" onClick={() => showPreviewCode({ id: 'CP0811283496616108032' })}>
-          预览
-        </Button> */}
-          {['review'].includes(type) && (
-            <>
-              <Button onClick={() => changeStatus('2')}>驳回</Button>
-              <Button type="primary" onClick={() => changeStatus('1')}>
-                通过
-              </Button>
-            </>
-          )}
-          {[undefined, '', 'edit', 'copy'].includes(type) && (
-            <>
-              <Button onClick={() => handleSave('')}>存为草稿</Button>
+            <Button
+              onClick={() => {
+                navigate('/micro-page-list', { replace: true })
+              }}
+            >
+              取消
+            </Button>
+            {['edit'].includes(type) && (
               <Button type="primary" onClick={() => handleSave('submit')}>
                 提交
               </Button>
-            </>
-          )}
+            )}
+            {[undefined, '', 'edit', 'copy'].includes(type) && (
+              <Button type="primary" onClick={() => handleSave('')}>
+                {status === '1' ? '保存并发布' : '保存为草稿'}
+              </Button>
+            )}
+          </Space>
+
+          <div css={css({ width: 408 })}></div>
         </Space>
       </Spin>
-
-      <WdModal
-        className="preview-modal"
-        modalProps={{
-          size: 'small',
-          title: '预览',
-          footer: false,
-          onCancel: preview.onCancel,
-        }}
-        open={preview.show}
-      >
-        <Space direction="vertical">
-          <Space>
-            <div>选择广场：</div>
-            <WdPlazaSelect onChange={changePlaza} />
-          </Space>
-          {preview.qrCode && (
-            <>
-              <div>
-                <p style={{ fontSize: 18, margin: 0, marginTop: 25 }}>使用微信扫一扫预览页面</p>
-                <div
-                  dangerouslySetInnerHTML={{ __html: preview.qrCode }}
-                  className="qr-code-box"
-                ></div>
-              </div>
-              <div className="preview-tips">小程序预览</div>
-              <b style={{ marginTop: 20 }}>温馨提示</b>
-              <div>
-                <span>此二维码仅做页面预览使用</span>
-                <div></div>
-                <span>预览页面默认展示当前广场数据</span>
-              </div>
-            </>
-          )}
-        </Space>
-      </WdModal>
     </div>
   )
 }

@@ -5,23 +5,36 @@ const TitleTextTem = (props: TemProps) => {
   const { components } = useStore()
   const current = components.find(c => c.id === props.id)
 
-  const { title, desc, textAlign, titleSize, descSize, titleColor, descColor, backgroundColor } =
-    current?.data || {}
+  const {
+    title,
+    desc,
+    textAlign,
+    titleSize,
+    descSize,
+    titleColor,
+    descColor,
+    backgroundColor,
+    titleWeight,
+    descWeight,
+    radius,
+  } = current?.data || {}
 
   return (
     <div
       css={css({
-        width: '100%',
+        width: 350,
         padding: 10,
         boxSizing: 'border-box',
         backgroundColor,
         textAlign,
+        borderRadius: radius === 'rightAngle' ? 0 : 8,
       })}
     >
       <div
         css={css({
           fontSize: titleSize,
           color: titleColor,
+          fontWeight: titleWeight,
         })}
       >
         {title}
@@ -31,6 +44,7 @@ const TitleTextTem = (props: TemProps) => {
           fontSize: descSize,
           color: descColor,
           marginTop: 4,
+          fontWeight: descWeight,
         })}
       >
         {desc}

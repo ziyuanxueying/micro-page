@@ -1,12 +1,12 @@
 import useStore from '@/store'
 import { SetTitle, flexb } from '@/styles/global'
-import { WdModal, WdTable, WdMaterial, ImagePreview } from '@wd/component-ui'
-import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
+import { WdModal, WdTable } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
-import { Button, Form, Space, Tag } from 'antd'
+import { Button, Form } from 'antd'
 import { getActivityList } from '@/api'
 import React from 'react'
 import { TableRowSelection } from 'antd/es/table/interface'
+import MaterialBtn from '@/page-editor/components/MaterialBtn'
 type DataType = {
   actId: number
   actTitle: string
@@ -14,20 +14,18 @@ type DataType = {
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId)
-  console.log(setting)
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
   const [tags, setTags] = useState<DataType[]>(
     (setting?.data?.activity?.actId && [setting?.data?.activity]) || [],
   )
   const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
-  const [isOpen, setIsOpen] = useState(false)
-  const [imgData, setImgData] = useState<any>([{ src: setting?.data?.img, name: '抽奖图片' }])
-  const propsTable: WdModalProps['modalProps'] = {
+
+  const propsTable: any = {
     // 传递给 Modal 组件的属性和方法
     title: '选择活动',
     okText: '确定',
-    size: 'large',
+    size: 'middle',
     cancelText: '取消',
     styles: {
       footer: {
@@ -35,6 +33,7 @@ const Index = () => {
         justifyContent: 'center',
       },
     },
+    width: 658,
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)
@@ -95,18 +94,6 @@ const Index = () => {
     setTags(newTags)
     setSelectedRows(newTags)
   }
-  const handleCancel = () => {
-    setIsOpen(false)
-  }
-  const handleDelete = () => {
-    setImgData([])
-    setting && updateComponentData(setting.id, { ...setting.data, img: '' })
-  }
-  const handleOk = (url?: string) => {
-    setImgData([{ src: url || '', name: '抽奖图片' }])
-    setting && updateComponentData(setting.id, { ...setting.data, img: url })
-    setIsOpen(false)
-  }
 
   /**
    * 清空选项
@@ -116,66 +103,67 @@ const Index = () => {
     setSelectedRows([])
   }
 
+  const tagColumns = [
+    ...columns.map((v: any) => {
+      v = { ...v }
+      v.searchType = undefined
+      return v
+    }),
+    {
+      title: '操作',
+      fixed: 'right',
+      render: (_: any, tag: any) => {
+        return (
+          <Button type="link" onClick={() => handleClose(tag)}>
+            删除
+          </Button>
+        )
+      },
+    },
+  ]
+
   return (
     <>
       <SetTitle>抽奖活动</SetTitle>
-      <Form name="basic" labelCol={{ span: 5 }} wrapperCol={{ span: 16 }}>
-        <Form.Item
-          label="添加图片"
-          name="activity"
-          rules={[{ required: true }]}
-          extra="支持PNG、JPG、JPEG，GIF格式，大小支持2M，建议宽度1200PX"
-        >
-          <div css={css([flexb, { flexWrap: 'wrap' }])}>
-            <Button type="primary" onClick={() => setIsOpen(true)}>
-              素材库
+      <Form
+        name="basic"
+        labelCol={{ span: 5 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={setting?.data}
+        onValuesChange={(_, allValues: any) => {
+          console.log(allValues)
+          setting && updateComponentData(setting.id, { ...setting.data, img: allValues.img })
+        }}
+      >
+        <Form.Item label="添加图片" name="img" rules={[{ required: true }]}>
+          <MaterialBtn
+            accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
+            limit={2}
+            extra="支持PNG、JPG、JPEG，GIF格式，大小支持2M，建议宽度1200PX"
+          />
+        </Form.Item>
+        <Form.Item label="活动配置" name="activity" rules={[{ required: true }]}>
+          <div css={css([flexb, { flexWrap: 'wrap', width: 290 }])}>
+            <Button type="link" onClick={() => setShowTable(true)} style={{ paddingLeft: 0 }}>
+              选择活动
             </Button>
-
-            <WdMaterial
-              limit={1}
-              maxCount={1}
-              disabled={false}
-              noValidate={false}
-              open={isOpen}
-              onCancel={handleCancel}
-              onOk={handleOk}
-            />
-            {imgData.length > 0 && imgData[0]?.src && (
-              <ImagePreview
-                data={imgData}
-                width={200}
-                height={200}
-                colNum={1}
-                isDefault={false}
-                onDelete={handleDelete}
-              />
+            {!!tags.length && (
+              <Button type="link" onClick={clearTags}>
+                清除
+              </Button>
             )}
           </div>
         </Form.Item>
-        <Form.Item label="活动配置" name="img" rules={[{ required: true }]}>
-          <div css={css([flexb, { flexWrap: 'wrap' }])}>
-            <Button type="link" onClick={() => setShowTable(true)}>
-              选择活动
-            </Button>
-            <Button type="link" onClick={clearTags}>
-              清除
-            </Button>
-          </div>
-        </Form.Item>
         {tags.length > 0 && (
-          <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
-            {tags.map(tag => (
-              <Tag
-                css={css({ fontSize: 13 })}
-                key={tag.actId}
-                closable
-                color="blue"
-                onClose={() => handleClose(tag)}
-              >
-                {tag.actTitle}
-              </Tag>
-            ))}
-          </Space>
+          <div className="setting-table">
+            <WdTable
+              loading={false}
+              data={{ list: tags, page: { total: 0 } }}
+              columns={tagColumns}
+              rowKey="no"
+              pagination={false}
+            ></WdTable>
+          </div>
         )}
       </Form>
 
@@ -185,6 +173,14 @@ const Index = () => {
           data={list}
           columns={columns}
           rowKey="actId"
+          hideSpace
+          searchConfigs={{
+            inlineBtns: true,
+            inModal: true,
+            formConfig: {
+              labelCol: { span: 10 },
+            },
+          }}
           rowSelection={rowSelection}
           onParamsChange={handleSearch}
         ></WdTable>

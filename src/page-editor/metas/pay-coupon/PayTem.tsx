@@ -1,7 +1,6 @@
 import { flex, flexb, TextGray9, colors } from '@global'
 import useStore from '@/store'
 import { TemProps } from '@/page-editor/components/ItemTemplate'
-import { defaultImage } from '@/utils'
 
 const Index = (props: TemProps) => {
   const { components } = useStore()
@@ -34,7 +33,9 @@ const Index = (props: TemProps) => {
                       margin: 11,
                       borderRadius: 5,
                     })}
-                    src={defaultImage}
+                    src={
+                      'https://image-1257137391.cos.ap-beijing.myqcloud.com/images/3b993296477c364bcc68992e950c6a59.png'
+                    }
                   />
                   <div css={css([{ flex: 1, marginTop: 14, marginLeft: 14 }])}>
                     <div>优惠券名称</div>
@@ -89,7 +90,9 @@ const Index = (props: TemProps) => {
                     objectFit: 'cover',
                     borderRadius: 4,
                   })}
-                  src={defaultImage}
+                  src={
+                    'https://image-1257137391.cos.ap-beijing.myqcloud.com/images/3b993296477c364bcc68992e950c6a59.png'
+                  }
                 />
                 <div>
                   <div
@@ -160,7 +163,9 @@ const Index = (props: TemProps) => {
                     margin: 6,
                     borderRadius: 4,
                   })}
-                  src={defaultImage}
+                  src={
+                    'https://image-1257137391.cos.ap-beijing.myqcloud.com/images/3b993296477c364bcc68992e950c6a59.png'
+                  }
                 />
                 <div
                   css={css({

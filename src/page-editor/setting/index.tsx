@@ -9,32 +9,52 @@ const Setting = () => {
 
   const selectedComponent = components.find(c => c.id === selectedComponentId)
   const items: TabsProps['items'] = [
+    { key: '2', label: '页面设置', children: <PageSet /> },
     {
       key: '1',
       label: '组件设置',
       children: selectedComponent && (
-        <ItemTemplate key={selectedComponentId} type={selectedComponent.setModule} />
+        <div css={css({ paddingLeft: 28 })}>
+          <ItemTemplate key={selectedComponentId} type={selectedComponent.setModule} />
+        </div>
       ),
     },
-    { key: '2', label: '页面设置', children: <PageSet /> },
   ]
   return (
     <div
       css={css({
-        width: 400,
+        width: 408,
         padding: 10,
+        paddingTop: 0,
+        paddingLeft: 0,
         borderRadius: 4,
-        boxShadow: '0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 10,
         flexShrink: 0,
-        overflowY: 'auto',
+        overflowY: 'scroll',
+        borderLeft: '1px solid #F3F5F7',
       })}
     >
       <Tabs
-        activeKey={pageConfig.tab || '1'}
+        activeKey={pageConfig.tab || '2'}
         items={items}
+        css={css({
+          '.ant-tabs-nav': {
+            top: 0,
+            position: 'sticky',
+            background: 'rgba(255, 255, 255)',
+            zIndex: 101,
+            marginBottom: 0,
+            paddingLeft: 28,
+            borderBottom: '1px solid rgba(0,0,0,0.06)',
+            ':before': {
+              opacity: 0,
+            },
+          },
+          '.ant-tabs-nav-wrap': {
+            background: '#ffffff',
+          },
+        })}
         onChange={key => {
           console.log('key: ', key)
           updatePageConfig({ ...pageConfig, tab: key })

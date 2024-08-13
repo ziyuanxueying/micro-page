@@ -10,7 +10,7 @@ type ItemProps = {
 }
 
 const Item = ({ data }: ItemProps) => {
-  const { pushComponent, updateSelectedComponentId } = useStore()
+  const { pushComponent, updateSelectedComponentId, updatePageConfig, pageConfig } = useStore()
   const [messageApi, contextHolder] = message.useMessage()
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'box',
@@ -19,12 +19,15 @@ const Item = ({ data }: ItemProps) => {
       const dropResult = monitor.getDropResult<{ name: string }>()
       if (item && dropResult) {
         const id = uuidv4()
-        pushComponent({ ...item, id })
-          ? messageApi.open({
-              type: 'error',
-              content: '该组件只能添加一个',
-            })
-          : updateSelectedComponentId(id)
+        if (pushComponent({ ...item, id })) {
+          messageApi.open({
+            type: 'error',
+            content: '该组件只能添加一个',
+          })
+        } else {
+          updatePageConfig({ ...pageConfig, tab: '1' })
+          updateSelectedComponentId(id)
+        }
       }
     },
     collect: monitor => ({
@@ -39,18 +42,20 @@ const Item = ({ data }: ItemProps) => {
       data-testid={`box`}
       key={data.name}
       css={css`
-        padding: 10px;
-        display: flex;
+        width: 90px;
+        height: 75px;
+        display: inline-flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border: solid 1px #999;
-        border-radius: 4px;
+        border-radius: 5px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        background: #f7f7f7f7;
         opacity: ${isDragging ? 0.4 : 1};
         cursor: ${isDragging ? 'grabbing' : 'pointer'};
-
         &:hover {
-          background-color: #ecd0ad;
+          background: #e5e5e5;
         }
       `}
     >
@@ -61,15 +66,15 @@ const Item = ({ data }: ItemProps) => {
           height: 25px;
         `}
       /> */}
-      {/* <img
+      <img
         // src={`/public/assets/${data.icon}.svg`}
-        src={new URL(`@assets/${data.icon}.svg`, import.meta.url).href}
-        css={css({ height: 25 })}
-      /> */}
+        src={`https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/${data.icon}.svg`}
+        css={css({ width: 25, height: 25, marginBottom: 6 })}
+      />
       <Text
         css={css({
           fontSize: 12,
-          marginTop: 2,
+          color: '#636363',
         })}
       >
         {data.name}

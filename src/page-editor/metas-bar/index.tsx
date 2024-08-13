@@ -31,6 +31,7 @@ const MetasBar = () => {
     }
 
     Promise.all(promises).then(modules => {
+      modules = modules.sort((a: any, b: any) => (a.sort > b.sort ? 1 : -1))
       modules.forEach(module => {
         if (Object.keys(nextMetas).includes(module.group)) {
           nextMetas[module.group].push(module)
@@ -54,17 +55,17 @@ const MetasBar = () => {
       css={css([
         flexc,
         {
-          width: 200,
-          padding: 10,
+          width: 220,
+          boxSizing: 'border-box',
           borderRadius: 4,
+          paddingLeft: 5,
           background: '#fff',
-          boxShadow: '0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)',
-          gap: 12,
+          borderRight: '1px solid #F3F5F7',
           flexShrink: 0,
         },
       ])}
     >
-      <Text type="secondary">
+      <Text type="secondary" css={css({ fontSize: 12, color: '#BABABA', marginBottom: 16 })}>
         <DragOutlined />
         拖拽进行组件添加
       </Text>
@@ -72,23 +73,15 @@ const MetasBar = () => {
         <div
           key={key}
           css={css`
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            width: 235px;
+            margin-bottom: 4px;
           `}
         >
           <Text>{key}</Text>
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              gap: 10px;
-            `}
-          >
-            {value.map(meta => (
-              <Item key={meta.metaType} data={meta} />
-            ))}
-          </div>
+          <div css={css({ marginBottom: 10 })}></div>
+          {value.map(meta => (
+            <Item key={meta.metaType} data={meta} />
+          ))}
         </div>
       ))}
     </div>

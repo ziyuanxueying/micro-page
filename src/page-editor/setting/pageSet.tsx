@@ -37,7 +37,9 @@ const Index = () => {
   //   closeWDMaterial()
   //   updatePageConfig({ ...pageConfig, [editImageKey]: url })
   // }
-
+  useEffect(() => {
+    form.setFieldsValue(pageConfig)
+  }, [pageConfig])
   return (
     <>
       {/* <WdMaterial
@@ -49,6 +51,7 @@ const Index = () => {
         onCancel={closeWDMaterial}
         // onOk={resourceSelected}
       /> */}
+      <div css={css({ height: 28 })}></div>
       <Form
         name="basic"
         form={form}
@@ -86,7 +89,7 @@ const Index = () => {
           rules={[{ required: true, message: '请输入页面名称' }]}
           getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
         >
-          <Input showCount maxLength={10} />
+          <Input placeholder="请输入页面名称" showCount maxLength={10} />
         </Form.Item>
 
         <Form.Item<pageType> label="背景色" name="bgColor">
@@ -99,13 +102,13 @@ const Index = () => {
           <Switch />
         </Form.Item>
         {pageConfig.isShare && (
-          <div>
-            <Form.Item
-              label="分享按钮图片"
-              name="shareBtnImg"
-              extra="支持png、jpg、jpeg、gif格式，最大500k, 100x100像素"
-            >
-              <MaterialBtn />
+          <>
+            <Form.Item label="分享按钮图片" name="shareBtnImg">
+              <MaterialBtn
+                accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
+                proportion={1}
+                extra="支持png,jpg，jpeg，gif格式，最大500k，100x100像素"
+              />
             </Form.Item>
             <Form.Item
               label="分享标题"
@@ -113,15 +116,15 @@ const Index = () => {
               required
               getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
             >
-              <Input placeholder="最多15字" showCount maxLength={15} />
+              <Input placeholder="请输入分享标题" showCount maxLength={15} />
             </Form.Item>
-            <Form.Item
-              label="分享图片"
-              name="shareImg"
-              extra="支持png、jpg、jpeg，分辨率750*600，不超过1M"
-              required
-            >
-              <MaterialBtn />
+            <Form.Item label="分享图片" name="shareImg" required>
+              <MaterialBtn
+                accept=".jpg,.png,.jpeg,.JPG,.JPEG,.PNG"
+                limit={1}
+                proportion={1.25}
+                extra="支持png/jpg/jpeg,分辨率750*600，不超过1M"
+              />
               {/* <div>
                 <Button onClick={() => openWDMaterialHandler('shareImg')}>选择图片+</Button>
                 {pageConfig.shareImg && (
@@ -135,12 +138,13 @@ const Index = () => {
                 )}
               </div> */}
             </Form.Item>
-            <Form.Item
-              label="分享海报"
-              name="posterImage"
-              extra="支持png、jpg、jpeg，分辨率750*1100，不超过1M"
-            >
-              <MaterialBtn />
+            <Form.Item label="分享海报" name="posterImage">
+              <MaterialBtn
+                accept=".jpg,.png,.jpeg,.JPG,.JPEG,.PNG"
+                limit={1}
+                proportion={750 / 1100}
+                extra="支持 png/jpg/jpeg，分辨率750x1100，不超过1M"
+              />
               {/* <div>
                 <Button onClick={() => openWDMaterialHandler('posterImage')}>选择图片+</Button>
                 {pageConfig.posterImage && (
@@ -154,11 +158,14 @@ const Index = () => {
                 )}
               </div> */}
             </Form.Item>
+            {/* <Form.Item label="分享海报文案" name="posterDesc">
+            <Input placeholder="请输入分享海报文案" showCount maxLength={15} />
+            </Form.Item> */}
 
             <Form.Item label="分享预览" name="showShareModal">
               <Switch />
             </Form.Item>
-          </div>
+          </>
         )}
       </Form>
     </>

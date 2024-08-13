@@ -3,11 +3,12 @@ import { type Component } from '@/store'
 export default {
   name: '付费优惠券',
   group: '业务组件',
-  icon: 'icon-pay',
+  icon: 'pay-coupon',
   metaType: 'biz-payCoupon',
   moduleType: 'biz-pay-once',
   temModule: 'PayTem',
   setModule: 'PaySet',
+  sort: 2,
   data: {
     coupons: [],
     moduleType: 'biz-pay-once',

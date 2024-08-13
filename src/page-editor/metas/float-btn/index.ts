@@ -3,11 +3,12 @@ import { type Component } from '@/store'
 export default {
   name: '浮标',
   group: '基础组件',
-  icon: 'icon-float-btn',
+  icon: 'float-btn',
   metaType: 'bas-floatBtn',
   temModule: 'FloatBtnTem',
   setModule: 'FloatBtnSet',
   order: 8,
+  sort: 8,
   data: {
     buttonImgUrl: '',
     top: 345,

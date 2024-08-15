@@ -38,6 +38,7 @@ const Content = (props: any) => {
       `}
     >
       <div
+        ref={drop}
         css={css`
           border-radius: 4px;
           max-width: 400px;
@@ -48,12 +49,12 @@ const Content = (props: any) => {
           border: 1px solid #d9d9d9;
           position: relative;
           left: 50%;
-          transform: translateX(-50%);
           padding-bottom: 12px;
           display: flex;
           flex-direction: column;
           margin: 35px 0;
-          zoom: 0.8;
+          transform-origin: top;
+          transform: translateX(-50%) scale(0.8);
         `}
       >
         <div
@@ -72,8 +73,6 @@ const Content = (props: any) => {
           {pageConfig.title}
         </div>
         <div
-          ref={drop}
-          data-testid="dustbin"
           css={css({
             width: 400,
             margin: '0 auto',
@@ -104,11 +103,19 @@ const Content = (props: any) => {
                 backgroundRepeat: 'no-repeat',
                 borderBottomLeftRadius: 13,
                 borderBottomRightRadius: 13,
+                position: 'relative',
                 pointerEvents: props.preview ? 'none' : 'all',
               })}
             >
               {components.map((item, index) => (
-                <ContentItem data={item} key={item.id} index={index} id={item.id!} move={move} />
+                <ContentItem
+                  preview={props.preview}
+                  data={item}
+                  key={item.id}
+                  index={index}
+                  id={item.id!}
+                  move={move}
+                />
               ))}
             </div>
           </div>

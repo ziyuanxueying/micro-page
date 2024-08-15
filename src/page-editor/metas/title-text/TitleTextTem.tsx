@@ -17,18 +17,19 @@ const TitleTextTem = (props: TemProps) => {
     titleWeight,
     descWeight,
     radius,
+    moduleType,
   } = current?.data || {}
 
   return (
     <div
       css={css({
-        width: 350,
+        width: moduleType === 'card' ? 350 : 371,
         padding: 10,
         boxSizing: 'border-box',
         backgroundColor,
         textAlign,
         marginTop: 15,
-        borderRadius: radius === 'rightAngle' ? 0 : 8,
+        borderRadius: radius === 'rightAngle' || moduleType === 'banner' ? 0 : 8,
       })}
     >
       <div

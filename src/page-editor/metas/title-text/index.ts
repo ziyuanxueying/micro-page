@@ -7,6 +7,7 @@ export default {
   metaType: 'bas-title',
   temModule: 'TitleTextTem',
   setModule: 'TitleTextSet',
+  moduleType: 'card',
   order: 4,
   sort: 7,
   data: {
@@ -20,6 +21,7 @@ export default {
     descWeight: 'normal',
     titleColor: '#000',
     descColor: '#999',
+    moduleType: 'card',
     backgroundColor: '#fff',
   },
 } as Component

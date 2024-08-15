@@ -67,13 +67,23 @@ const Index = () => {
     okText: '确定',
     size: 'middle',
     cancelText: '取消',
+    okButtonProps: {
+      style: { width: 90, height: 32, borderRadius: 4 },
+    },
+    cancelButtonProps: {
+      style: { width: 90, height: 32, borderRadius: 4 },
+    },
     styles: {
+      body: {
+        height: 500,
+        overflow: 'hidden',
+      },
       footer: {
         display: 'flex',
         justifyContent: 'center',
       },
     },
-    width: 658,
+    width: 870,
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)
@@ -85,8 +95,22 @@ const Index = () => {
     },
   }
   const columns: ProColumnsType = [
-    { title: '券ID', dataIndex: 'no', align: 'left', searchType: 'input' },
-    { title: '券名称', dataIndex: 'title', align: 'left', searchType: 'input' },
+    {
+      dataIndex: 'no',
+      align: 'left',
+      hideInTable: true,
+      searchType: 'input',
+      searchAttrs: { placeholder: '请输入券ID' },
+    },
+    {
+      dataIndex: 'title',
+      align: 'left',
+      hideInTable: true,
+      searchType: 'input',
+      searchAttrs: { placeholder: '请输入券名称' },
+    },
+    { title: '券ID', dataIndex: 'no', align: 'left' },
+    { title: '券名称', dataIndex: 'title', align: 'left' },
     {
       title: '券类型',
       align: 'left',
@@ -271,7 +295,7 @@ const Index = () => {
           </div>
         </Form.Item>
         {!!tags.length && (
-          <div className="setting-table">
+          <div className="wd-micro-setting-table">
             <WdTable
               loading={false}
               data={{ list: tags, page: { total: 0 } }}
@@ -302,23 +326,25 @@ const Index = () => {
         </Form.Item>
       </Form>
       <WdModal open={showTable} modalProps={propsTable}>
-        <WdTable
-          loading={loading}
-          data={list}
-          columns={columns}
-          rowKey="no"
-          hideSpace
-          searchConfigs={{
-            inlineBtns: true,
-            inModal: true,
-            formConfig: {
-              labelCol: { span: 10 },
-            },
-          }}
-          style={{ minHeight: '0' }}
-          rowSelection={{ ...rowSelection }}
-          onParamsChange={handleSearch}
-        ></WdTable>
+        <div className="wd-micro-modal-table">
+          <WdTable
+            loading={loading}
+            data={list}
+            columns={columns}
+            rowKey="no"
+            hideSpace
+            searchConfigs={{
+              inlineBtns: true,
+              inModal: true,
+              formConfig: {
+                labelCol: { span: 10 },
+              },
+            }}
+            style={{ minHeight: '0' }}
+            rowSelection={{ ...rowSelection }}
+            onParamsChange={handleSearch}
+          ></WdTable>
+        </div>
       </WdModal>
     </div>
   )

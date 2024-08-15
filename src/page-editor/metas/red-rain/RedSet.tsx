@@ -29,16 +29,25 @@ const Index = () => {
     // 传递给 Modal 组件的属性和方法
     title: '选择活动',
     okText: '确定',
-    size: 'middle',
     cancelText: '取消',
+    okButtonProps: {
+      style: { width: 90, height: 32, borderRadius: 4 },
+    },
+    cancelButtonProps: {
+      style: { width: 90, height: 32, borderRadius: 4 },
+    },
     styles: {
+      body: {
+        height: 500,
+        overflow: 'hidden',
+      },
       footer: {
         display: 'flex',
         justifyContent: 'center',
       },
     },
     centered: true,
-    width: 815,
+    width: 870,
     onOk: () => {
       setShowTable(false)
       setTags(selectedRows)
@@ -49,11 +58,25 @@ const Index = () => {
     },
   }
   const columns: ProColumnsType = [
-    { title: '活动ID', dataIndex: 'actId', align: 'center', searchType: 'input' },
-    { title: '活动名称', dataIndex: 'actTitle', searchType: 'input' },
+    {
+      dataIndex: 'actId',
+      align: 'center',
+      searchType: 'input',
+      hideInTable: true,
+      searchAttrs: { placeholder: '请输入活动ID', padding: 0 },
+    },
+    {
+      dataIndex: 'actTitle',
+      searchType: 'input',
+      hideInTable: true,
+      searchAttrs: { placeholder: '请输入活动名称' },
+    },
+    { title: '活动ID', dataIndex: 'actId', align: 'left' },
+    { title: '活动名称', dataIndex: 'actTitle', align: 'left' },
     {
       title: '活动时间',
       dataIndex: 'provideStartTime',
+      align: 'left',
       render: (_text, record) => <span>{`${record.actStartAt} 至 ${record.actEndAt}`}</span>,
     },
     {
@@ -70,10 +93,10 @@ const Index = () => {
       dataIndex: 'status',
       render: text => <span>{text === 4 ? '待开始' : text === 5 ? '进行中' : ''}</span>,
     },
-    {
-      title: '创建时间',
-      dataIndex: 'createdAt',
-    },
+    // {
+    //   title: '创建时间',
+    //   dataIndex: 'createdAt',
+    // },
   ]
   const rowSelection = React.useMemo<TableRowSelection<any>>(() => {
     return {
@@ -153,7 +176,7 @@ const Index = () => {
       </div>
 
       {tags.length > 0 && (
-        <div className="setting-table">
+        <div className="wd-micro-setting-table">
           <WdTable
             loading={false}
             data={{ list: tags, page: { total: 0 } }}
@@ -189,22 +212,24 @@ const Index = () => {
       )} */}
 
       <WdModal open={showTable} modalProps={propsTable}>
-        <WdTable
-          loading={false}
-          data={list}
-          columns={columns}
-          rowKey="actId"
-          hideSpace
-          searchConfigs={{
-            inlineBtns: true,
-            inModal: true,
-            formConfig: {
-              labelCol: { span: 10 },
-            },
-          }}
-          rowSelection={rowSelection}
-          onParamsChange={handleSearch}
-        ></WdTable>
+        <div className="wd-micro-modal-table">
+          <WdTable
+            loading={false}
+            data={list}
+            columns={columns}
+            rowKey="actId"
+            hideSpace
+            searchConfigs={{
+              inlineBtns: true,
+              inModal: true,
+              formConfig: {
+                labelCol: { span: 10 },
+              },
+            }}
+            rowSelection={rowSelection}
+            onParamsChange={handleSearch}
+          ></WdTable>
+        </div>
       </WdModal>
     </>
   )

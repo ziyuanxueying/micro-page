@@ -15,7 +15,6 @@ export const Normal = {
         sub: '发现你想要的生活',
       },
       id: '2d801a79-dc8a-42be-a08b-e10cc3381f6a',
-      isError: '',
     },
     {
       name: '红包雨',
@@ -29,7 +28,6 @@ export const Normal = {
         activity: {},
       },
       id: 'c61aab5a-de53-4fb3-856c-f0d67eb663ca',
-      isError: '请选一个红包雨活动',
     },
     {
       name: '付费优惠券',
@@ -45,7 +43,6 @@ export const Normal = {
         btnColor: '#f24724',
       },
       id: 'ca7cd7ae-2d88-48b6-b2b3-afa47c90f440',
-      isError: '请选择要使用的优惠券',
     },
     {
       name: '免费优惠券',
@@ -61,7 +58,6 @@ export const Normal = {
         btnColor: '#f24724',
       },
       id: 'c18d2b22-9ede-4c52-b136-4cb8e9a9bbbf',
-      isError: '请选择要使用的优惠券',
     },
     {
       name: '抽奖',
@@ -76,7 +72,6 @@ export const Normal = {
         img: 'https://xcx02-dev-1318942848.cos.ap-beijing.myqcloud.com//resourceLibrary/user/custom_246944067382935552/bf414fe718e03714fcdcc4d4cf4a5046.jpg',
       },
       id: '86dbe9ea-71b9-4cb6-91c7-732692543f00',
-      isError: '请选一个抽奖活动',
     },
   ],
   pageConfig: {
@@ -108,7 +103,6 @@ export const Holiday = {
         sub: '发现你想要的生活',
       },
       id: '2d801a79-dc8a-42be-a08b-e10cc3381f6a',
-      isError: '',
     },
     {
       name: '红包雨',
@@ -122,7 +116,6 @@ export const Holiday = {
         activity: {},
       },
       id: 'c61aab5a-de53-4fb3-856c-f0d67eb663ca',
-      isError: '请选一个红包雨活动',
     },
     {
       name: '付费优惠券',
@@ -138,7 +131,6 @@ export const Holiday = {
         btnColor: '#f24724',
       },
       id: 'ca7cd7ae-2d88-48b6-b2b3-afa47c90f440',
-      isError: '请选择要使用的优惠券',
     },
     {
       name: '免费优惠券',
@@ -154,7 +146,6 @@ export const Holiday = {
         btnColor: '#f24724',
       },
       id: 'c18d2b22-9ede-4c52-b136-4cb8e9a9bbbf',
-      isError: '请选择要使用的优惠券',
     },
     {
       name: '抽奖',
@@ -169,7 +160,6 @@ export const Holiday = {
         img: 'https://xcx02-dev-1318942848.cos.ap-beijing.myqcloud.com//resourceLibrary/user/custom_246944067382935552/bf414fe718e03714fcdcc4d4cf4a5046.jpg',
       },
       id: '86dbe9ea-71b9-4cb6-91c7-732692543f00',
-      isError: '请选一个抽奖活动',
     },
   ],
   pageConfig: {

@@ -3,9 +3,33 @@
   padding: 0;
 }
 
-.setting-table {
+.wd-micro-setting-table {
   .ant-table-content {
     min-height: 0 !important;
     padding-bottom: 20px;
+  }
+}
+
+.wd-micro-modal-table {
+  .wd-table .ant-table-tbody > tr > td {
+    border-bottom: none;
+  }
+  .ant-table-content {
+    min-height: 350px !important;
+    max-height: 350px;
+    overflow-y: scroll !important;
+    .ant-empty {
+      height: 200px;
+      padding-top: 100px;
+    }
+  }
+  .ant-form {
+    & > .ant-row {
+      & > .ant-col {
+        &:first-child {
+          padding-left: 0 !important;
+        }
+      }
+    }
   }
 }

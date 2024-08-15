@@ -10,6 +10,7 @@ type ContentItemProps = {
   data: Component
   index: number
   id: string
+  preview: boolean
   move: (dragIndex: number, hoverIndex: number) => void
 }
 
@@ -19,7 +20,7 @@ interface DragItem {
   type: string
 }
 
-const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
+const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
   const {
     selectedComponentId,
     components,
@@ -44,6 +45,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
       }
       const dragIndex = item.index
       const hoverIndex = index
+      console.log(hoverIndex)
 
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
@@ -58,6 +60,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
 
       // Determine mouse position
       const clientOffset = monitor.getClientOffset()
+      console.log(clientOffset, hoverBoundingRect.top)
 
       // Get pixels to the top
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
@@ -100,6 +103,7 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
   drag(drop(ref))
 
   const handleClick = (item: Component) => {
+    if (preview) return
     updateSelectedComponentId(selectedComponentId === item.id ? undefined : item.id)
     selectedComponentId !== item.id && updatePageConfig({ ...pageConfig, tab: '1' })
     const { list } = checkSaveInfo({ components, pageConfig })
@@ -129,18 +133,21 @@ const ContentItem = ({ data, id, index, move }: ContentItemProps) => {
           marginTop: -2,
           flexDirection: 'column',
           alignItems: 'center',
-          ':hover': {
-            borderColor: data.isError ? 'red' : '#000000',
-            div: {
-              opacity: 1,
-              pointerEvents: 'all',
-            },
-          },
+          ':hover': !preview
+            ? {
+                borderColor: data.isError ? 'red' : '#000000',
+                '.wd-micro-page-comp': {
+                  opacity: 1,
+                  pointerEvents: 'all',
+                },
+              }
+            : {},
         },
         style,
       )}
     >
       <div
+        className="wd-micro-page-comp"
         css={{
           opacity: selectedComponentId === data.id ? 1 : 0,
           pointerEvents: selectedComponentId === data.id ? 'all' : 'none',

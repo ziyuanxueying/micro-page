@@ -56,6 +56,7 @@ const Index = () => {
                 <Radio
                   key={option.value}
                   value={option.value}
+                  disabled
                   style={{ transform: 'translateX(8px)', marginTop: 10 }}
                 >
                   {option.label}

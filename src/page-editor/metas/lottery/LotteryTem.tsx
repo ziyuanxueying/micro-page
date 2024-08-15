@@ -11,7 +11,7 @@ const Index = (props: TemProps) => {
           css={css({
             width: 350,
             height: 109,
-            background: '#fff',
+            // background: '#fff',
             marginTop: 15,
             // borderRadius: '50%',
           })}
@@ -27,7 +27,7 @@ const Index = (props: TemProps) => {
             lineHeight: '109px',
             textAlign: 'center',
             color: '#666666',
-            background: '#fff',
+            // background: '#fff',
             marginTop: 15,
           })}
         >

@@ -60,7 +60,7 @@ const FloatBtnSet = () => {
           />
         </Form.Item>
         <Form.Item label="跳转链接" name="link">
-          <WdAllocation status={['none', 'mini', 'external']} />
+          <WdAllocation status={['poster', 'mini', 'external']} />
         </Form.Item>
       </Form>
     </>

@@ -199,7 +199,7 @@ const ImageSet = () => {
                         </Form.Item>
                         <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>
                           <WdAllocation
-                            status={['none', 'mini', 'external']}
+                            status={['poster', 'mini', 'external']}
                             onChangeData={() => {}}
                           />
                         </Form.Item>

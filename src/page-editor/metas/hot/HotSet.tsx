@@ -90,6 +90,7 @@ const HotSet = () => {
         {url && (
           <Button
             type="primary"
+            ghost
             css={css({
               marginLeft: 78,
             })}
@@ -102,7 +103,7 @@ const HotSet = () => {
           open={modalVisible}
           onOk={() => setModalVisible(false)}
           onCancel={() => setModalVisible(false)}
-          width={776}
+          width={900}
           title="添加热区"
           okText="确定"
           cancelText="取消"
@@ -171,6 +172,8 @@ const HotSet = () => {
                             height: 32,
                             position: 'absolute',
                             right: 23,
+                            zIndex: 101,
+                            background: '#ffffff',
                           })}
                           disabled={fields.length >= 10}
                           onClick={() => {
@@ -210,7 +213,7 @@ const HotSet = () => {
                                 required
                               >
                                 <WdAllocation
-                                  status={['none', 'mini', 'external']}
+                                  status={['poster', 'mini', 'external']}
                                   // value={pathVal}
                                   onChangeData={() => {}}
                                 />

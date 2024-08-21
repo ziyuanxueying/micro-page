@@ -127,6 +127,7 @@ const TemplateEngine = (props: any) => {
       }
     } else setSpinning(false)
     return () => {
+      storeUpdateStatus('0')
       updateComponents([])
       updateSelectedComponentId('')
       updatePageConfig({

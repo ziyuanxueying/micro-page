@@ -35,17 +35,18 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: 'card',
     collect(monitor) {
+      console.log(monitor)
       return {
         handlerId: monitor.getHandlerId(),
       }
     },
-    hover(item: DragItem, monitor) {
+    hover(item: DragItem, monitor: any) {
       if (!ref.current) {
         return
       }
+
       const dragIndex = item.index
       const hoverIndex = index
-      console.log(hoverIndex)
 
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
@@ -90,12 +91,13 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
     },
   })
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging /*zoom*/ }, drag] = useDrag({
     type: 'card',
     item: () => {
       return { id, index }
     },
     collect: (monitor: any) => ({
+      // zoom: monitor.isDragging() ? 0.5 : 1,
       isDragging: monitor.isDragging(),
     }),
   })
@@ -118,6 +120,7 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
       onClick={() => handleClick(data)}
       css={css(
         {
+          // transform: `scale(${zoom})`,
           boxSizing: 'content-box',
           cursor: 'move',
           border: '2px dashed',

@@ -35,6 +35,8 @@ const Content = (props: any) => {
         max-height: calc(100vh - 200px);
         overflow-y: scroll;
         overflow-x: hodden;
+        // transform-origin: top;
+        // transform: scale(0.8)
       `}
     >
       <div
@@ -54,7 +56,7 @@ const Content = (props: any) => {
           flex-direction: column;
           margin: 35px 0;
           transform-origin: top;
-          transform: translateX(-50%) scale(0.8);
+          transform: translateX(-50%);
         `}
       >
         <div

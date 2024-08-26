@@ -32,7 +32,7 @@ const Content = (props: any) => {
     <div
       css={css`
         flex: 1;
-        max-height: calc(100vh - 210px);
+        max-height: calc(100vh - 200px);
         overflow-y: scroll;
         scrollbar-width: none;
         scrollbar-color: transparent transparent;

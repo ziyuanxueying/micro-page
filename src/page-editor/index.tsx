@@ -162,7 +162,7 @@ const TemplateEngine = (props: any) => {
             {!['check', 'review'].includes(type) && <Setting />}
           </main>
         </DndProvider>
-        <Space css={css([flexrc, { padding: '10px', justifyContent: 'center' }])}>
+        <Space css={css([flexrc, { padding: '10px', paddingTop: 20, justifyContent: 'center' }])}>
           {!['check', 'review'].includes(type) && <div css={css({ width: 220, height: 10 })}></div>}
           <div css={css([flexrc, { flex: 1, boxSizing: 'border-box', justifyContent: 'center' }])}>
             <Button

@@ -91,13 +91,12 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
     },
   })
 
-  const [{ isDragging /*zoom*/ }, drag /*preview*/] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     type: 'card',
     item: () => {
       return review ? undefined : { id, index }
     },
     collect: (monitor: any) => ({
-      // zoom: monitor.isDragging() ? 0.5 : 1,
       isDragging: monitor.isDragging(),
     }),
   })
@@ -113,7 +112,6 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
   }
 
   const onMouseEnter = () => {
-    console.log('移入')
     setShowLabel(true)
   }
 
@@ -143,6 +141,8 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
           position: 'relative',
           zIndex: 1,
           marginTop: -2,
+          display: 'flex',
+          justifyContent: 'center',
           cursor: review ? 'pointer' : 'move',
           ':hover': !review
             ? {
@@ -157,6 +157,7 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
         style,
       )}
     >
+      {/* <DragPreviewImage connect={preview} src={`https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/${data.icon}.svg`}  /> */}
       <div
         className="wd-micro-page-comp"
         css={{

@@ -13,10 +13,10 @@ const Index = (props: TemProps) => {
         css={css([
           flexcc,
           {
-            width: 372,
-            height: 280,
+            width: 375,
+            height: 277,
             backgroundImage: `url(${data?.url})`,
-            backgroundSize: '100% ',
+            backgroundSize: '100% 100% ',
             backgroundRepeat: 'no-repeat',
             textAlign: 'center',
           },

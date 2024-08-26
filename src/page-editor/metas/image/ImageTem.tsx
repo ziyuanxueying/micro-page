@@ -17,7 +17,6 @@ const ImageTem = (props: TemProps) => {
         preview={false}
         width="100%"
         css={css({
-          marginTop: 15,
           cursor: 'pointer',
         })}
       />

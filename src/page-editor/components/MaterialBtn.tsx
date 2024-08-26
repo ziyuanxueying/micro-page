@@ -59,17 +59,20 @@ const Index = (props: MyProps) => {
             {props.extra}
           </Typography.Text>
         )}
-        <div css={css({ marginTop: 15 })}></div>
+
         {props?.value && (
-          <ImagePreview
-            data={[{ src: props?.value }]}
-            width={200}
-            height={200}
-            colNum={1}
-            isDefault={false}
-            isDelete={props?.isDelete}
-            onDelete={handleDelete}
-          />
+          <>
+            <div css={css({ marginTop: 15 })}></div>
+            <ImagePreview
+              data={[{ src: props?.value }]}
+              width={200}
+              height={200}
+              colNum={1}
+              isDefault={false}
+              isDelete={props?.isDelete}
+              onDelete={handleDelete}
+            />
+          </>
         )}
       </div>
     </>

@@ -140,9 +140,9 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
           opacity,
           position: 'relative',
           zIndex: 1,
-          marginTop: -2,
           display: 'flex',
           justifyContent: 'center',
+          marginTop: data.icon === 'mold-pic' ? 0 : 15,
           cursor: review ? 'pointer' : 'move',
           ':hover': !review
             ? {

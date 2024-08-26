@@ -11,11 +11,7 @@ const Index = (props: TemProps) => {
           css={css({
             width: 350,
             height: 109,
-            // background: '#fff',
-            marginTop: 15,
-            // borderRadius: '50%',
           })}
-          // src={new URL(`@/assets/red-env.svg`, import.meta.url).href}
           src={data.img}
           alt=""
         />

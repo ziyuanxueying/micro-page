@@ -10,7 +10,7 @@ type ContentItemProps = {
   data: Component
   index: number
   id: string
-  preview: boolean
+  review: boolean
   move: (dragIndex: number, hoverIndex: number) => void
 }
 
@@ -20,7 +20,7 @@ interface DragItem {
   type: string
 }
 
-const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
+const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
   const {
     selectedComponentId,
     components,
@@ -30,12 +30,12 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
     updatePageConfig,
     updateComponents,
   } = useStore()
+  const [showLabel, setShowLabel] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
 
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: 'card',
     collect(monitor) {
-      console.log(monitor)
       return {
         handlerId: monitor.getHandlerId(),
       }
@@ -91,10 +91,10 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
     },
   })
 
-  const [{ isDragging /*zoom*/ }, drag] = useDrag({
+  const [{ isDragging /*zoom*/ }, drag /*preview*/] = useDrag({
     type: 'card',
     item: () => {
-      return { id, index }
+      return review ? undefined : { id, index }
     },
     collect: (monitor: any) => ({
       // zoom: monitor.isDragging() ? 0.5 : 1,
@@ -105,12 +105,22 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
   drag(drop(ref))
 
   const handleClick = (item: Component) => {
-    if (preview) return
+    if (review) return
     updateSelectedComponentId(selectedComponentId === item.id ? undefined : item.id)
     selectedComponentId !== item.id && updatePageConfig({ ...pageConfig, tab: '1' })
     const { list } = checkSaveInfo({ components, pageConfig })
     updateComponents(list)
   }
+
+  const onMouseEnter = () => {
+    console.log('移入')
+    setShowLabel(true)
+  }
+
+  const onMouseLeave = () => {
+    setShowLabel(false)
+  }
+  const opacity = isDragging ? 0 : 1
 
   const content = (style?: ReturnType<typeof css>) => (
     <div
@@ -118,25 +128,23 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
       key={data.id}
       data-handler-id={handlerId}
       onClick={() => handleClick(data)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       css={css(
         {
-          // transform: `scale(${zoom})`,
           boxSizing: 'content-box',
-          cursor: 'move',
           border: '2px dashed',
           borderColor: data.isError
             ? 'red'
             : data.id === selectedComponentId
             ? '#000000'
             : 'transparent',
-          opacity: isDragging ? 0 : 1,
+          opacity,
           position: 'relative',
           zIndex: 1,
-          display: 'flex',
           marginTop: -2,
-          flexDirection: 'column',
-          alignItems: 'center',
-          ':hover': !preview
+          cursor: review ? 'pointer' : 'move',
+          ':hover': !review
             ? {
                 borderColor: data.isError ? 'red' : '#000000',
                 '.wd-micro-page-comp': {
@@ -153,7 +161,6 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
         className="wd-micro-page-comp"
         css={{
           opacity: selectedComponentId === data.id ? 1 : 0,
-          pointerEvents: selectedComponentId === data.id ? 'all' : 'none',
           width: 24,
           height: 24,
           borderRadius: '50%',
@@ -178,6 +185,27 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
       >
         <CloseOutlined style={{ width: 12, height: 12 }} />
       </div>
+      {showLabel && review && (
+        <div
+          css={css({
+            width: 100,
+            height: 38,
+            borderRadius: 5,
+            color: '#999999',
+            display: 'inline-flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+            position: 'absolute',
+            margin: 'auto',
+            right: -125,
+            top: 0,
+            bottom: 0,
+          })}
+        >
+          {data.name}
+        </div>
+      )}
       <ItemTemplate key={id} type={data.temModule} id={id} />
     </div>
   )
@@ -196,7 +224,7 @@ const ContentItem = ({ data, id, index, move, preview }: ContentItemProps) => {
           }),
         )}
 
-        {selectedComponent?.data?.preview && (
+        {selectedComponent?.data?.review && (
           <div
             css={css({
               position: 'absolute',

@@ -19,8 +19,8 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
-  // const { id = "CP0821082077948776448" , type = "edit", temp } = props
-  const { id, type, temp } = props
+  const { id = 'CP0821082077948776448', type = 'edit', temp } = props
+  // const { id, type, temp } = props
   const saveLock = React.useRef<boolean>(false)
   // const { id = undefined, type = undefined, temp = undefined } = props
 
@@ -157,17 +157,13 @@ const TemplateEngine = (props: any) => {
               justifyContent: 'space-between',
             })}
           >
-            {(!['check', 'review'].includes(type) && <MetasBar />) || (
-              <div css={css({ width: 220 })}></div>
-            )}
-            <Content preview={['check', 'review'].includes(type)} />
-            {(!['check', 'review'].includes(type) && <Setting />) || (
-              <div css={css({ width: 408 })}></div>
-            )}
+            {!['check', 'review'].includes(type) && <MetasBar />}
+            <Content review={['check', 'review'].includes(type)} />
+            {!['check', 'review'].includes(type) && <Setting />}
           </main>
         </DndProvider>
-        <Space css={css([flexrc, { padding: '10px', justifyContent: 'space-between' }])}>
-          <div css={css({ width: 220, height: 10 })}></div>
+        <Space css={css([flexrc, { padding: '10px', justifyContent: 'center' }])}>
+          {!['check', 'review'].includes(type) && <div css={css({ width: 220, height: 10 })}></div>}
           <div css={css([flexrc, { flex: 1, boxSizing: 'border-box', justifyContent: 'center' }])}>
             <Button
               onClick={() => {
@@ -208,7 +204,7 @@ const TemplateEngine = (props: any) => {
               </Button>
             )}
           </div>
-          <div css={css({ width: 408, height: 10 })}></div>
+          {!['check', 'review'].includes(type) && <div css={css({ width: 408, height: 10 })}></div>}
         </Space>
       </Spin>
     </div>

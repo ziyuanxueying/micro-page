@@ -34,7 +34,11 @@ const Content = (props: any) => {
         flex: 1;
         max-height: calc(100vh - 200px);
         overflow-y: scroll;
-        overflow-x: hodden;
+        scrollbar-width: none;
+        scrollbar-color: transparent transparent;
+        ::-webkit-scrollbar {
+          display: none;
+        }
         // transform-origin: top;
         // transform: scale(0.8)
       `}
@@ -47,7 +51,6 @@ const Content = (props: any) => {
           min-width: 400px;
           background: #ffffff;
           border-radius: 20px;
-          overflow: hidden;
           border: 1px solid #d9d9d9;
           position: relative;
           left: 50%;
@@ -106,12 +109,12 @@ const Content = (props: any) => {
                 borderBottomLeftRadius: 13,
                 borderBottomRightRadius: 13,
                 position: 'relative',
-                pointerEvents: props.preview ? 'none' : 'all',
+                // pointerEvents: props.review ? 'none' : 'all',
               })}
             >
               {components.map((item, index) => (
                 <ContentItem
-                  preview={props.preview}
+                  review={props.review}
                   data={item}
                   key={item.id}
                   index={index}

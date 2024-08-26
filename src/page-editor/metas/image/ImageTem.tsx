@@ -28,20 +28,29 @@ const ImageTem = (props: TemProps) => {
     <div
       css={css({
         display: 'block',
-        width: '100%',
+        width: 372,
+        overflow: 'hidden',
+        position: 'relative',
       })}
     >
+      <div
+        css={css({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: 375,
+          height: '100%',
+          zIndex: 101,
+        })}
+      ></div>
       {moduleType === 'image' || pictures.length < 2 ? (
         renderImage(pictures[0])
       ) : (
-        <div>
-          <Carousel autoplay>
-            {pictures.map((pic: any, i: number) => {
-              // console.log(pic)
-              return <div key={i}>{renderImage(pic || defaultImage)}</div>
-            })}
-          </Carousel>
-        </div>
+        <Carousel autoplay autoplaySpeed={1500}>
+          {pictures.map((pic: any, i: number) => {
+            return <div key={i}>{renderImage(pic || defaultImage)}</div>
+          })}
+        </Carousel>
       )}
     </div>
   )

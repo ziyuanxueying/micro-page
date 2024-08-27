@@ -94,6 +94,7 @@ const HotSet = () => {
             ghost
             css={css({
               marginLeft: 78,
+              borderRadius: 2,
             })}
             onClick={() => setModalVisible(true)}
           >
@@ -166,10 +167,12 @@ const HotSet = () => {
                           css={css({
                             width: 184,
                             height: 32,
+                            borderRadius: 2,
                             position: 'absolute',
                             right: 23,
                             zIndex: 101,
-                            background: '#ffffff',
+                            background: '#ffffff !important',
+                            marginRight: 10,
                           })}
                           disabled={fields.length >= 10}
                           onClick={() => {
@@ -194,6 +197,7 @@ const HotSet = () => {
                                 paddingTop: 11,
                                 paddingLeft: 11,
                                 marginTop: 20,
+                                zIndex: 1,
                                 position: 'relative',
                               })}
                             >

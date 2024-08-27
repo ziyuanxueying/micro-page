@@ -3,7 +3,7 @@ export const Normal = {
     {
       name: '头部模板',
       group: '基础组件',
-      icon: 'icon-pic',
+      icon: 'mold-pic',
       metaType: 'biz-pic',
       moduleType: 'biz-pic-nomal',
       temModule: 'PicTem',

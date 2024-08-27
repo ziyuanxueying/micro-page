@@ -131,22 +131,19 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
       css={css(
         {
           boxSizing: 'content-box',
-          border: '2px dashed',
-          borderColor: data.isError
-            ? 'red'
-            : data.id === selectedComponentId
-            ? '#000000'
-            : 'transparent',
           opacity,
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
           display: 'flex',
           justifyContent: 'center',
+          width: 375,
           marginTop: data.icon === 'mold-pic' ? 0 : 15,
           cursor: review ? 'pointer' : 'move',
           ':hover': !review
             ? {
-                borderColor: data.isError ? 'red' : '#000000',
+                '.wd-micro-page-border': {
+                  borderColor: data.isError ? 'red' : '#000000',
+                },
                 '.wd-micro-page-comp': {
                   opacity: 1,
                   pointerEvents: 'all',
@@ -157,17 +154,42 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
         style,
       )}
     >
+      <div
+        className="wd-micro-page-border"
+        css={css({
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          margin: 'auto',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          boxSizing: 'border-box',
+          border: '2px dashed',
+          borderColor: review
+            ? 'transparent'
+            : data.isError
+            ? 'red'
+            : data.id === selectedComponentId
+            ? '#000000'
+            : 'transparent',
+          zIndex: 99,
+          style,
+        })}
+      ></div>
       {/* <DragPreviewImage connect={preview} src={`https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/${data.icon}.svg`}  /> */}
       <div
         className="wd-micro-page-comp"
         css={{
           opacity: selectedComponentId === data.id ? 1 : 0,
-          width: 24,
-          height: 24,
+          pointerEvents: selectedComponentId === data.id ? 'all' : 'none',
+          width: 20,
+          height: 20,
           borderRadius: '50%',
           position: 'absolute',
-          top: -12,
-          right: -12,
+          top: -10,
+          right: -10,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -184,7 +206,7 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
           removeComponent(data.id)
         }}
       >
-        <CloseOutlined style={{ width: 12, height: 12 }} />
+        <CloseOutlined style={{ width: 10, height: 10 }} />
       </div>
       {showLabel && review && (
         <div
@@ -222,6 +244,7 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
             right: 10,
             top: selectedComponent?.data?.top ?? 345,
             zIndex: 10,
+            width: 64,
           }),
         )}
 
@@ -263,8 +286,9 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
       <>
         {content(
           css({
+            width: 90,
             position: 'absolute',
-            right: 0,
+            right: 10,
             top: 200,
             zIndex: 10,
           }),

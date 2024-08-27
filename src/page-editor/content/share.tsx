@@ -12,9 +12,9 @@ export const ShareModal: React.FC = function () {
             width: '50px',
             height: '50px',
             position: 'absolute',
-            right: 30,
+            right: 20,
             zIndex: 100,
-            bottom: '120px',
+            bottom: 170,
             borderRadius: '50%',
             border: '1px solid #999999',
           })}

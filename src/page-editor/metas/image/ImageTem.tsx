@@ -27,7 +27,7 @@ const ImageTem = (props: TemProps) => {
     <div
       css={css({
         display: 'block',
-        width: 372,
+        width: 375,
         overflow: 'hidden',
         position: 'relative',
       })}

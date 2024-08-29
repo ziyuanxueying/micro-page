@@ -102,7 +102,7 @@ const TemplateEngine = (props: any) => {
       // 防止数据渲染不出来
       updateComponents(data.content.components)
       updatePageConfig(data.content.pageConfig)
-      storeUpdateStatus(data.status)
+      storeUpdateStatus(type === 'copy' ? '0' : data.status)
       setSpinning(false)
     }, 1000)
   }

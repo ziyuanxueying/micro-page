@@ -68,6 +68,7 @@ const Index = () => {
         <Form.Item
           label="标题"
           name="title"
+          required
           getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
         >
           <Input showCount maxLength={10} />

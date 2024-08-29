@@ -15,8 +15,8 @@ importers:
         specifier: ^11.11.5
         version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1)
       '@wd/component-ui':
-        specifier: 0.0.20-beta.2
-        version: 0.0.20-beta.2(@ant-design/icons@5.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.2)(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.7)(slate@0.72.8)(snabbdom@3.6.2))(antd@5.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(webpack@4.47.0)
+        specifier: 0.0.20-beta.16
+        version: 0.0.20-beta.16(@ant-design/icons@5.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.2)(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.7)(slate@0.72.8)(snabbdom@3.6.2))(antd@5.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(webpack@4.47.0)
       antd:
         specifier: '>=5.17.4'
         version: 5.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -981,8 +981,8 @@ packages:
       slate: ^0.72.0
       snabbdom: ^3.1.0
 
-  '@wd/component-ui@0.0.20-beta.2':
-    resolution: {integrity: sha512-OnvgQSty51kFcrhYz/0l8YHCpOqoIjqku4rQgKih9TfAYEkVP+IgpxKj/apHAHzEbKn/7zZxXMyxD9/53/I/zg==}
+  '@wd/component-ui@0.0.20-beta.16':
+    resolution: {integrity: sha512-ARU2ZB6dO2lsFW8uUHVhqjqStB6frYn4tKVTvr/zbvWh0F4RoJ3iI6bmvEqOb7EzNsQrIXDLQ9cDPJ5BkWmJJA==}
     peerDependencies:
       '@ant-design/icons': ^5.3.6
       antd: ^5.16.2
@@ -2723,7 +2723,7 @@ packages:
     engines: {node: '>= 0.6.0'}
 
   promise-inflight@1.0.1:
-    resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
+    resolution: {integrity: sha1-mEcocL8igTL8vdhoEputEsPAKeM=}
     peerDependencies:
       bluebird: '*'
     peerDependenciesMeta:
@@ -4663,7 +4663,7 @@ snapshots:
       slate: 0.72.8
       snabbdom: 3.6.2
 
-  '@wd/component-ui@0.0.20-beta.2(@ant-design/icons@5.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.2)(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.7)(slate@0.72.8)(snabbdom@3.6.2))(antd@5.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(webpack@4.47.0)':
+  '@wd/component-ui@0.0.20-beta.16(@ant-design/icons@5.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.2)(@wangeditor/core@1.1.19(@uppy/core@2.3.4)(@uppy/xhr-upload@2.1.3(@uppy/core@2.3.4))(dom7@3.0.0)(is-hotkey@0.2.0)(lodash.camelcase@4.3.0)(lodash.clonedeep@4.5.0)(lodash.debounce@4.0.8)(lodash.foreach@4.5.0)(lodash.isequal@4.5.0)(lodash.throttle@4.1.1)(lodash.toarray@4.4.0)(nanoid@3.3.7)(slate@0.72.8)(snabbdom@3.6.2))(antd@5.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(axios@1.6.8)(cos-js-sdk-v5@1.7.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(webpack@4.47.0)':
     dependencies:
       '@ant-design/icons': 5.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@chuangkit/chuangkit-design': 2.0.10(webpack@4.47.0)

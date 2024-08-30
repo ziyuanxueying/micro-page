@@ -1,6 +1,7 @@
 import useStore from '@/store'
 import { SetTitle } from '@/styles/global'
 import { toHexString } from '@/utils'
+import { WdUtils } from '@wd/component-ui'
 import { ColorPicker, Form, Input, Segmented } from 'antd'
 
 const { TextArea } = Input
@@ -47,7 +48,7 @@ const TitleTextSet = () => {
           label="标题内容"
           name="title"
           required
-          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+          rules={[{ required: true, validator: (_, val) => WdUtils.validateText(_, val) }]}
         >
           <Input showCount maxLength={50} />
         </Form.Item>

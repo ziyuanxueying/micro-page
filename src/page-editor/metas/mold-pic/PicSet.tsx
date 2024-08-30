@@ -1,5 +1,6 @@
 import useStore from '@/store'
 import { SetTitle } from '@/styles/global'
+import { WdUtils } from '@wd/component-ui'
 import { Form, Input, Radio } from 'antd'
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
@@ -69,14 +70,14 @@ const Index = () => {
           label="标题"
           name="title"
           required
-          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+          rules={[{ required: true, validator: (_, val) => WdUtils.validateText(_, val) }]}
         >
           <Input showCount maxLength={10} />
         </Form.Item>
         <Form.Item
           label="副标题"
           name="sub"
-          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+          rules={[{ required: false, validator: (_, val) => WdUtils.validateText(_, val) }]}
         >
           <Input showCount maxLength={10} />
         </Form.Item>

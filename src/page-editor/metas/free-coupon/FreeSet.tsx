@@ -218,12 +218,34 @@ const Index = () => {
         data: { ...setting.data, coupons: selectedRows },
       })
   }, [tags])
+
   const rowSelection = {
     selectedRowKeys: selectedRows.map(item => item.no),
-    onChange: (_selectedRowKeys: React.Key[], selectedRows: dataType[]) => {
-      setSelectedRows(selectedRows)
+    onSelect: (record: any, selected: boolean) => {
+      if (selected) {
+        setSelectedRows([...selectedRows, record])
+      } else {
+        setSelectedRows(
+          selectedRows.filter((item: any) => {
+            return item.no != record.no
+          }),
+        )
+      }
+    },
+    onSelectAll: (selected: any, _allRows: any, changeRows: any) => {
+      if (selected) {
+        setSelectedRows([...selectedRows, ...changeRows])
+      } else {
+        const map = changeRows.map((item: any) => item.no)
+        setSelectedRows(
+          selectedRows.filter((item: any) => {
+            return !map.includes(item.no)
+          }),
+        )
+      }
     },
   }
+
   const handleClose = (removedTag: dataType) => {
     const newTags = tags.filter(tag => tag.no !== removedTag.no)
     setTags(newTags)

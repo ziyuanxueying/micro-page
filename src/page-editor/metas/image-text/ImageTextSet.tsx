@@ -1,6 +1,6 @@
 import useStore from '@/store'
 import { Form, Input, Radio, Typography, Divider } from 'antd'
-import { WdUploadPicture } from '@wd/component-ui'
+import { WdUploadPicture, WdUtils } from '@wd/component-ui'
 import { toComponentUrl } from '@/utils'
 
 const { TextArea } = Input
@@ -40,7 +40,7 @@ const ImageTextSet = () => {
           label="标题"
           name="title"
           required
-          getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+          rules={[{ required: true, validator: (_, val) => WdUtils.validateText(_, val) }]}
         >
           <Input required />
         </Form.Item>

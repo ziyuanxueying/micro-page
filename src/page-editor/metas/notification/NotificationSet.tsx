@@ -1,5 +1,6 @@
 import useStore from '@/store'
 import { toHexString } from '@/utils'
+import { WdUtils } from '@wd/component-ui'
 import { ColorPicker, Divider, Form, Input, Typography } from 'antd'
 
 const { Title, Text } = Typography
@@ -40,7 +41,7 @@ const NotificationSet = () => {
               label="按钮文字"
               name="title"
               required
-              getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+              rules={[{ required: true, validator: (_, val) => WdUtils.validateText(_, val) }]}
             >
               <Input />
             </Form.Item>
@@ -59,7 +60,7 @@ const NotificationSet = () => {
               label="按钮文字"
               name="subscribedTitle"
               required
-              getValueFromEvent={(e: any) => e.target.value.replace(/\s/g, '')}
+              rules={[{ required: true, validator: (_, val) => WdUtils.validateText(_, val) }]}
             >
               <Input />
             </Form.Item>

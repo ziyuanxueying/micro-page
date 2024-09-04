@@ -193,7 +193,7 @@ const HotSet = () => {
                                 paddingTop: 11,
                                 paddingLeft: 11,
                                 marginTop: 20,
-                                zIndex: 1,
+                                // zIndex: 1,
                                 position: 'relative',
                               })}
                             >

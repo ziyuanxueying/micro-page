@@ -221,7 +221,7 @@ const HotSet = () => {
                                   position: 'absolute',
                                   top: 0,
                                   right: 0,
-                                  zIndex: 100,
+                                  // zIndex: 100,
                                 }}
                                 onClick={() => remove(name)}
                               >

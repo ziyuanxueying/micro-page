@@ -142,7 +142,7 @@ const HotSet = () => {
                   height: '100%',
                   top: 0,
                   left: 0,
-                  zIndex: 10,
+                  zIndex: 1,
                 })}
               >
                 {hots.map((hot: Hot) => (
@@ -150,11 +150,7 @@ const HotSet = () => {
                 ))}
               </div>
             </div>
-            <div
-              css={css({
-                flex: 1,
-              })}
-            >
+            <div css={css({ flex: 1 })}>
               <Form.List name="hots">
                 {(fields, { add, remove }, { errors }) => {
                   return (
@@ -170,7 +166,7 @@ const HotSet = () => {
                             borderRadius: 2,
                             position: 'absolute',
                             right: 23,
-                            zIndex: 101,
+                            zIndex: 1,
                             background: '#ffffff !important',
                             marginRight: 10,
                           })}

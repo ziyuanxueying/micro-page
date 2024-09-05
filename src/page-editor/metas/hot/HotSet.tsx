@@ -33,7 +33,7 @@ const HotSet = () => {
   const [form] = Form.useForm()
   const hots = form.getFieldValue('hots') || []
 
-  const updateHot = (id: string, value: Partial<Hot>) => {
+  const updateHot = async (id: string, value: Partial<Hot>) => {
     form.setFieldValue(
       'hots',
       hots.map((hot: Hot) => {
@@ -59,7 +59,7 @@ const HotSet = () => {
   //   // setImgData([])
   //   setting && updateComponentData(setting.id, { ...setting.data, img: '' })
   // }
-  const handleOk = (url?: string) => {
+  const handleOk = async (url?: string) => {
     setUrl(url)
     setting && updateComponentData(setting.id, { ...setting.data, url })
     // setIsOpen(false)
@@ -103,7 +103,7 @@ const HotSet = () => {
         )}
         <Modal
           open={modalVisible}
-          onOk={() => setModalVisible(false)}
+          onOk={async () => (await form.validateFields()) && setModalVisible(false)}
           onCancel={() => setModalVisible(false)}
           width={900}
           title="添加热区"
@@ -123,7 +123,6 @@ const HotSet = () => {
             css={css({
               display: 'flex',
               gap: 20,
-              paddingRight: 30,
               height: 600,
               overflowY: 'auto',
             })}
@@ -207,6 +206,7 @@ const HotSet = () => {
                                 label="跳转链接"
                                 name={[name, 'link']}
                                 required
+                                rules={[{ required: true, message: '请选择跳转链接' }]}
                               >
                                 <WdAllocation
                                   status={['poster', 'mini', 'external']}

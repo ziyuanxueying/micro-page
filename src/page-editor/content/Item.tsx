@@ -178,7 +178,6 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
           style,
         })}
       ></div>
-      {/* <DragPreviewImage connect={preview} src={`https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/${data.icon}.svg`}  /> */}
       <div
         className="wd-micro-page-comp"
         css={{

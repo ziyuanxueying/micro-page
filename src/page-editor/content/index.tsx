@@ -26,8 +26,6 @@ const Content = (props: any) => {
     updateComponents(newComponents)
   }
 
-  console.log(components)
-
   return (
     <div
       css={css`

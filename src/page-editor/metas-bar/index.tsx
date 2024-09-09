@@ -14,7 +14,7 @@ const MetasBar = () => {
     业务组件: [],
     基础组件: [],
   })
-  const [collapsed] = useState(true)
+  // const [collapsed,setCollapsed] = useState(true)
   useEffect(() => {
     const modules = import.meta.glob<Component>('../metas/**/index.ts', {
       import: 'default',
@@ -52,42 +52,42 @@ const MetasBar = () => {
 
   return (
     <div css={css([flex])}>
-      {collapsed ? null : (
-        <div
-          css={css([
-            flexc,
-            {
-              width: 220,
-              boxSizing: 'border-box',
-              borderRadius: 4,
-              paddingLeft: 5,
-              background: '#fff',
-              borderRight: '1px solid #F3F5F7',
-              flexShrink: 0,
-            },
-          ])}
-        >
-          <Text type="secondary" css={css({ fontSize: 12, color: '#BABABA', marginBottom: 16 })}>
-            <DragOutlined />
-            拖拽进行组件添加
-          </Text>
-          {Object.entries(metas).map(([key, value]) => (
-            <div
-              key={key}
-              css={css`
-                width: 235px;
-                margin-bottom: 4px;
-              `}
-            >
-              <Text>{key}</Text>
-              <div css={css({ marginBottom: 10 })}></div>
-              {value.map(meta => (
-                <Item key={meta.metaType} data={meta} />
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
+      {/* {collapsed ? null : ( */}
+      <div
+        css={css([
+          flexc,
+          {
+            width: 220,
+            boxSizing: 'border-box',
+            borderRadius: 4,
+            paddingLeft: 5,
+            background: '#fff',
+            borderRight: '1px solid #F3F5F7',
+            flexShrink: 0,
+          },
+        ])}
+      >
+        <Text type="secondary" css={css({ fontSize: 12, color: '#BABABA', marginBottom: 16 })}>
+          <DragOutlined />
+          拖拽进行组件添加
+        </Text>
+        {Object.entries(metas).map(([key, value]) => (
+          <div
+            key={key}
+            css={css`
+              width: 235px;
+              margin-bottom: 4px;
+            `}
+          >
+            <Text>{key}</Text>
+            <div css={css({ marginBottom: 10 })}></div>
+            {value.map(meta => (
+              <Item key={meta.metaType} data={meta} />
+            ))}
+          </div>
+        ))}
+      </div>
+      {/* )} */}
 
       {/* <Button
         type="link"

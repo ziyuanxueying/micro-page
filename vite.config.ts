@@ -14,7 +14,7 @@ const pub = resolve(rootDir, 'public/assets')
 const HOST = {
   // dev: 'http://gatewayp-dev.baopukeji-dev.cn',
   // coupons: 'http://coupon-dev.baopukeji-dev.cn',
-  api: 'http://center-dev.baopukeji-dev.cn',
+  api: 'http://center-test.baopukeji-dev.cn',
 }
 
 // https://vitejs.dev/config/

@@ -1,45 +1,18 @@
 import { SetTitle, flexb } from '@/styles/global'
 import { Avatar, Button, ColorPicker, Form, Segmented, Select } from 'antd'
-import { WdModal, WdTable } from '@wd/component-ui'
+import { WdModal, WdTable, WdUtils } from '@wd/component-ui'
 import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import useStore from '@/store'
 import { getCoupons } from '@/api'
 import { toHexString } from '@/utils'
-import React from 'react'
+
 type dataType = {
   id: number
   couponName: string
   title: string
   no: number
 }
-
-function validRelativeHourHandle(validRelativeHour: any) {
-  const { relativeDay, relativeHour } = _relativeHourFormatToForm(validRelativeHour)
-
-  const strArray = []
-  if (relativeDay) {
-    strArray.push(`${relativeDay}天`)
-  }
-  if (relativeHour) {
-    strArray.push(`${relativeHour}小时`)
-  }
-  return strArray.join('')
-}
-
-function _relativeHourFormatToForm(validRelativeHour: any) {
-  let relativeDay, relativeHour
-  if (!isNaN(validRelativeHour * 1)) {
-    relativeDay =
-      validRelativeHour % 24 === 0 ? validRelativeHour / 24 : Math.ceil(validRelativeHour / 24) - 1
-    relativeHour = validRelativeHour % 24 === 0 ? 0 : validRelativeHour % 24
-  }
-  return {
-    relativeDay,
-    relativeHour,
-  }
-}
-
 const Index = () => {
   const { selectedComponentId, components, updateComponent, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId)
@@ -108,7 +81,7 @@ const Index = () => {
       align: 'left',
       hideInTable: true,
       searchType: 'input',
-      searchAttrs: { placeholder: '请输入券ID' },
+      searchAttrs: { placeholder: '请输入券ID', type: 'number' },
     },
     {
       dataIndex: 'title',
@@ -151,16 +124,7 @@ const Index = () => {
     {
       title: '有效期',
       align: 'left',
-      render: (reacord: any) => (
-        <span>
-          {' '}
-          {reacord.usePeriod == 2
-            ? `自领取后${reacord.expiredAfterHours}内有效${validRelativeHourHandle(
-                reacord.expiredAfterHours,
-              )}`
-            : `${reacord.useStartTime} 至${reacord.useEndTime}`}
-        </span>
-      ),
+      render: (reacord: any) => WdUtils.couponValidRelativeHour(reacord),
     },
     {
       title: '可用库存/总库存',

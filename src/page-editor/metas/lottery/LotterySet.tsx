@@ -45,6 +45,7 @@ const Index = () => {
     },
     width: 870,
     onOk: () => {
+      if (!selectedRows?.length) return
       setShowTable(false)
       setTags(selectedRows)
     },
@@ -82,7 +83,7 @@ const Index = () => {
     },
     {
       title: '参与次数',
-      dataIndex: 'joinNum',
+      dataIndex: 'totalSum',
     },
     {
       title: '状态',

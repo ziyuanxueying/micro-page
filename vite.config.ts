@@ -78,7 +78,7 @@ export default ({ mode }: { mode: string }) => {
             }
           : undefined,
       rollupOptions: {
-        external: ['react', 'react-dom', 'react-router-dom', 'antd'],
+        external: ['react', 'react-dom', 'react-router-dom', 'antd', '@wd/component-ui'],
         output: {
           globals: {
             react: 'React',

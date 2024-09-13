@@ -78,7 +78,8 @@
     "antd": ">=5.17.4",
     "axios": ">=1.6.0",
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "@wd/component-ui": ">=0.0.20"
   },
   "packageManager": "pnpm@9.0.6",
   "publishConfig": {

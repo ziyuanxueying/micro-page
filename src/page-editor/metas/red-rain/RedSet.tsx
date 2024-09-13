@@ -49,8 +49,8 @@ const Index = () => {
     centered: true,
     width: 870,
     onOk: () => {
-      if (!selectedRows?.length) return
       setShowTable(false)
+      if (!selectedRows?.length || !selectedRows[0]) return
       setTags(selectedRows)
     },
     onCancel: () => {

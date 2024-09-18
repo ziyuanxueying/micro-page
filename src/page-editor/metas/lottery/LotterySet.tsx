@@ -19,7 +19,9 @@ const Index = () => {
   const [tags, setTags] = useState<DataType[]>(
     (setting?.data?.activity?.actId && [setting?.data?.activity]) || [],
   )
-  const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
+  const [selectedRows, setSelectedRows] = useState<DataType[]>(
+    [setting?.data?.activity?.actId] || [],
+  )
 
   const propsTable: any = {
     // 传递给 Modal 组件的属性和方法
@@ -94,7 +96,7 @@ const Index = () => {
 
   const rowSelection = React.useMemo<TableRowSelection<any>>(() => {
     return {
-      selectedRowKeys: selectedRows.map(item => item?.actId),
+      selectedRowKeys: selectedRows?.filter(x => x?.actId).map(item => item?.actId),
       onChange: (_selKeys: React.Key[], selectedRows: DataType[]) => {
         setSelectedRows(selectedRows)
       },
@@ -103,12 +105,21 @@ const Index = () => {
   }, [selectedRows])
 
   const handleSearch = async (searchValue: any) => {
-    const res = await getActivityList({
-      pageIndex: searchValue.current,
-      ...searchValue,
-      payload: { style: 1, aStatus: '4,5', actTitle: searchValue.actTitle },
-    })
-    setList({ list: res.data, page: { total: res.totalCount } })
+    try {
+      const res = await getActivityList({
+        pageIndex: searchValue.current,
+        ...searchValue,
+        payload: {
+          style: 1,
+          aStatus: '4,5',
+          actTitle: searchValue.actTitle,
+          actId: searchValue.actId,
+        },
+      })
+      setList({ list: res.data, page: { total: res.totalCount } })
+    } catch (err) {
+      setList({ list: [], page: { total: 0 } })
+    }
   }
   useEffect(() => {
     setting && updateComponentData(setting.id, { ...setting.data, activity: selectedRows[0] })
@@ -185,7 +196,7 @@ const Index = () => {
               loading={false}
               data={{ list: tags, page: { total: 0 } }}
               columns={tagColumns}
-              rowKey="no"
+              rowKey="actId"
               pagination={false}
             ></WdTable>
           </div>

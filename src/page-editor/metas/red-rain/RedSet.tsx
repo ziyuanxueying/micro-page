@@ -23,7 +23,9 @@ const Index = () => {
   const [tags, setTags] = useState<DataType[]>(
     setting?.data?.activity?.actId ? [setting?.data?.activity] : [],
   )
-  const [selectedRows, setSelectedRows] = useState<DataType[]>([setting?.data?.activity] || [])
+  const [selectedRows, setSelectedRows] = useState<DataType[]>(
+    [setting?.data?.activity?.actId] || [],
+  )
 
   const propsTable: WdModalProps['modalProps'] = {
     // 传递给 Modal 组件的属性和方法
@@ -50,8 +52,7 @@ const Index = () => {
     width: 870,
     onOk: () => {
       setShowTable(false)
-      if (!selectedRows?.length || !selectedRows[0]) return
-      setTags(selectedRows)
+      if (selectedRows.length && selectedRows[0]) setTags(selectedRows)
     },
     onCancel: () => {
       setShowTable(false)
@@ -100,9 +101,11 @@ const Index = () => {
     // },
   ]
   const rowSelection = React.useMemo<TableRowSelection<any>>(() => {
+    console.log(selectedRows?.filter(x => x?.actId).map(item => item?.actId))
     return {
-      selectedRowKeys: selectedRows.map(item => item?.actId),
+      selectedRowKeys: selectedRows?.filter(x => x?.actId).map(item => item?.actId),
       onChange: (_selKeys: React.Key[], selectedRows: DataType[]) => {
+        console.log(selectedRows)
         setSelectedRows(selectedRows)
       },
       type: 'radio',
@@ -110,18 +113,22 @@ const Index = () => {
   }, [selectedRows])
 
   const handleSearch = async (searchValue: any) => {
-    const res = await getActivityList({
-      pageIndex: searchValue.current,
-      ...searchValue,
-      payload: {
-        style: 0,
-        isCover: 1,
-        aStatus: '4,5',
-        actTitle: searchValue.actTitle,
-        actId: searchValue.actId,
-      },
-    })
-    setList({ list: res.data, page: { total: res.totalCount } })
+    try {
+      const res = await getActivityList({
+        pageIndex: searchValue.current,
+        ...searchValue,
+        payload: {
+          style: 0,
+          isCover: 1,
+          aStatus: '4,5',
+          actTitle: searchValue.actTitle,
+          actId: searchValue.actId,
+        },
+      })
+      setList({ list: res.data, page: { total: res.totalCount } })
+    } catch (_err) {
+      setList({ list: [], page: { total: 0 } })
+    }
   }
   useEffect(() => {
     setting && updateComponentData(setting.id, { ...setting.data, activity: tags[0] })
@@ -182,7 +189,7 @@ const Index = () => {
             loading={false}
             data={{ list: tags, page: { total: 0 } }}
             columns={tagColumns}
-            rowKey="no"
+            rowKey="actId"
             pagination={false}
           ></WdTable>
         </div>

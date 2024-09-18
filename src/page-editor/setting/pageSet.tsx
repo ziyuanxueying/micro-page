@@ -65,7 +65,7 @@ const Index = () => {
               <MaterialBtn
                 accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
                 proportion={1}
-                extra="支持png,jpg，jpeg，gif格式，最大500k，100x100像素"
+                extra="支持 png/jpg/jpeg/gif，最大500k，100x100像素"
               />
             </Form.Item>
             <Form.Item
@@ -81,7 +81,7 @@ const Index = () => {
                 accept=".jpg,.png,.jpeg,.JPG,.JPEG,.PNG"
                 limit={1}
                 proportion={1.25}
-                extra="支持png/jpg/jpeg,分辨率750*600，不超过1M"
+                extra="支持 png/jpg/jpeg，分辨率750*600，不超过1M"
               />
             </Form.Item>
             <Form.Item label="分享海报" name="posterImage">

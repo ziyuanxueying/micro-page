@@ -301,7 +301,7 @@ const Index = () => {
           </div>
         </Form.Item>
         {!!tags.length && (
-          <div className="setting-table">
+          <div className="setting-table wd-micro-setting-table">
             <WdTable
               loading={false}
               data={{ list: tags, page: { total: 0 } }}

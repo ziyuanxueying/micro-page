@@ -81,7 +81,7 @@ const Index = () => {
     {
       title: '剩余奖品数/奖品总数',
       dataIndex: 'totalStock',
-      render: (_text, record) => <span>{`${record.totalStock} / ${record.totalStock}`}</span>,
+      render: (_text, record) => <span>{`${record.nowStock} / ${record.totalStock}`}</span>,
     },
     {
       title: '参与次数',

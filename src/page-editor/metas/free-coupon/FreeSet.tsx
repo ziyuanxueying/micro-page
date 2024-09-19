@@ -1,7 +1,6 @@
 import { SetTitle, flexb } from '@/styles/global'
 import { Avatar, Button, ColorPicker, Form, Segmented, Select } from 'antd'
 import { WdModal, WdTable, WdUtils } from '@wd/component-ui'
-import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import useStore from '@/store'
 import { getCoupons } from '@/api'
@@ -24,7 +23,6 @@ const Index = () => {
   const [tags, setTags] = useState<dataType[]>(setting?.data?.coupons || [])
   const [selectedRows, setSelectedRows] = useState<dataType[]>(setting?.data?.coupons || [])
   const [initialValues] = useState<Record<string, any>>(setting?.data || {})
-  const [channel, setChannel] = useState<number>(19)
   const [loading, setLoading] = useState<boolean>(false)
 
   const onChange = (val: string) => {
@@ -42,7 +40,7 @@ const Index = () => {
   //     updateComponent(setting.id, { ...setting, data: { ...setting.data, channelId: value } })
   // }
 
-  const propsTable: WdModalProps['modalProps'] = {
+  const propsTable: any = {
     // 传递给 Modal 组件的属性和方法
     title: '选择券',
     okText: '确定',
@@ -158,7 +156,7 @@ const Index = () => {
     try {
       setLoading(true)
       const data = await getCoupons({
-        provideScenes: channel,
+        provideScenes: searchValue.provideScenes || setting?.data?.provideScenes,
         ...searchValue,
         saleType: 0,
         pageIndex: searchValue.current,
@@ -221,10 +219,6 @@ const Index = () => {
     setSelectedRows([])
   }
 
-  const changeChannel = (channel: number) => {
-    setChannel(channel)
-    handleSearch({ current: 1, pageSize: 10, provideScenes: channel })
-  }
   return (
     <div>
       <SetTitle>免费优惠券</SetTitle>
@@ -234,6 +228,8 @@ const Index = () => {
         wrapperCol={{ span: 16 }}
         initialValues={initialValues}
         onValuesChange={(_, allValues) => {
+          allValues.provideScenes !== setting?.data?.provideScenes &&
+            handleSearch({ current: 1, pageSize: 10, provideScenes: allValues.provideScenes })
           updateComponentData(selectedComponentId, {
             ...allValues,
             coupons: selectedRows,
@@ -287,7 +283,7 @@ const Index = () => {
         </Form.Item>
 
         <Form.Item label="券渠道" name="provideScenes">
-          <Select value={channel} defaultValue={channel} onChange={changeChannel}>
+          <Select>
             <Select.Option value={19}>好券</Select.Option>
             <Select.Option value={20}>微页面专享</Select.Option>
           </Select>

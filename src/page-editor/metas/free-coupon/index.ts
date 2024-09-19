@@ -11,6 +11,7 @@ export default {
   sort: 1,
   data: {
     coupons: [],
+    provideScenes: 19,
     moduleType: 'biz-free-once',
     btnColor: '#7791C3',
   },

@@ -1,7 +1,6 @@
 import useStore from '@/store'
 import { SetTitle, flexb } from '@/styles/global'
 import { WdModal, WdTable } from '@wd/component-ui'
-import { WdModalProps } from '@wd/component-ui/dist/WdModal/type'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import { Button, Typography } from 'antd'
 import { getActivityList } from '@/api'
@@ -27,7 +26,7 @@ const Index = () => {
     [setting?.data?.activity?.actId] || [],
   )
 
-  const propsTable: WdModalProps['modalProps'] = {
+  const propsTable: any = {
     // 传递给 Modal 组件的属性和方法
     title: '选择活动',
     okText: '确定',
@@ -84,7 +83,7 @@ const Index = () => {
     {
       title: '剩余奖品数/奖品总数',
       dataIndex: 'totalStock',
-      render: (_text, record) => <span>{`${record.totalStock} / ${record.totalStock}`}</span>,
+      render: (_text, record) => <span>{`${record.nowStock} / ${record.totalStock}`}</span>,
     },
     {
       title: '参与次数',

@@ -11,6 +11,7 @@ export default {
   sort: 2,
   data: {
     coupons: [],
+    provideScenes: 19,
     moduleType: 'biz-pay-once',
     btnColor: '#f24724',
   },

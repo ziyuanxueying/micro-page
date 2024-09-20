@@ -69,8 +69,7 @@ const Index = () => {
         <Form.Item
           label="标题"
           name="title"
-          required
-          rules={[{ required: true, validator: (_, val) => WdUtils.validateText(_, val) }]}
+          rules={[{ required: false, validator: (_, val) => WdUtils.validateText(_, val) }]}
         >
           <Input showCount maxLength={10} />
         </Form.Item>

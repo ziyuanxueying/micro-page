@@ -37,6 +37,7 @@ const Index = () => {
     cancelButtonProps: {
       style: { width: 90, height: 32, borderRadius: 4 },
     },
+    destroyOnClose: true,
     styles: {
       body: {
         height: 500,

@@ -6,12 +6,13 @@ import Draggable from 'react-draggable'
 const { Text } = Typography
 
 type HotItemProps = {
+  index: number
   data: Hot
   updateHot: (id: string, value: Partial<Hot>) => void
 }
 
-function HotItem({ data, updateHot }: HotItemProps) {
-  const { id, name, top, left, width, height } = data
+function HotItem({ data, updateHot, index }: HotItemProps) {
+  const { id, top, left, width, height } = data
   const nodeRef = useRef(null)
 
   return (
@@ -59,7 +60,7 @@ function HotItem({ data, updateHot }: HotItemProps) {
           },
         })}
       >
-        <Text css={css({ color: '#fff' })}>{name}</Text>
+        <Text css={css({ color: '#fff' })}>热区{index + 1}</Text>
       </Resizable>
     </Draggable>
   )

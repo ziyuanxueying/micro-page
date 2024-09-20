@@ -38,6 +38,7 @@ const Index = () => {
     okText: '确定',
     size: 'middle',
     cancelText: '取消',
+    destroyOnClose: true,
     okButtonProps: {
       style: { width: 90, height: 32, borderRadius: 4 },
     },

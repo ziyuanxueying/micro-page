@@ -16,6 +16,7 @@ const Index = () => {
   const setting = components.find(c => c.id === selectedComponentId)
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
+  const searchForm = useRef<any>()
   const [tags, setTags] = useState<DataType[]>(
     (setting?.data?.activity?.actId && [setting?.data?.activity]) || [],
   )
@@ -45,13 +46,16 @@ const Index = () => {
         justifyContent: 'center',
       },
     },
+    destroyOnClose: true,
     width: 870,
     onOk: () => {
+      // searchForm.current?.resetFields()
       setShowTable(false)
       if (!selectedRows?.length || !selectedRows[0]) return
       setTags(selectedRows)
     },
     onCancel: () => {
+      // searchForm.current?.resetFields()
       setShowTable(false)
       setTags(tags)
     },
@@ -105,6 +109,7 @@ const Index = () => {
   }, [selectedRows])
 
   const handleSearch = async (searchValue: any) => {
+    console.log(searchValue)
     try {
       const res = await getActivityList({
         pageIndex: searchValue.current,
@@ -122,7 +127,7 @@ const Index = () => {
     }
   }
   useEffect(() => {
-    setting && updateComponentData(setting.id, { ...setting.data, activity: selectedRows[0] })
+    setting && updateComponentData(setting.id, { ...setting.data, activity: tags[0] })
   }, [tags])
 
   const handleClose = (removedTag: DataType) => {
@@ -167,7 +172,7 @@ const Index = () => {
         wrapperCol={{ span: 16 }}
         initialValues={setting?.data}
         onValuesChange={(_, allValues: any) => {
-          // console.log(allValues)
+          console.log(allValues)
           setting && updateComponentData(setting.id, { ...setting.data, img: allValues.img })
         }}
       >
@@ -211,6 +216,7 @@ const Index = () => {
             columns={columns}
             rowKey="actId"
             hideSpace
+            searchFormInstance={searchForm}
             searchConfigs={{
               inlineBtns: true,
               inModal: true,

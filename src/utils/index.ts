@@ -35,11 +35,11 @@ export function checkSaveInfo(data: any, jumpPageConfig = false) {
         item.isError = '请选择要使用的优惠券'
       }
     }
-    if (['biz-pic'].includes(item.metaType)) {
-      if (!item.data?.title) {
-        item.isError = '请输入头部模板的标题'
-      }
-    }
+    // if (['biz-pic'].includes(item.metaType)) {
+    //   if (!item.data?.title) {
+    //     item.isError = '请输入头部模板的标题'
+    //   }
+    // }
     if (item.metaType === 'biz-red') {
       if (!item.data?.activity?.actId) {
         item.isError = '请选一个红包雨活动'

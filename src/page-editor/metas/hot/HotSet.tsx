@@ -144,8 +144,8 @@ const HotSet = () => {
                   zIndex: 1,
                 })}
               >
-                {hots.map((hot: Hot) => (
-                  <HotItem key={hot.id} data={hot} updateHot={updateHot} />
+                {hots.map((hot: Hot, index: number) => (
+                  <HotItem key={hot.id} data={hot} index={index} updateHot={updateHot} />
                 ))}
               </div>
             </div>
@@ -182,7 +182,7 @@ const HotSet = () => {
                           添加热区（最多10个）
                         </Button>
                         <div css={css({ height: 32 })}></div>
-                        {fields.map(({ key, name, ...restField }) => {
+                        {fields.map(({ name, ...restField }, index) => {
                           return (
                             <div
                               css={css({
@@ -199,7 +199,8 @@ const HotSet = () => {
                               <Typography.Text
                                 style={{ marginLeft: 15, fontSize: 14, color: '#636363' }}
                               >
-                                {hots[key]?.name}
+                                {/* {hots[key]?.name} */}
+                                热区{index + 1}
                               </Typography.Text>
                               <Form.Item
                                 {...restField}

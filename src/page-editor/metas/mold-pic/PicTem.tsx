@@ -26,7 +26,7 @@ const Index = (props: TemProps) => {
           css={css({
             width: '80%',
             height: 40,
-            fontSize: 40,
+            fontSize: 30,
             color: '#fff',
             textShadow: '0px 2px 6px rgba(20,43,152,0.8)',
           })}

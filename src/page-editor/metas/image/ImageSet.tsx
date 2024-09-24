@@ -38,6 +38,7 @@ const ImageSet = () => {
             : Array(setting?.data?.moduleType).fill(undefined),
         }}
         onValuesChange={(_, allValues: any) => {
+          console.log(allValues)
           setting &&
             updateComponent(selectedComponentId, {
               ...setting,

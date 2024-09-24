@@ -56,7 +56,7 @@ export function checkSaveInfo(data: any, jumpPageConfig = false) {
       if (item.data.moduleType !== 'image') {
         if (!item.data?.pictures?.length) {
           item.isError = '请在图片组件中至少添加一张图片'
-        } else if (item.data?.pictures?.filter((x: any) => !x.url)?.length) {
+        } else if (item.data?.pictures?.filter((x: any) => !x?.url)?.length) {
           item.isError = '请在图片组件中完善图片'
         }
       } else if (!item.data?.pictures || !item.data?.pictures[0]?.url) {

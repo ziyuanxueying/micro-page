@@ -36,6 +36,7 @@ const TitleTextTem = (props: TemProps) => {
           fontSize: titleSize,
           color: titleColor,
           fontWeight: titleWeight,
+          wordBreak: 'break-all',
         })}
       >
         {title}
@@ -46,6 +47,7 @@ const TitleTextTem = (props: TemProps) => {
           color: descColor,
           marginTop: 4,
           fontWeight: descWeight,
+          wordBreak: 'break-all',
         })}
       >
         {desc}

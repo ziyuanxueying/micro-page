@@ -72,7 +72,7 @@ const Index = () => {
       align: 'left',
       hideInTable: true,
       searchType: 'input',
-      searchAttrs: { placeholder: '请输入券ID', type: 'number' },
+      searchAttrs: { placeholder: '请输入券ID' },
     },
     {
       dataIndex: 'title',
@@ -141,9 +141,10 @@ const Index = () => {
         pageIndex: searchValue.current,
         statuses: '1,2',
       })
-      setList({ list: data.list, page: { total: data.totalSize } })
+      setList({ list: data?.list || [], page: { total: data?.totalSize || 0 } })
       setLoading(false)
     } catch (err) {
+      setList({ list: [], page: { total: 0 } })
       setLoading(false)
     }
   }

@@ -7,6 +7,7 @@ import { getActivityList } from '@/api'
 import React from 'react'
 import { TableRowSelection } from 'antd/es/table/interface'
 import FormItem from 'antd/es/form/FormItem'
+import { cosEnv } from '@/utils'
 
 const { Text } = Typography
 
@@ -201,7 +202,7 @@ const Index = () => {
       <br />
       <img
         css={css({ marginTop: 10 })}
-        src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/luckymoney-preview.png"
+        src={cosEnv + '/static-wxxcx/img/micro-page/luckymoney-preview.png'}
       />
       {/* {tags.length > 0 && (
         <Space css={css({ flexWrap: 'wrap', fontSize: 13 })}>

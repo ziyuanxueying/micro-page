@@ -1,3 +1,5 @@
+import { cosEnv } from './utils'
+
 export const Normal = {
   components: [
     {
@@ -10,7 +12,7 @@ export const Normal = {
       setModule: 'PicSet',
       data: {
         moduleType: 'biz-pic-nomal',
-        url: 'https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/20240730-164558.png',
+        url: cosEnv + '/static-wxxcx/img/20240730-164558.png',
         title: '万达发现好物节',
         sub: '发现你想要的生活',
       },
@@ -69,7 +71,7 @@ export const Normal = {
       setModule: 'LotterySet',
       data: {
         activity: {},
-        img: 'https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com//resourceLibrary/user/custom_246944067382935552/354e5e7880965ce95c1a1899c1049fdb.png',
+        img: cosEnv + '/static-wxxcx/img/354e5e7880965ce95c1a1899c1049fdb.png',
       },
       id: '86dbe9ea-71b9-4cb6-91c7-732692543f00',
     },
@@ -98,7 +100,7 @@ export const Holiday = {
       setModule: 'PicSet',
       data: {
         moduleType: 'biz-pic-nomal',
-        url: 'https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/20240730-164558.png',
+        url: cosEnv + '/static-wxxcx/img/20240730-164558.png',
         title: '万达发现好物节',
         sub: '发现你想要的生活',
       },

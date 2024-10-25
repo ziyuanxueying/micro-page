@@ -4,7 +4,7 @@ import { WdModal, WdTable, WdUtils } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import useStore from '@/store'
 import { getCoupons } from '@/api'
-import { toHexString } from '@/utils'
+import { cosEnv, toHexString } from '@/utils'
 
 type dataType = {
   id: number
@@ -248,7 +248,7 @@ const Index = () => {
                   <div style={{ padding: 4 }}>
                     <Avatar
                       shape="square"
-                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-one.png"
+                      src={cosEnv + '/static-wxxcx/img/micro-page/sel-one.png'}
                     />
                     <div>样式一</div>
                   </div>
@@ -260,7 +260,7 @@ const Index = () => {
                   <div style={{ padding: 4 }}>
                     <Avatar
                       shape="square"
-                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-two.png"
+                      src={cosEnv + '/static-wxxcx/img/micro-page/sel-two.png'}
                     />
                     <div>样式二</div>
                   </div>
@@ -272,7 +272,7 @@ const Index = () => {
                   <div style={{ padding: 4 }}>
                     <Avatar
                       shape="square"
-                      src="https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/sel-three.png"
+                      src={cosEnv + '/static-wxxcx/img/micro-page/sel-three.png'}
                     />
                     <div>样式三</div>
                   </div>

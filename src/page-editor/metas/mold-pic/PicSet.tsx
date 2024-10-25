@@ -1,5 +1,6 @@
 import useStore from '@/store'
 import { SetTitle } from '@/styles/global'
+import { cosEnv } from '@/utils'
 import { WdUtils } from '@wd/component-ui'
 import { Form, Input, Radio } from 'antd'
 const Index = () => {
@@ -11,12 +12,12 @@ const Index = () => {
     {
       value: 'biz-pic-nomal',
       label: '样式一',
-      src: 'https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/20240730-164558.png',
+      src: cosEnv + '/static-wxxcx/img/20240730-164558.png',
     },
     {
       value: 'biz-pic-holiday',
       label: '样式二',
-      src: 'http://xcx02-dev-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/53aa87b270ae4e6da1d06c9b2e4ce990.jpeg',
+      src: cosEnv + '/static-wxxcx/img/53aa87b270ae4e6da1d06c9b2e4ce990.jpeg',
     },
   ]
   return (

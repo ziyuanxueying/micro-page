@@ -2,6 +2,7 @@ import { Typography, message } from 'antd'
 import { useDrag } from 'react-dnd'
 import useStore, { Component } from '@/store'
 import { v4 as uuidv4 } from 'uuid'
+import { cosEnv } from '@/utils'
 
 const { Text } = Typography
 
@@ -78,7 +79,7 @@ const Item = ({ data }: ItemProps) => {
       /> */}
       <img
         // src={`/public/assets/${data.icon}.svg`}
-        src={`https://xcx02-test-1318942848.cos.ap-beijing.myqcloud.com/static-wxxcx/img/micro-page/${data.icon}.svg`}
+        src={cosEnv + `/static-wxxcx/img/micro-page/${data.icon}.svg`}
         css={css({ width: 25, height: 25, marginBottom: 6 })}
       />
       <Text

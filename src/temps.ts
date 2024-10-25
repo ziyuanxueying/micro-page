@@ -12,7 +12,7 @@ export const Normal = {
       setModule: 'PicSet',
       data: {
         moduleType: 'biz-pic-nomal',
-        url: cosEnv + '/static-wxxcx/img/20240730-164558.png',
+        url: cosEnv + '/static-wxxcx/img/micro-page/20240730-164558.png',
         title: '万达发现好物节',
         sub: '发现你想要的生活',
       },
@@ -71,7 +71,7 @@ export const Normal = {
       setModule: 'LotterySet',
       data: {
         activity: {},
-        img: cosEnv + '/static-wxxcx/img/354e5e7880965ce95c1a1899c1049fdb.png',
+        img: cosEnv + '/static-wxxcx/img/micro-page/354e5e7880965ce95c1a1899c1049fdb.png',
       },
       id: '86dbe9ea-71b9-4cb6-91c7-732692543f00',
     },
@@ -100,7 +100,7 @@ export const Holiday = {
       setModule: 'PicSet',
       data: {
         moduleType: 'biz-pic-nomal',
-        url: cosEnv + '/static-wxxcx/img/20240730-164558.png',
+        url: cosEnv + '/static-wxxcx/img/micro-page/20240730-164558.png',
         title: '万达发现好物节',
         sub: '发现你想要的生活',
       },
@@ -159,7 +159,7 @@ export const Holiday = {
       setModule: 'LotterySet',
       data: {
         activity: {},
-        img: 'https://xcx02-dev-1318942848.cos.ap-beijing.myqcloud.com//resourceLibrary/user/custom_246944067382935552/bf414fe718e03714fcdcc4d4cf4a5046.jpg',
+        img: cosEnv + '/static-wxxcx/img/micro-page/354e5e7880965ce95c1a1899c1049fdb.png',
       },
       id: '86dbe9ea-71b9-4cb6-91c7-732692543f00',
     },

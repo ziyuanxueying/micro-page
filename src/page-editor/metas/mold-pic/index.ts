@@ -12,7 +12,7 @@ export default {
   sort: 9,
   data: {
     moduleType: 'biz-pic-nomal',
-    url: cosEnv + '/static-wxxcx/img/20240730-164558.png',
+    url: cosEnv + '/static-wxxcx/img/micro-page/20240730-164558.png',
     title: '万达发现好物节',
     sub: '发现你想要的生活',
   },

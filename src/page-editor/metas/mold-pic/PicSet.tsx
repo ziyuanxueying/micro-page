@@ -12,12 +12,12 @@ const Index = () => {
     {
       value: 'biz-pic-nomal',
       label: '样式一',
-      src: cosEnv + '/static-wxxcx/img/20240730-164558.png',
+      src: cosEnv + '/static-wxxcx/img/micro-page/20240730-164558.png',
     },
     {
       value: 'biz-pic-holiday',
       label: '样式二',
-      src: cosEnv + '/static-wxxcx/img/53aa87b270ae4e6da1d06c9b2e4ce990.jpeg',
+      src: cosEnv + '/static-wxxcx/img/micro-page/20240730-164558.png',
     },
   ]
   return (

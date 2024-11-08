@@ -82,7 +82,6 @@ const HotSet = () => {
       >
         <Form.Item label="添加图片" name="url" required>
           <MaterialBtn
-            accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
             limit={2}
             extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议宽度1200PX"
             onChange={handleOk}

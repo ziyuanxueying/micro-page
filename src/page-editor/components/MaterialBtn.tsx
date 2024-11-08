@@ -45,7 +45,7 @@ const Index = (props: MyProps) => {
           disabled={false}
           noValidate={false}
           open={isOpen}
-          accept={props.accept}
+          accept={props.accept || '.jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT'}
           limit={props.limit}
           proportion={props.proportion}
           onCancel={handleCancel}

@@ -192,9 +192,21 @@ const ImageSet = () => {
                       >
                         <Form.Item {...restField} label="添加图片" name={[name, 'url']} required>
                           <MaterialBtn
-                            accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
                             limit={2}
-                            extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议宽度1200PX"
+                            proportion={
+                              setting?.data?.moduleType === 'image'
+                                ? undefined
+                                : setting?.data?.moduleType === 'carousel'
+                                ? 1200 / 580
+                                : 750 / 1500
+                            }
+                            extra={
+                              setting?.data?.moduleType === 'image'
+                                ? '支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议宽度1200PX'
+                                : setting?.data?.moduleType === 'carousel'
+                                ? '支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸1200x580PX'
+                                : '支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸750x1500PX'
+                            }
                             isDelete={true}
                           />
                         </Form.Item>

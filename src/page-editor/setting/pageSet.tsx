@@ -54,7 +54,7 @@ const Index = () => {
           <ColorPicker showText />
         </Form.Item>
         <Form.Item label="添加背景图" name="bgImage">
-          <MaterialBtn />
+          <MaterialBtn limit={2} extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M" />
         </Form.Item>
         <Form.Item label="分享设置" name="isShare">
           <Switch />
@@ -63,9 +63,9 @@ const Index = () => {
           <>
             <Form.Item label="分享按钮图片" name="shareBtnImg">
               <MaterialBtn
-                accept=".jpg,.png,.jpeg,.gif,.JPG,.JPEG,.PNG,.GIT"
                 proportion={1}
-                extra="支持 png/jpg/jpeg/gif，最大500k，100x100像素"
+                limit={2}
+                extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸200x200PX"
               />
             </Form.Item>
             <Form.Item
@@ -78,18 +78,16 @@ const Index = () => {
             </Form.Item>
             <Form.Item label="分享图片" name="shareImg" required>
               <MaterialBtn
-                accept=".jpg,.png,.jpeg,.JPG,.JPEG,.PNG"
-                limit={1}
+                limit={2}
                 proportion={1.25}
-                extra="支持 png/jpg/jpeg，分辨率750*600，不超过1M"
+                extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸750x600PX"
               />
             </Form.Item>
             <Form.Item label="分享海报" name="posterImage">
               <MaterialBtn
-                accept=".jpg,.png,.jpeg,.JPG,.JPEG,.PNG"
-                limit={1}
+                limit={2}
                 proportion={750 / 1100}
-                extra="支持 png/jpg/jpeg，分辨率750x1100，不超过1M"
+                extra="支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸750x1100PX"
               />
             </Form.Item>
 

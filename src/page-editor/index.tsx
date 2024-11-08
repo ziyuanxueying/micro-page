@@ -39,8 +39,9 @@ const TemplateEngine = (props: any) => {
   } = useStore()
   const [spinning, setSpinning] = React.useState(true)
   const handleSave = async (status: string) => {
-    if (saveLock.value) return
-    saveLock.value = true
+    console.log('saveLock: ', saveLock)
+    if (saveLock.current) return
+    saveLock.current = true
     try {
       const { msg, list, item } = checkSaveInfo({ components, pageConfig })
       if (msg) {
@@ -50,7 +51,7 @@ const TemplateEngine = (props: any) => {
           updateComponents(list)
         }
         messageApi.error(msg)
-        saveLock.value = false
+        saveLock.current = false
         return msg
       }
       const parseComponents = components.map(v => {
@@ -91,8 +92,7 @@ const TemplateEngine = (props: any) => {
         }
       }
     } catch (err) {
-      // console.log(err)
-      saveLock.value = false
+      saveLock.current = false
     }
   }
 
@@ -109,7 +109,7 @@ const TemplateEngine = (props: any) => {
 
   const goBack = () => {
     setTimeout(() => {
-      navigate('/micro-page-list', { replace: true })
+      navigate('/micro-page-list')
     }, 1500)
   }
   useEffect(() => {
@@ -166,9 +166,7 @@ const TemplateEngine = (props: any) => {
           {!['check', 'review'].includes(type) && <div css={css({ width: 220, height: 10 })}></div>}
           <div css={css([flexrc, { flex: 1, boxSizing: 'border-box', justifyContent: 'center' }])}>
             <Button
-              onClick={() => {
-                navigate('/micro-page-list', { replace: true })
-              }}
+              onClick={() => navigate('/micro-page-list')}
               css={css({ width: 90, height: 32, fontSize: 13, borderRadius: 4, margin: '0 10px' })}
             >
               {!['check', 'review'].includes(type) ? '取消' : '返回'}

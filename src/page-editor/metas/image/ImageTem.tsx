@@ -5,6 +5,7 @@ import { defaultImage } from '@/utils'
 
 const ImageTem = (props: TemProps) => {
   const { components } = useStore()
+  const [index, setIndex] = useState(0)
   const current = components.find(c => c.id === props.id)
 
   const { moduleType, pictures } = current?.data || {}
@@ -32,24 +33,19 @@ const ImageTem = (props: TemProps) => {
         position: 'relative',
       })}
     >
-      <div
-        css={css({
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: 375,
-          height: '100%',
-          zIndex: 101,
-        })}
-      ></div>
       {moduleType === 'image' || pictures.length < 2 ? (
         renderImage(pictures[0])
       ) : (
-        <Carousel autoplay autoplaySpeed={1500}>
-          {pictures.map((pic: any, i: number) => {
-            return <div key={i}>{renderImage(pic || defaultImage)}</div>
-          })}
-        </Carousel>
+        <>
+          <div className="hover">{renderImage(pictures[index > pictures.length ? 0 : index])}</div>
+          <div className="notHover">
+            <Carousel autoplay autoplaySpeed={1500} draggable={true} afterChange={e => setIndex(e)}>
+              {pictures.map((pic: any, i: number) => {
+                return <div key={i}>{renderImage(pic || defaultImage)}</div>
+              })}
+            </Carousel>
+          </div>
+        </>
       )}
     </div>
   )

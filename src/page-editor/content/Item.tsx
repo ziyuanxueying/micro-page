@@ -139,6 +139,13 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
           width: 375,
           marginTop: data.icon === 'mold-pic' ? 0 : 15,
           cursor: review ? 'pointer' : 'move',
+
+          '.hover': {
+            display: 'none',
+          },
+          '.notHover': {
+            display: 'block',
+          },
           ':hover': !review
             ? {
                 '.wd-micro-page-border': {
@@ -147,6 +154,12 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
                 '.wd-micro-page-comp': {
                   opacity: 1,
                   pointerEvents: 'all',
+                },
+                '.hover': {
+                  display: 'block',
+                },
+                '.notHover': {
+                  display: 'none',
                 },
               }
             : {},

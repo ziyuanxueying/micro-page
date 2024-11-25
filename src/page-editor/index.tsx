@@ -19,8 +19,8 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
-  const { id = 'CP0858658361837842432', type = '', temp } = props
-  // const { id, type, temp } = props
+  // const { id = 'CP0858658361837842432', type = '', temp } = props
+  const { id, type, temp } = props
   const saveLock = React.useRef<boolean>(false)
   // const { id = undefined, type = undefined, temp = undefined } = props
 

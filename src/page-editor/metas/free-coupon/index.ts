@@ -1,4 +1,5 @@
 import { type Component } from '@/store'
+import { authorizePlaza } from '@/utils'
 
 export default {
   name: '免费优惠券',
@@ -14,5 +15,6 @@ export default {
     provideScenes: 19,
     moduleType: 'biz-free-once',
     btnColor: '#7791C3',
+    authorizePlaza: authorizePlaza,
   },
 } as Component

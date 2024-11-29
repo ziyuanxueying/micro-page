@@ -106,5 +106,6 @@ export default ({ mode }: { mode: string }) => {
         },
       },
     },
+    logLevel: 'error', // 只显示错误信息
   })
 }

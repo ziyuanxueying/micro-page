@@ -1,4 +1,5 @@
 import { type Component } from '@/store'
+import { authorizePlaza } from '@/utils'
 
 export default {
   name: '图片',
@@ -13,5 +14,6 @@ export default {
   data: {
     moduleType: 'image',
     pictures: [],
+    authorizePlaza: authorizePlaza,
   },
 } as Component

@@ -1,6 +1,6 @@
 import useStore from '@/store'
-import { SetTitle } from '@/styles/global'
-import { toHexString } from '@/utils'
+import { SetAuthorize, SetTitle } from '@/styles/global'
+import { authorizePlaza, toHexString } from '@/utils'
 import { WdUtils } from '@wd/component-ui'
 import { ColorPicker, Form, Input, Segmented } from 'antd'
 
@@ -13,9 +13,11 @@ const TitleTextSet = () => {
 
   const { moduleType, radius, textAlign, titleSize, titleWeight, descSize, descWeight } =
     selectedComponent.data
+  const formDisabled = selectedComponent.data?.authorizePlaza !== authorizePlaza
   return (
     <div>
       <SetTitle>标题文本</SetTitle>
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <Form
         labelCol={{ span: 5 }}
         initialValues={selectedComponent?.data}
@@ -24,6 +26,7 @@ const TitleTextSet = () => {
             updateComponent(selectedComponent?.id, {
               ...selectedComponent,
               data: {
+                ...selectedComponent?.data,
                 ...allValues,
                 titleColor: toHexString(allValues.titleColor),
                 descColor: toHexString(allValues.descColor),
@@ -35,14 +38,8 @@ const TitleTextSet = () => {
                     : allValues.radius,
               },
             })
-          console.log({
-            ...allValues,
-            titleColor: toHexString(allValues.titleColor),
-            descColor: toHexString(allValues.descColor),
-            backgroundColor: toHexString(allValues.backgroundColor),
-            moduleType: allValues.moduleType,
-          })
         }}
+        disabled={formDisabled}
       >
         <Form.Item
           label="标题内容"
@@ -62,6 +59,7 @@ const TitleTextSet = () => {
 
         <Form.Item label="样式" name="moduleType">
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -116,6 +114,7 @@ const TitleTextSet = () => {
           style={{ display: selectedComponent?.data?.moduleType === 'banner' ? 'none' : 'block' }}
         >
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -171,6 +170,7 @@ const TitleTextSet = () => {
         </Form.Item>
         <Form.Item label="显示位置" name="textAlign">
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -222,6 +222,7 @@ const TitleTextSet = () => {
 
         <Form.Item label="标题大小" name="titleSize">
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -273,6 +274,7 @@ const TitleTextSet = () => {
         </Form.Item>
         <Form.Item label="标题样式" name="titleWeight">
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -309,6 +311,7 @@ const TitleTextSet = () => {
         </Form.Item>
         <Form.Item label="描述大小" name="descSize">
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -360,6 +363,7 @@ const TitleTextSet = () => {
         </Form.Item>
         <Form.Item label="描述样式" name="descWeight">
           <Segmented
+            disabled={formDisabled}
             options={[
               {
                 label: (

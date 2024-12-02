@@ -1,27 +1,29 @@
-import useStore from '@/store'
+import useStore, { Component } from '@/store'
 import { Form, Button, Segmented } from 'antd'
 import { WdAllocation } from '@wd/component-ui'
 import { DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
 import MaterialBtn from '@/page-editor/components/MaterialBtn'
 import { SetTitle } from '@/styles/global'
+import { authorizePlaza } from '@/utils'
 const ImageSet = () => {
   const { components, selectedComponentId, updateComponent } = useStore()
-  const setting = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
+  console.log('ImageSet formDisabled: ', formDisabled)
   const [form] = Form.useForm()
 
   const handleModuleTypeChange = () => {
     const { moduleType, pictures } = form.getFieldsValue()
     const nextPictures = moduleType === 'image' ? pictures.slice(0, 1) : pictures
     form.setFieldValue('pictures', nextPictures)
-
     setting &&
       updateComponent(selectedComponentId, {
         ...setting,
         moduleType,
         data: {
+          ...setting?.data,
           moduleType,
           pictures: nextPictures,
-          // pictures: toComponentPictures(nextPictures),
         },
       })
   }
@@ -38,18 +40,19 @@ const ImageSet = () => {
             : Array(setting?.data?.moduleType).fill(undefined),
         }}
         onValuesChange={(_, allValues: any) => {
-          console.log(allValues)
           setting &&
             updateComponent(selectedComponentId, {
               ...setting,
               moduleType: allValues.moduleType,
-              data: allValues,
+              data: { ...setting?.data, ...allValues },
             })
         }}
+        disabled={formDisabled}
       >
         <Form.Item label="选择模板" name="moduleType">
           <Segmented
             onChange={handleModuleTypeChange}
+            disabled={formDisabled}
             options={[
               {
                 label: (
@@ -207,7 +210,6 @@ const ImageSet = () => {
                                 ? '支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸1200x580PX'
                                 : '支持PNG、JPG、JPEG、GIF格式，大小支持2M，建议尺寸750x1500PX'
                             }
-                            isDelete={true}
                           />
                         </Form.Item>
                         <Form.Item {...restField} label="跳转链接" name={[name, 'link']}>

@@ -83,3 +83,11 @@ export const SetTitle = styled.div`
   margin-top: 28px;
   margin-bottom: 30px;
 `
+
+export const SetAuthorize = styled.div`
+  font-size: 14px;
+  color: #f24724;
+  line-height: 22px;
+  margin-top: -10px;
+  margin-bottom: 30px;
+`

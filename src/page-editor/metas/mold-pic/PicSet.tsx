@@ -1,11 +1,12 @@
-import useStore from '@/store'
-import { SetTitle } from '@/styles/global'
-import { cosEnv } from '@/utils'
+import useStore, { Component } from '@/store'
+import { SetAuthorize, SetTitle } from '@/styles/global'
+import { authorizePlaza, cosEnv } from '@/utils'
 import { WdUtils } from '@wd/component-ui'
 import { Form, Input, Radio } from 'antd'
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
-  const setting = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
   const [form] = Form.useForm()
 
   const pics = [
@@ -23,19 +24,21 @@ const Index = () => {
   return (
     <>
       <SetTitle>头部模板</SetTitle>
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <Form
         form={form}
         labelCol={{ span: 4 }}
         initialValues={{ ...setting?.data }}
         onValuesChange={(_, allValues) => {
           const sel = pics.filter(x => x.value === allValues.moduleType)[0]
-          // console.log(allValues.moduleType, sel)
           updateComponentData(selectedComponentId, {
+            ...setting.data,
             ...allValues,
             url: sel.src,
-            data: { ...allValues.data, url: sel.src, moduleType: allValues.moduleType },
+            // data: { ...allValues.data, url: sel.src, moduleType: allValues.moduleType },
           })
         }}
+        disabled={formDisabled}
       >
         <Form.Item label="模板" name="moduleType" required>
           <Radio.Group style={{ display: 'flex' }}>

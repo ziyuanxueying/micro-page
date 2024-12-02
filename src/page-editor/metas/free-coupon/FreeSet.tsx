@@ -1,4 +1,4 @@
-import { SetTitle, flexb } from '@/styles/global'
+import { SetAuthorize, SetTitle, flexb } from '@/styles/global'
 import { Avatar, Button, ColorPicker, Form, Segmented, Select } from 'antd'
 import { WdModal, WdTable, WdUtils } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
@@ -15,6 +15,7 @@ type dataType = {
 const Index = () => {
   const { selectedComponentId, components, updateComponent, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
 
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
   // const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
@@ -24,7 +25,7 @@ const Index = () => {
   const [selectedRows, setSelectedRows] = useState<dataType[]>(setting?.data?.coupons || [])
   const [initialValues] = useState<Record<string, any>>(setting?.data || {})
   const [loading, setLoading] = useState<boolean>(false)
-  const formDisabled = setting.data?.authorizePlaza === authorizePlaza
+
   const onChange = (val: string) => {
     setModuleType(val)
     setting &&
@@ -219,9 +220,7 @@ const Index = () => {
   return (
     <div>
       <SetTitle>免费优惠券</SetTitle>
-      {formDisabled ? (
-        <SetTitle style={{ color: '#f24724', marginTop: -10 }}>集团下发内容，无法修改</SetTitle>
-      ) : null}
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <Form
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 16 }}
@@ -230,12 +229,13 @@ const Index = () => {
           allValues.provideScenes !== setting?.data?.provideScenes &&
             handleSearch({ current: 1, pageSize: 10, provideScenes: allValues.provideScenes })
           updateComponentData(selectedComponentId, {
+            ...setting.data,
             ...allValues,
             coupons: selectedRows,
             btnColor: toHexString(allValues.btnColor),
           })
         }}
-        disabled={setting.data?.authorizePlaza === authorizePlaza}
+        disabled={formDisabled}
       >
         <Form.Item label="选择样式">
           <Segmented

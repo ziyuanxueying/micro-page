@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { WdMaterial, ImagePreview } from '@wd/component-ui'
 import { Button, Typography } from 'antd'
+import DisabledContext from 'antd/es/config-provider/DisabledContext'
 
 type MyProps = {
   value?: string
@@ -13,6 +14,7 @@ type MyProps = {
 }
 const Index = (props: MyProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const formDisabled = useContext(DisabledContext)
   // const [url, setUrl] = useState<any>(props?.value || '')
   // console.log(props)
   const handleCancel = () => {
@@ -40,7 +42,6 @@ const Index = (props: MyProps) => {
           添加图片
         </Button>
         <WdMaterial
-          // limit={1}
           maxCount={1}
           disabled={false}
           noValidate={false}
@@ -69,7 +70,7 @@ const Index = (props: MyProps) => {
               height={200}
               colNum={1}
               isDefault={false}
-              isDelete={props?.isDelete}
+              isDelete={props?.isDelete ?? !formDisabled}
               onDelete={handleDelete}
             />
           </>

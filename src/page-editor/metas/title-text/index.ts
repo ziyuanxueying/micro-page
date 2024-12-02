@@ -1,4 +1,5 @@
 import { type Component } from '@/store'
+import { authorizePlaza } from '@/utils'
 
 export default {
   name: '标题文本',
@@ -23,5 +24,6 @@ export default {
     descColor: '#999',
     moduleType: 'card',
     backgroundColor: '#fff',
+    authorizePlaza: authorizePlaza,
   },
 } as Component

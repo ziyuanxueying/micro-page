@@ -1,10 +1,10 @@
-import { SetTitle, flexb } from '@/styles/global'
+import { SetAuthorize, SetTitle, flexb } from '@/styles/global'
 import { Avatar, Button, ColorPicker, Form, Segmented, Select } from 'antd'
 import { WdModal, WdTable, WdUtils } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
-import useStore from '@/store'
+import useStore, { Component } from '@/store'
 import { getCoupons } from '@/api'
-import { cosEnv, toHexString } from '@/utils'
+import { authorizePlaza, cosEnv, toHexString } from '@/utils'
 type dataType = {
   id: number
   couponName: string
@@ -13,8 +13,8 @@ type dataType = {
 }
 const Index = () => {
   const { selectedComponentId, components, updateComponent, updateComponentData } = useStore()
-  const setting = components.find(c => c.id === selectedComponentId)
-
+  const setting = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
@@ -202,6 +202,7 @@ const Index = () => {
   return (
     <div>
       <SetTitle>付费优惠券</SetTitle>
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <Form
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 16 }}
@@ -215,11 +216,13 @@ const Index = () => {
             btnColor: toHexString(allValues.btnColor),
           })
         }}
+        disabled={formDisabled}
       >
         <Form.Item label="选择样式" name="moduleType">
           <Segmented
             value={moduleType}
             onChange={onChange}
+            disabled={formDisabled}
             options={[
               {
                 label: (

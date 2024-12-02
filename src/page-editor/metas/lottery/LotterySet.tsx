@@ -1,5 +1,5 @@
-import useStore from '@/store'
-import { SetTitle, flexb } from '@/styles/global'
+import useStore, { Component } from '@/store'
+import { SetAuthorize, SetTitle, flexb } from '@/styles/global'
 import { WdModal, WdTable } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import { Button, Form } from 'antd'
@@ -7,13 +7,16 @@ import { getActivityList } from '@/api'
 import React from 'react'
 import { TableRowSelection } from 'antd/es/table/interface'
 import MaterialBtn from '@/page-editor/components/MaterialBtn'
+import { authorizePlaza } from '@/utils'
 type DataType = {
   actId: number
   actTitle: string
 }
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
-  const setting = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
+
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
   const searchForm = useRef<any>()
@@ -166,15 +169,15 @@ const Index = () => {
   return (
     <div css={css({ marginTop: 15 })}>
       <SetTitle>抽奖活动</SetTitle>
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <Form
-        name="basic"
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 16 }}
         initialValues={setting?.data}
         onValuesChange={(_, allValues: any) => {
-          console.log(allValues)
           setting && updateComponentData(setting.id, { ...setting.data, img: allValues.img })
         }}
+        disabled={formDisabled}
       >
         <Form.Item label="添加图片" name="img" rules={[{ required: true }]}>
           <MaterialBtn

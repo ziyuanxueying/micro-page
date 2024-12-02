@@ -1,5 +1,5 @@
-import useStore from '@/store'
-import { SetTitle, flexb } from '@/styles/global'
+import useStore, { Component } from '@/store'
+import { SetAuthorize, SetTitle, flexb } from '@/styles/global'
 import { WdModal, WdTable } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
 import { Button, Typography } from 'antd'
@@ -7,7 +7,7 @@ import { getActivityList } from '@/api'
 import React from 'react'
 import { TableRowSelection } from 'antd/es/table/interface'
 import FormItem from 'antd/es/form/FormItem'
-import { cosEnv } from '@/utils'
+import { authorizePlaza, cosEnv } from '@/utils'
 
 const { Text } = Typography
 
@@ -17,7 +17,9 @@ type DataType = {
 }
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
-  const setting = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
+
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据
   const [tags, setTags] = useState<DataType[]>(
@@ -32,22 +34,12 @@ const Index = () => {
     title: '选择活动',
     okText: '确定',
     cancelText: '取消',
-    okButtonProps: {
-      style: { width: 90, height: 32, borderRadius: 4 },
-    },
-    cancelButtonProps: {
-      style: { width: 90, height: 32, borderRadius: 4 },
-    },
+    okButtonProps: { style: { width: 90, height: 32, borderRadius: 4 } },
+    cancelButtonProps: { style: { width: 90, height: 32, borderRadius: 4 } },
     destroyOnClose: true,
     styles: {
-      body: {
-        height: 500,
-        overflow: 'hidden',
-      },
-      footer: {
-        display: 'flex',
-        justifyContent: 'center',
-      },
+      body: { height: 500, overflow: 'hidden' },
+      footer: { display: 'flex', justifyContent: 'center' },
     },
     centered: true,
     width: 870,
@@ -160,7 +152,7 @@ const Index = () => {
       fixed: 'right',
       render: (_: any, tag: any) => {
         return (
-          <Button type="link" onClick={() => handleClose(tag)}>
+          <Button type="link" onClick={() => handleClose(tag)} disabled={formDisabled}>
             删除
           </Button>
         )
@@ -171,9 +163,15 @@ const Index = () => {
   return (
     <>
       <SetTitle>红包雨</SetTitle>
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <div css={css([flexb, { flexWrap: 'wrap', margin: '10px 0', width: 370 }])}>
         <FormItem label="活动配置" required>
-          <Button type="link" onClick={() => setShowTable(true)} style={{ paddingLeft: 0 }}>
+          <Button
+            type="link"
+            onClick={() => setShowTable(true)}
+            style={{ paddingLeft: 0 }}
+            disabled={formDisabled}
+          >
             选择活动
           </Button>
         </FormItem>

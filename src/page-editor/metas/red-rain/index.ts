@@ -1,4 +1,5 @@
 import { type Component } from '@/store'
+import { authorizePlaza } from '@/utils'
 
 export default {
   name: '红包雨',
@@ -11,5 +12,6 @@ export default {
   sort: 3,
   data: {
     activity: {},
+    authorizePlaza: authorizePlaza,
   },
 } as Component

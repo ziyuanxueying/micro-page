@@ -2,9 +2,9 @@ import { SetTitle, flexb } from '@/styles/global'
 import { Avatar, Button, ColorPicker, Form, Segmented, Select } from 'antd'
 import { WdModal, WdTable, WdUtils } from '@wd/component-ui'
 import { ProColumnsType } from '@wd/component-ui/dist/WdTable/type'
-import useStore from '@/store'
+import useStore, { Component } from '@/store'
 import { getCoupons } from '@/api'
-import { cosEnv, toHexString } from '@/utils'
+import { authorizePlaza, cosEnv, toHexString } from '@/utils'
 
 type dataType = {
   id: number
@@ -14,7 +14,7 @@ type dataType = {
 }
 const Index = () => {
   const { selectedComponentId, components, updateComponent, updateComponentData } = useStore()
-  const setting = components.find(c => c.id === selectedComponentId)
+  const setting = components.find(c => c.id === selectedComponentId) as Component
 
   const [moduleType, setModuleType] = useState(setting?.moduleType || '1')
   // const [channelId, setChannelId] = useState('bs_0c326a0471907632c3049ca43d434c9c')
@@ -24,6 +24,7 @@ const Index = () => {
   const [selectedRows, setSelectedRows] = useState<dataType[]>(setting?.data?.coupons || [])
   const [initialValues] = useState<Record<string, any>>(setting?.data || {})
   const [loading, setLoading] = useState<boolean>(false)
+  const formDisabled = setting.data?.authorizePlaza === authorizePlaza
   const onChange = (val: string) => {
     setModuleType(val)
     setting &&
@@ -33,11 +34,6 @@ const Index = () => {
         moduleType: val,
       })
   }
-  // const channeChange = (value: string) => {
-  //   setChannelId(value)
-  //   setting &&
-  //     updateComponent(setting.id, { ...setting, data: { ...setting.data, channelId: value } })
-  // }
 
   const propsTable: any = {
     // 传递给 Modal 组件的属性和方法
@@ -158,7 +154,7 @@ const Index = () => {
       const data = await getCoupons({
         provideScenes: searchValue.provideScenes || setting?.data?.provideScenes,
         ...searchValue,
-        saleType: 0,
+        saleTypes: '0,2',
         pageIndex: searchValue.current,
         statuses: '1,2',
       })
@@ -223,8 +219,10 @@ const Index = () => {
   return (
     <div>
       <SetTitle>免费优惠券</SetTitle>
+      {formDisabled ? (
+        <SetTitle style={{ color: '#f24724', marginTop: -10 }}>集团下发内容，无法修改</SetTitle>
+      ) : null}
       <Form
-        name="basic"
         labelCol={{ span: 5 }}
         wrapperCol={{ span: 16 }}
         initialValues={initialValues}
@@ -237,6 +235,7 @@ const Index = () => {
             btnColor: toHexString(allValues.btnColor),
           })
         }}
+        disabled={setting.data?.authorizePlaza === authorizePlaza}
       >
         <Form.Item label="选择样式">
           <Segmented
@@ -280,6 +279,7 @@ const Index = () => {
                 value: 'biz-free-three',
               },
             ]}
+            disabled={formDisabled}
           />
         </Form.Item>
 
@@ -312,21 +312,6 @@ const Index = () => {
             ></WdTable>
           </div>
         )}
-        {/* {tags.length > 0 && (
-          <Space css={css({ flexWrap: 'wrap', fontSize: 13, marginBottom: 20 })}>
-            {tags.map(tag => (
-              <Tag
-                css={css({ fontSize: 13 })}
-                key={tag.no}
-                closable
-                color="blue"
-                onClose={() => handleClose(tag)}
-              >
-                {tag.couponName}
-              </Tag>
-            ))}
-          </Space>
-        )} */}
 
         <Form.Item label="按钮颜色" name="btnColor">
           <ColorPicker showText disabledAlpha />

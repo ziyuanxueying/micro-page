@@ -1,13 +1,14 @@
-import useStore from '@/store'
+import useStore, { Component } from '@/store'
 import { Form } from 'antd'
 import { WdAllocation } from '@wd/component-ui'
-import { toComponentUrl } from '@/utils'
+import { authorizePlaza, toComponentUrl } from '@/utils'
 import MaterialBtn from '@/page-editor/components/MaterialBtn'
-import { SetTitle } from '@/styles/global'
+import { SetAuthorize, SetTitle } from '@/styles/global'
 
 const FloatBtnSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()
-  const selectedComponent = components.find(c => c.id === selectedComponentId)
+  const selectedComponent = components.find(c => c.id === selectedComponentId) as Component
+  const formDisabled = selectedComponent.data?.authorizePlaza !== authorizePlaza
 
   const [form] = Form.useForm()
 
@@ -39,17 +40,20 @@ const FloatBtnSet = () => {
   return (
     <>
       <SetTitle>浮标</SetTitle>
+      {formDisabled ? <SetAuthorize>集团下发内容，无法修改</SetAuthorize> : null}
       <Form
         form={form}
         labelCol={{ span: 5 }}
         initialValues={selectedComponent?.data}
         onValuesChange={(_, allValues) => {
           updateComponentData(selectedComponentId, {
+            ...selectedComponent.data,
             ...allValues,
             buttonImgUrl: toComponentUrl(allValues.buttonImgUrl),
             modalImgUrl: toComponentUrl(allValues.modalImgUrl),
           })
         }}
+        disabled={formDisabled}
       >
         <Form.Item label="按钮图片" name="buttonImgUrl" required>
           <MaterialBtn

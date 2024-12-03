@@ -4,7 +4,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier, XYCoord } from 'dnd-core'
 import { Image } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
-import { checkSaveInfo, defaultImage } from '@/utils'
+import { authorizePlaza, checkSaveInfo, defaultImage } from '@/utils'
 
 type ContentItemProps = {
   data: Component
@@ -120,130 +120,124 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
   }
   const opacity = isDragging ? 0 : 1
 
-  const content = (style?: ReturnType<typeof css>) => (
-    <div
-      ref={ref}
-      key={data.id}
-      data-handler-id={handlerId}
-      onClick={() => handleClick(data)}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      css={css(
-        {
-          boxSizing: 'content-box',
-          opacity,
-          position: 'relative',
-          zIndex: 2,
-          display: 'flex',
-          justifyContent: 'center',
-          width: 375,
-          marginTop: data.icon === 'mold-pic' ? 0 : 15,
-          cursor: review ? 'pointer' : 'move',
-
-          '.hover': {
-            display: 'none',
-          },
-          '.notHover': {
-            display: 'block',
-          },
-          ':hover': !review
-            ? {
-                '.wd-micro-page-border': {
-                  borderColor: data.isError ? 'red' : '#000000',
-                },
-                '.wd-micro-page-comp': {
-                  opacity: 1,
-                  pointerEvents: 'all',
-                },
-                '.hover': {
-                  display: 'block',
-                },
-                '.notHover': {
-                  display: 'none',
-                },
-              }
-            : {},
-        },
-        style,
-      )}
-    >
+  const content = (style?: ReturnType<typeof css>) => {
+    const selected = components.find(c => c.metaType === 'bas-floatBtn')
+    const authorize = selected?.data?.authorizePlaza === authorizePlaza
+    return (
       <div
-        className="wd-micro-page-border"
-        css={css({
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          margin: 'auto',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          boxSizing: 'border-box',
-          border: '2px dashed',
-          borderColor: review
-            ? 'transparent'
-            : data.isError
-            ? 'red'
-            : data.id === selectedComponentId
-            ? '#000000'
-            : 'transparent',
-          zIndex: 99,
-          style,
-        })}
-      ></div>
-      <div
-        className="wd-micro-page-comp"
-        css={{
-          opacity: selectedComponentId === data.id ? 1 : 0,
-          pointerEvents: selectedComponentId === data.id ? 'all' : 'none',
-          width: 20,
-          height: 20,
-          borderRadius: '50%',
-          position: 'absolute',
-          top: -10,
-          right: -10,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 100,
-          background: 'rgba(0,0,0,0.85)',
-          color: '#ffffff',
-          cursor: 'pointer',
-          ':hover': {
-            opacity: 0.75,
-          },
-        }}
-        onClick={e => {
-          e.stopPropagation()
-          removeComponent(data.id)
-        }}
-      >
-        <CloseOutlined style={{ width: 10, height: 10 }} />
-      </div>
-      {showLabel && review && (
-        <div
-          css={css({
-            width: 100,
-            height: 38,
-            borderRadius: 5,
-            color: '#999999',
-            display: 'inline-flex',
+        ref={ref}
+        key={data.id}
+        data-handler-id={handlerId}
+        onClick={() => handleClick(data)}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        css={css(
+          {
+            boxSizing: 'content-box',
+            opacity,
+            position: 'relative',
+            zIndex: 2,
+            display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
-            boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+            width: 375,
+            marginTop: data.icon === 'mold-pic' ? 0 : 15,
+            cursor: review ? 'pointer' : 'move',
+
+            '.hover': { display: 'none' },
+            '.notHover': { display: 'block' },
+            ':hover': !review
+              ? {
+                  '.wd-micro-page-border': { borderColor: data.isError ? 'red' : '#000000' },
+                  '.wd-micro-page-comp': { opacity: 1, pointerEvents: 'all' },
+                  '.hover': { display: 'block' },
+                  '.notHover': { display: 'none' },
+                }
+              : {},
+          },
+          style,
+        )}
+      >
+        <div
+          className="wd-micro-page-border"
+          css={css({
+            width: '100%',
+            height: '100%',
             position: 'absolute',
             margin: 'auto',
-            right: -125,
             top: 0,
+            left: 0,
+            right: 0,
             bottom: 0,
+            boxSizing: 'border-box',
+            border: '2px dashed',
+            borderColor: review
+              ? 'transparent'
+              : data.isError
+              ? 'red'
+              : data.id === selectedComponentId
+              ? '#000000'
+              : 'transparent',
+            zIndex: 99,
+            style,
           })}
-        >
-          {data.name}
-        </div>
-      )}
-      <ItemTemplate key={id} type={data.temModule} id={id} />
-    </div>
-  )
+        ></div>
+        {authorize ? (
+          <div
+            className="wd-micro-page-comp"
+            css={{
+              opacity: selectedComponentId === data.id ? 1 : 0,
+              pointerEvents: selectedComponentId === data.id ? 'all' : 'none',
+              width: 20,
+              height: 20,
+              borderRadius: '50%',
+              position: 'absolute',
+              top: -10,
+              right: -10,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 100,
+              background: 'rgba(0,0,0,0.85)',
+              color: '#ffffff',
+              cursor: 'pointer',
+              ':hover': {
+                opacity: 0.75,
+              },
+            }}
+            onClick={e => {
+              e.stopPropagation()
+              removeComponent(data.id)
+            }}
+          >
+            <CloseOutlined style={{ width: 10, height: 10 }} />
+          </div>
+        ) : null}
+
+        {showLabel && review && (
+          <div
+            css={css({
+              width: 100,
+              height: 38,
+              borderRadius: 5,
+              color: '#999999',
+              display: 'inline-flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.1)',
+              position: 'absolute',
+              margin: 'auto',
+              right: -125,
+              top: 0,
+              bottom: 0,
+            })}
+          >
+            {data.name}
+          </div>
+        )}
+        <ItemTemplate key={id} type={data.temModule} id={id} />
+      </div>
+    )
+  }
 
   // 单独处理浮标组件样式
   if (data.metaType === 'bas-floatBtn') {

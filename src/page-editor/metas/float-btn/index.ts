@@ -1,4 +1,5 @@
 import { type Component } from '@/store'
+import { authorizePlaza } from '@/utils'
 
 export default {
   name: '浮标',
@@ -16,5 +17,6 @@ export default {
     modalImgUrl: '',
     link: '',
     preview: false,
+    authorizePlaza: authorizePlaza,
   },
 } as Component

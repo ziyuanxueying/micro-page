@@ -18,7 +18,7 @@ type DataType = {
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId) as Component
-  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza()
 
   const [showTable, setShowTable] = useState(false)
   const [list, setList] = useState({ list: [], page: { total: 1 } }) //数据

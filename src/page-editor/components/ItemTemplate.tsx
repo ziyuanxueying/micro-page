@@ -10,6 +10,7 @@ const moduleTem = import.meta.glob<(props: TemProps) => JSX.Element>('../metas/*
   import: 'default',
 })
 const moduleSet = import.meta.glob<(props: SetProps) => JSX.Element>('../metas/**/*Set.tsx', {
+  // eager: true, // 如果你希望立即加载模块
   import: 'default',
 })
 
@@ -19,8 +20,7 @@ const importAll = async () => {
   for (const path in moduleTem) {
     const module = await moduleTem[path]()
     const filename = (path.split('/').pop() || '').slice(0, -4) // 提取文件名
-    // @ts-expect-error
-    modules[filename] = module
+    modules[filename] = module as (props: TemProps | SetProps) => JSX.Element
   }
   for (const path in moduleSet) {
     const module = await moduleSet[path]()

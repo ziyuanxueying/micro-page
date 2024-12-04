@@ -106,5 +106,7 @@ export const cosEnv = getCosEnv()
 // export const cosEnv = (globalThis as any).COS_ENV
 export const defaultImage = cosEnv + '/static-wxxcx/img/micro-page/default.jpeg'
 
-export const { isPlazaOrg } = WdUtils.getCurrentOrg()
-export const authorizePlaza = isPlazaOrg ? '2' : '1'
+export const authorizePlaza = () => {
+  const { isPlazaOrg } = WdUtils.getCurrentOrg()
+  return isPlazaOrg ? '2' : '1'
+}

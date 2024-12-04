@@ -12,6 +12,6 @@ export default {
   sort: 4,
   data: {
     activity: {},
-    authorizePlaza: authorizePlaza,
+    authorizePlaza: authorizePlaza(),
   },
 } as Component

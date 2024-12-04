@@ -24,6 +24,6 @@ export default {
     descColor: '#999',
     moduleType: 'card',
     backgroundColor: '#fff',
-    authorizePlaza: authorizePlaza,
+    authorizePlaza: authorizePlaza(),
   },
 } as Component

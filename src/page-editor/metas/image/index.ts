@@ -14,6 +14,6 @@ export default {
   data: {
     moduleType: 'image',
     pictures: [],
-    authorizePlaza: authorizePlaza,
+    authorizePlaza: authorizePlaza(),
   },
 } as Component

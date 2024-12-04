@@ -13,7 +13,7 @@ const TitleTextSet = () => {
 
   const { moduleType, radius, textAlign, titleSize, titleWeight, descSize, descWeight } =
     selectedComponent.data
-  const formDisabled = selectedComponent.data?.authorizePlaza !== authorizePlaza
+  const formDisabled = selectedComponent.data?.authorizePlaza !== authorizePlaza()
   return (
     <div>
       <SetTitle>标题文本</SetTitle>

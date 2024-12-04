@@ -17,6 +17,6 @@ export default {
     modalImgUrl: '',
     link: '',
     preview: false,
-    authorizePlaza: authorizePlaza,
+    authorizePlaza: authorizePlaza(),
   },
 } as Component

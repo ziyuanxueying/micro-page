@@ -6,7 +6,7 @@ import { Form, Input, Radio } from 'antd'
 const Index = () => {
   const { selectedComponentId, components, updateComponentData } = useStore()
   const setting = components.find(c => c.id === selectedComponentId) as Component
-  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza()
   const [form] = Form.useForm()
 
   const pics = [

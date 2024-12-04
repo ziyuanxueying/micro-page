@@ -15,6 +15,6 @@ export default {
     url: cosEnv + '/static-wxxcx/img/micro-page/20240730-164558.png',
     title: '万达发现好物节',
     sub: '发现你想要的生活',
-    authorizePlaza: authorizePlaza,
+    authorizePlaza: authorizePlaza(),
   },
 } as Component

@@ -8,7 +8,7 @@ import { authorizePlaza } from '@/utils'
 const ImageSet = () => {
   const { components, selectedComponentId, updateComponent } = useStore()
   const setting = components.find(c => c.id === selectedComponentId) as Component
-  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza
+  const formDisabled = setting.data?.authorizePlaza !== authorizePlaza()
   console.log('ImageSet formDisabled: ', formDisabled)
   const [form] = Form.useForm()
 

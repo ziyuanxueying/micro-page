@@ -121,8 +121,8 @@ const ContentItem = ({ data, id, index, move, review }: ContentItemProps) => {
   const opacity = isDragging ? 0 : 1
 
   const content = (style?: ReturnType<typeof css>) => {
-    const selected = components.find(c => c.metaType === 'bas-floatBtn')
-    const authorize = selected?.data?.authorizePlaza === authorizePlaza
+    const selected = components.find(c => c.id === selectedComponentId) as Component
+    const authorize = selected?.data?.authorizePlaza === authorizePlaza()
     return (
       <div
         ref={ref}

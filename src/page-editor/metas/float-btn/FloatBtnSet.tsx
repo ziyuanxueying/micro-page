@@ -8,7 +8,7 @@ import { SetAuthorize, SetTitle } from '@/styles/global'
 const FloatBtnSet = () => {
   const { components, selectedComponentId, updateComponentData } = useStore()
   const selectedComponent = components.find(c => c.id === selectedComponentId) as Component
-  const formDisabled = selectedComponent.data?.authorizePlaza !== authorizePlaza
+  const formDisabled = selectedComponent.data?.authorizePlaza !== authorizePlaza()
 
   const [form] = Form.useForm()
 

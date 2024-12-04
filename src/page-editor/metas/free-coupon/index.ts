@@ -15,6 +15,6 @@ export default {
     provideScenes: 19,
     moduleType: 'biz-free-once',
     btnColor: '#7791C3',
-    authorizePlaza: authorizePlaza,
+    authorizePlaza: authorizePlaza(),
   },
 } as Component

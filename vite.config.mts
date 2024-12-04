@@ -22,7 +22,7 @@ export default ({ mode }: { mode: string }) => {
   return defineConfig({
     server: {
       port: 8088,
-      open: false,
+      open: true,
       proxy: {
         // '/cos-api': {
         //   target: HOST.dev,
@@ -67,6 +67,7 @@ export default ({ mode }: { mode: string }) => {
       }),
     ],
     build: {
+      minify: false, // 禁用压缩
       outDir: mode === 'lib' ? 'dist/lib' : 'dist/app',
       target: 'node18.18.0',
       lib:

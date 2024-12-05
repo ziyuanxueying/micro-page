@@ -21,16 +21,17 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
-  // const { id = 'CP0860518641702019072', type = 'edit', temp } = props
+  // const { id = 'CP0861985859739127808', type = 'edit', temp } = props
   const { id, type, temp } = props
   const saveLock = React.useRef<boolean>(false)
 
   const [preview, setPreview] = React.useState<any>({})
+  // 保存并发布成功时，弹出发布按钮
+  const [saveBtn, setSaveBtn] = React.useState<string>('')
 
   // const { id = undefined, type = undefined, temp = undefined } = props
 
   const navigate = useNavigate()
-  // const [currData, setCurrData] = useState<any>({})
   const [messageApi, contextHolder] = message.useMessage()
   const {
     components,
@@ -95,8 +96,7 @@ const TemplateEngine = (props: any) => {
     [preview],
   )
 
-  const handleSave = async (status: string) => {
-    console.log('saveLock: ', saveLock)
+  const handleSave = async (saveType: string) => {
     if (saveLock.current) return
     saveLock.current = true
     try {
@@ -122,10 +122,11 @@ const TemplateEngine = (props: any) => {
           actKey: 'micro_page',
           channel: 'MICRO',
         })
-        // setCurrData(res.data)
-        if (status !== 'submit') {
+        if (saveType !== 'submit') {
           messageApi.open({ type: 'success', content: '页面创建成功' })
           showPreviewCode(res.data)
+          saveLock.current = false
+          setSaveBtn('save')
           // goBack()
         } else {
           const curId = res.data.id || id
@@ -140,7 +141,7 @@ const TemplateEngine = (props: any) => {
           id,
           title: pageConfig.title,
         })
-        if (status !== 'submit') {
+        if (saveType !== 'submit') {
           messageApi.open({ type: 'success', content: '页面修改成功' })
           goBack()
         } else {
@@ -201,11 +202,7 @@ const TemplateEngine = (props: any) => {
     }
   }, [])
   return (
-    <div
-      css={css({
-        height: '100%',
-      })}
-    >
+    <div css={css({ height: '100%' })}>
       {contextHolder}
 
       <Spin spinning={spinning} tip="加载中" size="large">
@@ -241,6 +238,21 @@ const TemplateEngine = (props: any) => {
               </Button>
             )}
             {['edit'].includes(type) && (
+              <Button
+                type="primary"
+                onClick={() => handleSave('submit')}
+                css={css({
+                  width: 90,
+                  height: 32,
+                  fontSize: 13,
+                  borderRadius: 4,
+                  margin: '0 10px',
+                })}
+              >
+                {status !== '1' ? '发布' : '保存'}
+              </Button>
+            )}
+            {(['edit'].includes(type) || saveBtn) && (
               <Button
                 type="primary"
                 onClick={() => handleSave('submit')}

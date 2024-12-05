@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { UserParamsType } from './httpType'
 import store from './storeManager'
+import { logout } from '@wd/mini-program-kit/runtime'
 
 const customHeaders: any = {}
 // 请求拦截
@@ -17,13 +18,7 @@ const createRequestInterceptors = (headers: any) => {
         config.headers[key] = headers[key]
       }
     }
-    try {
-      if (store.token) {
-        config.headers.token = store.token
-      }
-    } catch (e) {
-      console.log(e)
-    }
+    if (store.token) config.headers.token = store.token
 
     try {
       if (store.org) {
@@ -41,11 +36,6 @@ const createRequestInterceptors = (headers: any) => {
         config.headers.orgname = encodeURIComponent(store.org.name)
         config.headers.orgTypeCode = store.org.orgTypeCode || '1'
         config.headers.orgTypeName = encodeURIComponent(store.org.orgTypeName)
-      } else {
-        // 测试用
-        config.headers.workingOrgCode = '1'
-        config.headers.userid = '682279896289095680'
-        config.headers.orgTypeCode = '1'
       }
     } catch (e) {
       console.log(e)
@@ -86,11 +76,11 @@ const responseInterceptorsError = (error: any) => {
 
   if (error.response) {
     status = error.response.status
-    if (status === '401' || status === '403' || status === '405') {
-      //重新登录
-      // Message.error('当前用户验证失败,请重新登录!');
+    if (status === 401 || status === 403) {
+      logout()
     } else {
       // Message.error(error.response.message);
+      console.log('失败拦截器: ', error.response.message)
     }
   } else if (error.request) {
     if (error.config.params && error.config.params.isIgnoreTimeout) {

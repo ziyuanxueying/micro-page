@@ -88,6 +88,7 @@ export function checkSaveInfo(data: any, jumpPageConfig = false) {
   const msg = err ? err.isError : ''
   return { msg, list, item: err }
 }
+
 /** 获取COS的环境 */
 export const getCosEnv = (env?: string) => {
   /** 获取运行时的环境 */

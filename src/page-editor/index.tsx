@@ -21,7 +21,7 @@ type dataType = {
 //CP0811283496616108032,微页面自测
 //CP0811527827121074176,全量自测
 const TemplateEngine = (props: any) => {
-  // const { id = 'CP0861985859739127808', type = 'edit', temp } = props
+  // const { id = 'CP0861924390629040128', type = 'edit', temp } = props
   const { id, type, temp } = props
   const saveLock = React.useRef<boolean>(false)
 
@@ -235,21 +235,6 @@ const TemplateEngine = (props: any) => {
                 })}
               >
                 保存并预览
-              </Button>
-            )}
-            {['edit'].includes(type) && (
-              <Button
-                type="primary"
-                onClick={() => handleSave('submit')}
-                css={css({
-                  width: 90,
-                  height: 32,
-                  fontSize: 13,
-                  borderRadius: 4,
-                  margin: '0 10px',
-                })}
-              >
-                {status !== '1' ? '发布' : '保存'}
               </Button>
             )}
             {(['edit'].includes(type) || saveBtn) && (

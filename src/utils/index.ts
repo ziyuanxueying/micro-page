@@ -1,5 +1,6 @@
 import { WdUtils } from '@wd/component-ui'
 import { UploadPictureType } from '@wd/component-ui/dist/WdUpload/WdUploadPicture/upload'
+import { getWebEnv } from '@wd/mini-program-kit/runtime'
 import { type Color } from 'antd/es/color-picker'
 
 export function toHexString(color: string | Color) {
@@ -87,11 +88,9 @@ export function checkSaveInfo(data: any, jumpPageConfig = false) {
   const msg = err ? err.isError : ''
   return { msg, list, item: err }
 }
-declare const WEB_ENV: 'dev' | 'test' | 'prod'
-/** 获取主应用运行时的环境 */
-export const getWebEnv = (): typeof WEB_ENV => window.WEB_ENV || 'dev'
 /** 获取COS的环境 */
 export const getCosEnv = (env?: string) => {
+  /** 获取运行时的环境 */
   const webEnv = env || getWebEnv()
   if (webEnv === 'dev') {
     return '//xcx02-test-1318942848.cos.ap-beijing.myqcloud.com'
